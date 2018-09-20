@@ -1,0 +1,361 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <stdexcept>
+using namespace std;
+
+namespace structures {
+
+//! Dynamic Simple Linked List
+template<typename T>
+class LinkedList {
+ public:
+    //! Constructor
+    LinkedList();
+    //! Destructor
+    ~LinkedList();
+    //! Removes list's elements
+    void clear();
+    //! Inserts an element at the list's leftmost part of the list
+    void push_back(const T& data);
+    //! Inserts an element at the list's leftmost part
+    void push_front(const T& data);
+    //! Inserts an element at the given index
+    void insert(const T& data, std::size_t index);
+    //! Inserts an element sorted by data
+    void insert_sorted(const T& data);
+    //! Returns an element's data at index
+    T& at(std::size_t index);
+    //! Removes an element from index
+    T pop(std::size_t index);
+    //! Removes an element from the rightmost part of the list
+    T pop_back();
+    //! Removes an element from the leftmost part of the list
+    T pop_front();
+    //! Removes an element with the given data
+    void remove(const T& data);
+    //! Returns true if list is empty and false otherwise
+    bool empty() const;
+    //! Checks if the list contais the node with the given data
+    bool contains(const T& data) const;
+    //! Returns the index of the given data
+    std::size_t find(const T& data) const;
+    //! Returns the current size of the list
+    std::size_t size() const;
+
+ private:
+    class Node {  // Elemento
+     public:
+        //! Constructor with 1 parameter
+        explicit Node(const T& data) {
+            size_ = 0;
+            data_ = data;
+        }
+
+        //! Constructor with 2 parameters
+        Node(const T& data, Node* next) {
+            size_ = 0;
+            data_ = data;
+            next_ = next;
+        }
+
+        //! Data's getter
+        T& data() {
+            return data_;
+        }
+
+        //! Data's constant getter
+        const T& data() const {
+            return data_;
+        }
+
+        //! Next's getter
+        Node* next() {
+            return next_;
+        }
+
+        //! Next's constant getter
+        const Node* next() const {
+            return next_;
+        }
+
+        //! Next's setter
+        void next(Node* node) {
+            next_ = node;
+        }
+
+     private:
+        //! Node's data
+        T data_;
+
+        //! Nodes next node
+        Node* next_ = NULL;
+    };
+
+    //! Returns the list's last node
+    Node* end() {
+        Node* it = head;
+        for (int i = 0; i <= size(); i++) {
+            it = it -> next();
+        }
+        return it;
+    }
+
+    //! List's leftmost node
+    Node* head = NULL;
+
+    //! List's current size
+    std::size_t size_;
+};
+
+}  // namespace structures
+
+//! Constructor
+template<typename T>
+structures::LinkedList<T>::LinkedList() {}
+
+//! Destructor
+template<typename T>
+structures::LinkedList<T>::~LinkedList() {
+    clear();
+}
+
+//! Removes list's elements
+template<typename T>
+void structures::LinkedList<T>::clear() {
+    while (!empty()) {
+        pop_front();
+    }
+}
+
+//! Inserts an element at the list's leftmost part of the list
+template<typename T>
+void structures::LinkedList<T>::push_back(const T& data) {
+    insert(data, size_);
+}
+
+//! Inserts an element at the list's leftmost part
+template<typename T>
+void structures::LinkedList<T>::push_front(const T& data) {
+    Node* node = new Node(data, head);
+    if (node == NULL) {
+        throw std::out_of_range("A lista esta cheia.");
+    }
+    head = node;
+    size_++;
+}
+
+//! Inserts an element at the given index
+template<typename T>
+void structures::LinkedList<T>::insert(const T& data, std::size_t index) {
+    if (index > size_ || index < 0) {
+        throw std::out_of_range("Indice invalido");
+    }
+    if (index == 0) {
+        push_front(data);
+    } else {
+        Node* node = new Node(data);
+        Node* previous_node = head;
+        if (node == NULL) {
+            throw std::out_of_range("A lista esta cheia.");
+        }
+        std::size_t i = 1;
+        while (i < index) {
+            previous_node = previous_node -> next();
+            i++;
+        }
+        node -> next(previous_node -> next());
+        previous_node -> next(node);
+        size_++;
+    }
+}
+
+//! Inserts an element sorted by data
+template<typename T>
+void structures::LinkedList<T>::insert_sorted(const T& data) {
+    if (head == NULL) {
+        push_front(data);
+    } else {
+        Node* previous_node = head;
+        std::size_t i = 0;
+        while (previous_node != NULL && data > previous_node -> data()) {
+            previous_node = previous_node -> next();
+            i++;
+        }
+        try {
+            insert(data, i);
+        } catch (std::out_of_range error) {
+            throw error;
+        }
+    }
+}
+
+//! Returns an element's data at index
+template<typename T>
+T& structures::LinkedList<T>::at(std::size_t index) {
+    if (index >= size_ || index < 0) {
+        throw std::out_of_range("Indice invalido.");
+    }
+    Node* node = head;
+    std::size_t i = 1;
+    while (i <= index) {
+        node = node -> next();
+        i++;
+    }
+    return node -> data();
+}
+
+//! Removes an element from index
+template<typename T>
+T structures::LinkedList<T>::pop(std::size_t index) {
+    if (empty() || index >= size_ || index < 0) {
+        throw std::out_of_range("Indice invalido.");
+    }
+    if (index == 0) {
+        return pop_front();
+    } else {
+        Node* node;
+        Node* previous_node = head;
+        std::size_t i = 1;
+        while (i < index) {
+            previous_node = previous_node -> next();
+            i++;
+        }
+        node = previous_node -> next();
+        previous_node -> next(node -> next());
+        T deleted_data = node -> data();
+        delete node;
+        size_--;
+        return deleted_data;
+    }
+}
+
+//! Removes an element from the rightmost part of the list
+template<typename T>
+T structures::LinkedList<T>::pop_back() {
+    try {
+        return pop(size_ - 1);
+    } catch (std::out_of_range error) {
+        throw error;
+    }
+}
+
+//! Removes an element from the leftmost part of the list
+template<typename T>
+T structures::LinkedList<T>::pop_front() {
+    if (empty()) {
+        throw std::out_of_range("A lista esta vazia");
+    }
+    Node* node = head;
+    T deleted_data = node -> data();
+    head = node -> next();
+    delete node;
+    size_--;
+    return deleted_data;
+}
+
+//! Removes an element with the given data
+template<typename T>
+void structures::LinkedList<T>::remove(const T& data) {
+    pop(find(data));
+}
+
+//! Returns true if list is empty and false otherwise
+template<typename T>
+bool structures::LinkedList<T>::empty() const {
+    return size_ == 0;
+}
+
+//! Checks if the list contais the node with the given data
+template<typename T>
+bool structures::LinkedList<T>::contains(const T& data) const {
+    if (empty()) {
+        throw std::out_of_range("A lista esta vazia.");
+    } else {
+        Node* node = head;
+        std::size_t i = 1;
+        while (i < size_) {
+            if (node -> data() == data) {
+                return true;
+            }
+            node = node -> next();
+            i++;
+        }
+        return false;
+    }
+}
+
+//! Returns the index of the given data
+template<typename T>
+std::size_t structures::LinkedList<T>::find(const T& data) const {
+    if (empty()) {
+        throw std::out_of_range("A lista esta vazia.");
+    } else {
+        Node* node = head;
+        std::size_t i = 0;
+        while (i < size_ - 1) {
+            if (node -> data() == data) {
+                return i;
+            }
+            node = node -> next();
+            i++;
+        }
+        if (node -> data() == data) {
+            return size_ - 1;
+        }
+    }
+    return size_;
+}
+
+//! Returns the current size of the list
+template<typename T>
+std::size_t structures::LinkedList<T>::size() const {
+    return size_;
+}
+
+int main() {
+
+    char xmlfilename[100];
+    cin >> xmlfilename;  // Name of the input file
+    
+    bool started = false;
+    structures::LinkedList<string> tag_list;
+    string line, tag;
+    ifstream file (xmlfilename);  // Object to manage the file
+    
+    if (file.is_open()) { // Checks if the file is open, read line by line
+        while (getline(file, line)) { // While file still have lines to read
+            tag = "";
+            for (size_t i = 0; i < line.length(); i++) { // CONTINUE DOING
+                if (line[i] == '<') {
+                    started = true; // Found the "<" char
+                }
+                if (started == true) { // While we don't find ">" then:
+                    tag += line[i]; // tag concatenates a char
+                    if (line[i] == '>') { // If we find the char "<" then:
+                        tag_list.push_back(tag); // Pushes the new tag to the list
+                        started = false; // We ended a tag
+                        if (tag_list.at(tag_list.size()-1)[1] == '/') { // Checks if the last tag has a "/" char
+                            if (tag_list.size() == 1) {
+                                cout << "error"; // There is just one element, and it is ending nothing
+                            }
+                            else {
+                                string last_element = tag_list.at(tag_list.size()-1);
+                                last_element = last_element[0] + last_element.substr(2, last_element.length()); // Removes the bar
+                                string before_last_element = tag_list.at(tag_list.size()-2);
+                                if (last_element.compare(before_last_element) != 0) { // If they are different then:
+                                    cout << "error";
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        file.close();
+    }
+    else {
+        cout << "Unable to open the file";
+    }
+    return 0;
+}

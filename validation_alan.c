@@ -186,10 +186,10 @@ string getTag(string line, int pos) {
 }
 
 int main() {
-   char xmlfilename[100];
-   std::cin >> xmlfilename;  // entrada
+   // char xmlfilename[100];
+   // std::cin >> xmlfilename;  // entrada
 
-  //char xmlfilename[100] = "dataset01.xml";
+  char xmlfilename[100] = "dataset01.xml";
 
   ifstream inFile;
   inFile.open(xmlfilename);
@@ -201,25 +201,34 @@ int main() {
     structures::LinkedStack<string> tag_list;
     string tag = "";
     string line = "";
+    bool error = false;
 
     while (!inFile.eof()) { // While file still have lines to read
       inFile >> line;
+
       for (size_t caracter = 0; caracter < line.length(); caracter++) { // CONTINUE DOING
+        if(error==true){
+          break;
+          inFile.close();
+        }
         if (line[caracter] == '<') {  // Found the "/" char
           tag = getTag(line, caracter);
           if(tag[1] == '/') {
             if(tag_list.empty()) {
-              cout << "error" << endl;
+              if(tag.compare("</dataset>")>0 || tag.compare("</dataset>")<0) {
+                cout << "error1" << endl;
+              }
             } else {
-              if(tag_list.top().compare(tag)!=0) {
-                //cout << tag << " popped" << endl;
+              if((tag).compare(tag_list.top())==0) {  //<x> é diferente de </x> por isso ta dando erro
+                cout << tag << " popped" << endl;
                 tag_list.pop();
               } else {
-                cout << "error" << endl;
+                cout << "error2" << endl;
+                error = true;
               }
             }
           } else {
-            //cout << tag << " pushed" << endl;
+            cout << tag << " pushed" << endl;
             tag_list.push(tag);
           }
         }  //ends if (line[caracter] == '<')

@@ -1,361 +1,244 @@
+/* Copyright [2018] <Alan Djon Lüdke & Matheus Schaly>
+* validation step
+*/
+
+#ifndef STRUCTURES_VALIDATION_STEP
+#define STRUCTURES_VALIDATION_STEP
+
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <stdexcept>
+#include <stdlib.h>
+#include <stdio.h>
 using namespace std;
+#include <string.h>
 
 namespace structures {
 
-//! Dynamic Simple Linked List
+//! class LinkedStack
 template<typename T>
-class LinkedList {
+class LinkedStack {
  public:
-    //! Constructor
-    LinkedList();
-    //! Destructor
-    ~LinkedList();
-    //! Removes list's elements
-    void clear();
-    //! Inserts an element at the list's leftmost part of the list
-    void push_back(const T& data);
-    //! Inserts an element at the list's leftmost part
-    void push_front(const T& data);
-    //! Inserts an element at the given index
-    void insert(const T& data, std::size_t index);
-    //! Inserts an element sorted by data
-    void insert_sorted(const T& data);
-    //! Returns an element's data at index
-    T& at(std::size_t index);
-    //! Removes an element from index
-    T pop(std::size_t index);
-    //! Removes an element from the rightmost part of the list
-    T pop_back();
-    //! Removes an element from the leftmost part of the list
-    T pop_front();
-    //! Removes an element with the given data
-    void remove(const T& data);
-    //! Returns true if list is empty and false otherwise
-    bool empty() const;
-    //! Checks if the list contais the node with the given data
-    bool contains(const T& data) const;
-    //! Returns the index of the given data
-    std::size_t find(const T& data) const;
-    //! Returns the current size of the list
-    std::size_t size() const;
+    //! Constructor method of LinkedStack();
+    LinkedStack();
+    //! Destructor method
+    ~LinkedStack();
+    //! Wipe the list
+    void clear();  // limpa pilha
+    //! Puts an element in the stack
+    void push(const T& data);  // empilha
+    //! Takes an element off
+    T pop();  // desempilha
+    //! Return the first element
+    T& top() const;  // dado no topo
+    //! Return if empty
+    bool empty() const;  // pilha vazia
+    //! Returns the size of the stack
+    std::size_t size() const;  // tamanho da pilha
 
  private:
-    class Node {  // Elemento
+    class Node {
      public:
-        //! Constructor with 1 parameter
-        explicit Node(const T& data) {
-            size_ = 0;
-            data_ = data;
-        }
+        explicit Node(const T& data):
+            data_{data}
+        {}
+        Node(const T& data, Node* next):
+            data_{data},
+            next_{next}
+        {}
 
-        //! Constructor with 2 parameters
-        Node(const T& data, Node* next) {
-            size_ = 0;
-            data_ = data;
-            next_ = next;
-        }
-
-        //! Data's getter
         T& data() {
             return data_;
-        }
+        }  // getter: info
 
-        //! Data's constant getter
-        const T& data() const {
+        const T& data() const {  // getter const: dado
             return data_;
         }
 
-        //! Next's getter
-        Node* next() {
+        Node* next() {  // getter: próximo
             return next_;
         }
-
-        //! Next's constant getter
-        const Node* next() const {
+        const Node* next() const {  // getter const: próximo
             return next_;
         }
-
-        //! Next's setter
-        void next(Node* node) {
+        void next(Node* node) {  // setter: próximo
             next_ = node;
         }
 
      private:
-        //! Node's data
         T data_;
-
-        //! Nodes next node
-        Node* next_ = NULL;
+        Node* next_;
     };
 
-    //! Returns the list's last node
-    Node* end() {
-        Node* it = head;
-        for (int i = 0; i <= size(); i++) {
-            it = it -> next();
-        }
-        return it;
-    }
-
-    //! List's leftmost node
-    Node* head = NULL;
-
-    //! List's current size
-    std::size_t size_;
+    Node* top_;  // nodo-topo
+    std::size_t size_;  // tamanho
 };
 
 }  // namespace structures
 
-//! Constructor
 template<typename T>
-structures::LinkedList<T>::LinkedList() {}
-
-//! Destructor
-template<typename T>
-structures::LinkedList<T>::~LinkedList() {
-    clear();
+structures::LinkedStack<T>::LinkedStack() {
+    top_ = nullptr;
+    size_ = 0;
 }
 
-//! Removes list's elements
 template<typename T>
-void structures::LinkedList<T>::clear() {
+structures::LinkedStack<T>::~LinkedStack() {
+  clear();
+}
+
+template<typename T>
+void structures::LinkedStack<T>::clear() {
     while (!empty()) {
-        pop_front();
+        pop();
     }
 }
 
-//! Inserts an element at the list's leftmost part of the list
 template<typename T>
-void structures::LinkedList<T>::push_back(const T& data) {
-    insert(data, size_);
-}
+void structures::LinkedStack<T>::push(const T& data) {
+  Node *novo = new Node(data);
 
-//! Inserts an element at the list's leftmost part
-template<typename T>
-void structures::LinkedList<T>::push_front(const T& data) {
-    Node* node = new Node(data, head);
-    if (node == NULL) {
-        throw std::out_of_range("A lista esta cheia.");
+  if (novo == nullptr) {
+    throw std::out_of_range("Nodo não alocado!");
+  } else {
+    if (size_ == 0) {
+      top_ = novo;
+    } else {
+      novo->next(top_);
+      top_ = novo;
     }
-    head = node;
     size_++;
+  }
 }
 
-//! Inserts an element at the given index
 template<typename T>
-void structures::LinkedList<T>::insert(const T& data, std::size_t index) {
-    if (index > size_ || index < 0) {
-        throw std::out_of_range("Indice invalido");
-    }
-    if (index == 0) {
-        push_front(data);
-    } else {
-        Node* node = new Node(data);
-        Node* previous_node = head;
-        if (node == NULL) {
-            throw std::out_of_range("A lista esta cheia.");
-        }
-        std::size_t i = 1;
-        while (i < index) {
-            previous_node = previous_node -> next();
-            i++;
-        }
-        node -> next(previous_node -> next());
-        previous_node -> next(node);
-        size_++;
-    }
+T structures::LinkedStack<T>::pop() {
+  Node *saiu;
+  T volta;
+
+  if (empty()) {
+    throw std::out_of_range("Lista vazia, não é possivel retirar!");
+  } else {
+    saiu = top_;
+    volta = saiu->data();
+    top_ = saiu->next();
+    size_ = size_ - 1;
+    delete saiu;
+    return volta;
+  }
 }
 
-//! Inserts an element sorted by data
 template<typename T>
-void structures::LinkedList<T>::insert_sorted(const T& data) {
-    if (head == NULL) {
-        push_front(data);
-    } else {
-        Node* previous_node = head;
-        std::size_t i = 0;
-        while (previous_node != NULL && data > previous_node -> data()) {
-            previous_node = previous_node -> next();
-            i++;
-        }
-        try {
-            insert(data, i);
-        } catch (std::out_of_range error) {
-            throw error;
-        }
-    }
+T& structures::LinkedStack<T>::top() const {
+  if (empty()) {
+    throw std::out_of_range("não há elementos!!");
+  } else {
+    return top_->data();
+  }
 }
 
-//! Returns an element's data at index
 template<typename T>
-T& structures::LinkedList<T>::at(std::size_t index) {
-    if (index >= size_ || index < 0) {
-        throw std::out_of_range("Indice invalido.");
-    }
-    Node* node = head;
-    std::size_t i = 1;
-    while (i <= index) {
-        node = node -> next();
-        i++;
-    }
-    return node -> data();
+bool structures::LinkedStack<T>::empty() const {
+  if (size_ == 0) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
-//! Removes an element from index
 template<typename T>
-T structures::LinkedList<T>::pop(std::size_t index) {
-    if (empty() || index >= size_ || index < 0) {
-        throw std::out_of_range("Indice invalido.");
-    }
-    if (index == 0) {
-        return pop_front();
-    } else {
-        Node* node;
-        Node* previous_node = head;
-        std::size_t i = 1;
-        while (i < index) {
-            previous_node = previous_node -> next();
-            i++;
-        }
-        node = previous_node -> next();
-        previous_node -> next(node -> next());
-        T deleted_data = node -> data();
-        delete node;
-        size_--;
-        return deleted_data;
-    }
-}
-
-//! Removes an element from the rightmost part of the list
-template<typename T>
-T structures::LinkedList<T>::pop_back() {
-    try {
-        return pop(size_ - 1);
-    } catch (std::out_of_range error) {
-        throw error;
-    }
-}
-
-//! Removes an element from the leftmost part of the list
-template<typename T>
-T structures::LinkedList<T>::pop_front() {
-    if (empty()) {
-        throw std::out_of_range("A lista esta vazia");
-    }
-    Node* node = head;
-    T deleted_data = node -> data();
-    head = node -> next();
-    delete node;
-    size_--;
-    return deleted_data;
-}
-
-//! Removes an element with the given data
-template<typename T>
-void structures::LinkedList<T>::remove(const T& data) {
-    pop(find(data));
-}
-
-//! Returns true if list is empty and false otherwise
-template<typename T>
-bool structures::LinkedList<T>::empty() const {
-    return size_ == 0;
-}
-
-//! Checks if the list contais the node with the given data
-template<typename T>
-bool structures::LinkedList<T>::contains(const T& data) const {
-    if (empty()) {
-        throw std::out_of_range("A lista esta vazia.");
-    } else {
-        Node* node = head;
-        std::size_t i = 1;
-        while (i < size_) {
-            if (node -> data() == data) {
-                return true;
-            }
-            node = node -> next();
-            i++;
-        }
-        return false;
-    }
-}
-
-//! Returns the index of the given data
-template<typename T>
-std::size_t structures::LinkedList<T>::find(const T& data) const {
-    if (empty()) {
-        throw std::out_of_range("A lista esta vazia.");
-    } else {
-        Node* node = head;
-        std::size_t i = 0;
-        while (i < size_ - 1) {
-            if (node -> data() == data) {
-                return i;
-            }
-            node = node -> next();
-            i++;
-        }
-        if (node -> data() == data) {
-            return size_ - 1;
-        }
-    }
+std::size_t structures::LinkedStack<T>::size() const {
     return size_;
 }
 
-//! Returns the current size of the list
-template<typename T>
-std::size_t structures::LinkedList<T>::size() const {
-    return size_;
+string getFile(string filename) {
+   string buffer;
+   char c;
+
+   ifstream in(filename);
+   if (!in) {
+     cout << filename << "not found";
+     exit(1);
+   }
+   while (in.get(c)) buffer += c;
+   in.close();
+
+   return buffer;
+}
+
+#endif
+
+string getTag(string line, int pos) {
+    bool closed_bracket = false;  // >
+    bool close_tag = false;  // /
+    
+    string tag = "";
+    size_t caracter = pos;
+    while (closed_bracket == false) {
+        if(line[caracter] == '>') {
+            closed_bracket = true;
+        }
+        tag += line[caracter];
+        caracter++;
+    }
+    return tag;
 }
 
 int main() {
-
+    
     char xmlfilename[100];
-    cin >> xmlfilename;  // Name of the input file
+    std::cin >> xmlfilename;
+
+
+    // First Part:
+    ifstream inFile;
+    inFile.open(xmlfilename);
     
-    bool started = false;
-    structures::LinkedList<string> tag_list;
-    string line, tag;
-    ifstream file (xmlfilename);  // Object to manage the file
+    structures::LinkedStack<string> tag_list;
+    string tag = "";
+    string line = "";
     
-    if (file.is_open()) { // Checks if the file is open, read line by line
-        while (getline(file, line)) { // While file still have lines to read
-            tag = "";
-            for (size_t i = 0; i < line.length(); i++) { // CONTINUE DOING
-                if (line[i] == '<') {
-                    started = true; // Found the "<" char
-                }
-                if (started == true) { // While we don't find ">" then:
-                    tag += line[i]; // tag concatenates a char
-                    if (line[i] == '>') { // If we find the char "<" then:
-                        tag_list.push_back(tag); // Pushes the new tag to the list
-                        started = false; // We ended a tag
-                        if (tag_list.at(tag_list.size()-1)[1] == '/') { // Checks if the last tag has a "/" char
-                            if (tag_list.size() == 1) {
-                                cout << "error"; // There is just one element, and it is ending nothing
-                            }
-                            else {
-                                string last_element = tag_list.at(tag_list.size()-1);
-                                last_element = last_element[0] + last_element.substr(2, last_element.length()); // Removes the bar
-                                string before_last_element = tag_list.at(tag_list.size()-2);
-                                if (last_element.compare(before_last_element) != 0) { // If they are different then:
-                                    cout << "error";
-                                }
-                            }
+    while (!inFile.eof()) { // While file still have lines to read
+        inFile >> line;
+        for (size_t caracter = 0; caracter < line.length(); caracter++) {
+            if (line[caracter] == '<') {
+                tag = getTag(line, caracter);
+                if (tag[1] == '/') {
+                    if (tag_list.empty()) {
+                        cout << "error" << endl;
+                    } else {
+                        if ((tag).compare(tag_list.top().erase(1,1))==0) {
+                            tag_list.pop();
+                        } else {
+                            cout << "error" << endl;
                         }
                     }
+                } else {
+                    tag_list.push(tag);
                 }
             }
         }
-        file.close();
     }
-    else {
-        cout << "Unable to open the file";
+    inFile.close();
+    
+    
+    // Second Part:
+    inFile.clear();
+    inFile.open(xmlfilename);
+    
+    tag = "";
+    
+    while (!inFile.eof()) { // While file still have lines to read
+        inFile >> line;
+        for (size_t caracter = 0; caracter < line.length(); caracter++) {
+            if (line[caracter] == '<') {
+                tag = getTag(line, caracter);
+                if (tag.compare("<img>") == 0) {
+                    // Found the binary image
+                }
+            }
+        }
     }
-    return 0;
+    
 }

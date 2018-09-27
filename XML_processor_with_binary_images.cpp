@@ -2,8 +2,8 @@
 * validation step
 */
 
-#ifndef STRUCTURES_VALIDATION_STEP
-#define STRUCTURES_VALIDATION_STEP
+#ifndef STRUCTURES_XML_PROCESSOR
+#define STRUCTURES_XML_PROCESSOR
 
 #include <iostream>
 #include <fstream>
@@ -170,72 +170,75 @@ string getFile(string filename) {
 #endif
 
 string getTag(string line, int pos) {
-  bool closed_bracket = false;  // >
-  bool close_tag = false;  // /
+    bool closed_bracket = false;  // >
+    bool close_tag = false;  // /
 
-  string tag = "";
-  size_t caracter = pos;
-  while (closed_bracket == false) {
-    if(line[caracter] == '>') {
-        closed_bracket = true;
+    string tag = "";
+    size_t caracter = pos;
+    while (closed_bracket == false) {
+        if(line[caracter] == '>') {
+            closed_bracket = true;
+        }
+        tag += line[caracter];
+        caracter++;
     }
-    tag += line[caracter];
-    caracter++;
-  }
-  return tag;
+    return tag;
 }
 
 int main() {
-   // char xmlfilename[100];
-   // std::cin >> xmlfilename;  // entrada
 
-  char xmlfilename[100] = "dataset01.xml";
+    char xmlfilename[100];
+    std::cin >> xmlfilename;
 
-  ifstream inFile;
-  inFile.open(xmlfilename);
 
-  if(inFile.fail()) {
-    cerr << "error opening file" << endl;
-    exit(1);
-  } else {
+    // First Part:
+    ifstream inFile;
+    inFile.open(xmlfilename);
+
     structures::LinkedStack<string> tag_list;
     string tag = "";
     string line = "";
-    bool error = false;
 
     while (!inFile.eof()) { // While file still have lines to read
-      inFile >> line;
-
-      for (size_t caracter = 0; caracter < line.length(); caracter++) { // CONTINUE DOING
-        if(error==true){
-          break;
-          inFile.close();
-        }
-        if (line[caracter] == '<') {  // Found the "/" char
-          tag = getTag(line, caracter);
-          if(tag[1] == '/') {
-            if(tag_list.empty()) {
-              if(tag.compare("</dataset>")>0 || tag.compare("</dataset>")<0) {
-                cout << "error1" << endl;
-              }
-            } else {
-              if((tag).compare(tag_list.top())==0) {  //<x> é diferente de </x> por isso ta dando erro
-                cout << tag << " popped" << endl;
-                tag_list.pop();
-              } else {
-                cout << "error2" << endl;
-                error = true;
-              }
+        inFile >> line;
+        for (size_t caracter = 0; caracter < line.length(); caracter++) {
+            if (line[caracter] == '<') {
+                tag = getTag(line, caracter);
+                if (tag[1] == '/') {
+                    if (tag_list.empty()) {
+                        cout << "error" << endl;
+                    } else {
+                        if ((tag).compare(tag_list.top().erase(1,1))==0) {
+                            tag_list.pop();
+                        } else {
+                            cout << "error" << endl;
+                        }
+                    }
+                } else {
+                    tag_list.push(tag);
+                }
             }
-          } else {
-            cout << tag << " pushed" << endl;
-            tag_list.push(tag);
-          }
-        }  //ends if (line[caracter] == '<')
-      }  //ends for (size_t caracter = 0; caracter < line.length(); caracter++)
-    }  // ends while (!inFile.eof())
+        }
+    }
     inFile.close();
-  } //ends if(inFile.fail())
 
-  return 0;
+
+    // Second Part:
+    inFile.clear();
+    inFile.open(xmlfilename);
+
+    tag = "";
+
+    while (!inFile.eof()) { // While file still have lines to read
+        inFile >> line;
+        for (size_t caracter = 0; caracter < line.length(); caracter++) {
+            if (line[caracter] == '<') {
+                tag = getTag(line, caracter);
+                if (tag.compare("<img>") == 0) {
+                    // Found the binary image
+                }
+            }
+        }
+    }
+
 }

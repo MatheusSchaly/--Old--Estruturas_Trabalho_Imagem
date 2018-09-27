@@ -1,5 +1,5 @@
 /* Copyright [2018] <Alan Djon Lüdke & Matheus Schaly>
-* XML_processor_with_binary_images
+* XML_processor_with_binary_images.cpp
 */
 
 #ifndef STRUCTURES_XML_PROCESSOR

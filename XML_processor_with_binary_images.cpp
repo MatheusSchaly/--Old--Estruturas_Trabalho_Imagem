@@ -287,19 +287,44 @@ int main() {
     string image_name="";
     size_t image_width = 0;
     size_t image_height = 0;
+
     structures::LinkedStack<string> coord_stack;
 
     string image = getImage(xmlfilename, image_name, image_width, image_height);
+
+    int dataset[image_height][image_width];
 
     cout << "Name: " << image_name << endl;
     cout << "Width: " << image_width << endl;
     cout << "Height: " << image_height << endl;
     cout << "Image Length: " << image.length() << endl;
     cout << "Image: " << image << endl;
+    int index = 0;
 
+    //zerar dataset[][];
     for (size_t i = 0; i < image_height; i++) {
-        for (size_t j = 0; j < image_widht; j++) {
-            cout << image[];
+        for (size_t j = 0; j < image_width; j++) {
+            dataset[i][j]=0;
         }
     }
+
+    //alimentar dataset[][];
+    for (size_t i = 0; i < image_height; i++) {
+        for (size_t j = 0; j < image_width; j++) {
+            dataset[i][j] = (int)(image[index]) - 48;
+            index++;
+        }
+    }
+cout << endl;
+cout << endl;
+    //imprimir dataset[][];
+    for (size_t i = 0; i < image_height; i++) {
+        for (size_t j = 0; j < image_width; j++) {
+            cout << dataset[i][j];
+        }
+        cout << endl;
+    }
+    cout << endl;
+
+
 }

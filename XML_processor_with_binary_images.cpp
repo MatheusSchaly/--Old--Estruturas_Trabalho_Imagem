@@ -300,6 +300,8 @@ int main() {
     int dataset_temp[image_height][image_width];
     int index = 0;
     int label = 1;
+    int i_aux = 0;
+    int j_aux = 0;
 
     for (size_t i = 0; i < image_height; i++) {
         for (size_t j = 0; j < image_width; j++) {
@@ -322,27 +324,54 @@ int main() {
                 coord[0] = i;
                 coord[1] = j;
                 coord_stack.push(coord);
+                cout << coord[0] << "," << coord[1] << " pushed" << endl;
+                dataset_temp[i][j] = label;
+                i_aux = i;
+                j_aux = j;
             }
             while (!coord_stack.empty()) {
                 coord_stack.pop();
-                dataset_temp[i][j] = label;
-                if (i-1 >= 0 && dataset[i-1][j] == 1 && dataset_temp != 0) {
-                    dataset_temp[i-1][j] = label;
+                cout << coord[0] << "," << coord[1] << " popped" << endl;
+                if (i_aux-1 >= 0 && dataset[i_aux-1][j_aux] == 1 && dataset_temp[i_aux-1][j_aux] == 0) {
+                    coord[0] = i_aux-1;
+                    coord[1] = j_aux;
+                    coord_stack.push(coord);
+                    cout << coord[0] << "," << coord[1] << " pushed" << endl;
+                    i_aux--;
+                    dataset_temp[i_aux][j_aux] = label;
                 }
-                if (i+1 <= image_height && dataset[i+1][j] == 1 && dataset_temp != 0) {
-                    dataset_temp[i+1][j] = label;
+                if (i_aux+1 <= image_height && dataset[i_aux+1][j_aux] == 1 && dataset_temp[i_aux+1][j_aux] == 0) {
+                    coord[0] = i_aux+1;
+                    coord[1] = j_aux;
+                    coord_stack.push(coord);
+                    cout << coord[0] << "," << coord[1] << " pushed" << endl;
+                    i_aux++;
+                    dataset_temp[i_aux][j_aux] = label;
                 }
-                if (j-1 >= 0 && dataset[i][j-1] == 1 && dataset_temp != 0) {
-                    dataset_temp[i][j-1] = label;
+                if (j_aux-1 >= 0 && dataset[i_aux][j_aux-1] == 1 && dataset_temp[i_aux][j_aux-1] == 0) {
+                    coord[0] = i_aux;
+                    coord[1] = j_aux-1;
+                    coord_stack.push(coord);
+                    cout << coord[0] << "," << coord[1] << " pushed" << endl;
+                    j_aux--;
+                    dataset_temp[i_aux][j_aux] = label;
                 }
-                if (j+1 <= image_width && dataset[i][j+1] == 1 && dataset_temp != 0) {
-                    dataset_temp[i][j+1] = label;
+                if (j_aux+1 <= image_width && dataset[i_aux][j_aux+1] == 1 && dataset_temp[i_aux][j_aux+1] == 0) {
+                    coord[0] = i_aux;
+                    coord[1] = j_aux+1;
+                    coord_stack.push(coord);
+                    cout << coord[0] << "," << coord[1] << " pushed" << endl;
+                    j_aux++;
+                    dataset_temp[i_aux][j_aux] = label;
+                }
+                if (coord_stack.empty()) {
+                    label++;
                 }
             }
-            //if (dataset_temp[i][j] == 0 && )
-            //label ++;
         }
     }
+    
+    cout << image_name << " " <<  label << endl;
     
     cout << endl;
     for (size_t i = 0; i < image_height; i++) {

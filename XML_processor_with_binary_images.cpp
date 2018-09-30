@@ -183,8 +183,7 @@ string getTag(string line, int pos) {
     return tag;
 }
 
-
-string getImage(string xmlfilename, size_t &image_width, size_t &image_height) {
+string getImage(string xmlfilename, string &image_name, size_t &image_width, size_t &image_height) {
     ifstream inFile;
     inFile.open(xmlfilename);
 
@@ -203,7 +202,13 @@ string getImage(string xmlfilename, size_t &image_width, size_t &image_height) {
             }
             if (line[caracter] == '<') {
                 tag = getTag(line, caracter);
-                if (tag.compare("<height>") == 0) {
+                if (tag.compare("<name>") == 0) {
+                    caracter += 6;  // To skip the caracters name>
+                    while (line[caracter] != '<') {
+                        image_name += line[caracter];
+                        caracter ++;
+                    }
+                } else if (tag.compare("<height>") == 0) {
                     caracter += 8;  // To skip the caracters height>
                     while (line[caracter] != '<') {
                         string_height += line[caracter];
@@ -211,8 +216,7 @@ string getImage(string xmlfilename, size_t &image_width, size_t &image_height) {
                     }
                     stringstream sstream(string_height); // Converts string to size_t
                     sstream >> image_height;
-                }
-                else if (tag.compare("<width>") == 0) {
+                } else if (tag.compare("<width>") == 0) {
                     caracter += 7;  // To skip the caracters width>
                     while (line[caracter] != '<') {
                         string_width += line[caracter];
@@ -220,12 +224,10 @@ string getImage(string xmlfilename, size_t &image_width, size_t &image_height) {
                     }
                     stringstream sstream(string_width); // Converts string to size_t
                     sstream >> image_width;
-                }
-                else if (tag.compare("<data>") == 0) {
+                } else if (tag.compare("<data>") == 0) {
                     caracter += 6;  // To skip the caracters data>
                     found = true;
-                }
-                else if (tag.compare("</data>") == 0) {
+                } else if (tag.compare("</data>") == 0) {
                     return image.erase(image.length() - 1, image.length()); // Removes a <
                 }
             }
@@ -282,22 +284,22 @@ int main() {
     inFile.clear();
 
     // Second Part:
+    string image_name="";
     size_t image_width = 0;
     size_t image_height = 0;
     structures::LinkedStack<string> coord_stack;
 
-    string image = getImage(xmlfilename, image_width, image_height);
+    string image = getImage(xmlfilename, image_name, image_width, image_height);
 
+    cout << "Name: " << image_name << endl;
     cout << "Width: " << image_width << endl;
     cout << "Height: " << image_height << endl;
     cout << "Image Length: " << image.length() << endl;
     cout << "Image: " << image << endl;
 
-    for (size_t i = 0; i < image_width; i++) {
-        for (size_t j = 0; j < image_height; j++) {
-            //cout << image[i+j];
+    for (size_t i = 0; i < image_height; i++) {
+        for (size_t j = 0; j < image_widht; j++) {
+            cout << image[];
         }
-        //cout << endl;
     }
-
 }

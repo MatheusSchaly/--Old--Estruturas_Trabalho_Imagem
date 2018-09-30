@@ -269,8 +269,8 @@ int main() {
                             tag_list.pop();
                         } else {
                             cout << "error" << endl;
-                        return 0;
-                      }
+                            return 0;
+                        }
                     }
                 } else {
                     tag_list.push(tag);

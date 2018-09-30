@@ -11,8 +11,10 @@
 #include <stdexcept>
 #include <stdlib.h>
 #include <stdio.h>
-using namespace std;
 #include <string.h>
+#include <sstream>
+
+using namespace std;
 
 namespace structures {
 
@@ -131,7 +133,11 @@ T structures::LinkedStack<T>::pop() {
 
 template<typename T>
 T& structures::LinkedStack<T>::top() const {
-  return top_->data();
+  if (empty()) {
+    throw std::out_of_range("não há elementos!!");
+  } else {
+    return top_->data();
+  }
 }
 
 template<typename T>
@@ -181,6 +187,57 @@ string getTag(string line, int pos) {
     return tag;
 }
 
+    
+string getImage(string xmlfilename, size_t &image_width, size_t &image_height) {
+    ifstream inFile;
+    inFile.open(xmlfilename);
+
+    string tag = "";
+    string image = "";
+    string line = "";
+    string string_height = "";
+    string string_width = "";
+    bool found = false;
+
+    while (!inFile.eof()) { // While file still have lines to read
+        inFile >> line;
+        for (size_t caracter = 0; caracter < line.length(); caracter++) {
+            if (found) {
+                image += line[caracter];
+            }
+            if (line[caracter] == '<') {
+                tag = getTag(line, caracter);
+                if (tag.compare("<height>") == 0) {
+                    caracter += 8;  // To skip the caracters height>
+                    while (line[caracter] != '<') {
+                        string_height += line[caracter];
+                        caracter ++;
+                    }
+                    stringstream sstream(string_height); // Converts string to size_t
+                    sstream >> image_height;
+                }
+                else if (tag.compare("<width>") == 0) {
+                    caracter += 7;  // To skip the caracters width>
+                    while (line[caracter] != '<') {
+                        string_width += line[caracter];
+                        caracter ++;
+                    }
+                    stringstream sstream(string_width); // Converts string to size_t
+                    sstream >> image_width;
+                }
+                else if (tag.compare("<data>") == 0) {
+                    caracter += 6;  // To skip the caracters data>
+                    found = true;
+                }
+                else if (tag.compare("</data>") == 0) {
+                    return image.erase(image.length() - 1, image.length()); // Removes a <
+                }
+            }
+        }
+    }
+    return image;
+}
+
 int main() {
 
     char xmlfilename[100];
@@ -204,14 +261,14 @@ int main() {
                     if ((tag.compare("</dataset>") != 0) && (tag_list.empty())) {
                         cout << "error" << endl;
                         return 0;
-                    } else if((tag.compare("</dataset>") == 0) && (tag.erase(1,1)).compare(tag_list.top()) == 0){  // W
-                      tag_list.pop();
-                      return 0;
-                    } else {
-                      if((tag.erase(1,1)).compare(tag_list.top()) == 0) {
+                    } else if((tag.compare("</dataset>") == 0) && (tag.erase(1,1)).compare(tag_list.top()) == 0) {
                         tag_list.pop();
-                      } else {
-                        cout << "error" << endl;
+                        return 0;
+                    } else {
+                        if((tag.erase(1,1)).compare(tag_list.top()) == 0) {
+                            tag_list.pop();
+                        } else {
+                            cout << "error" << endl;
                         return 0;
                       }
                     }
@@ -222,38 +279,27 @@ int main() {
         }
     }
     inFile.close();
-
-/*
-    // Second Part:
     inFile.clear();
-    inFile.open(xmlfilename);
-
-    tag = "";
-    string name = "";
-    int height = 0;
-    int width= 0;
-    //int data[][];
 
 
-    while (!inFile.eof()) { // While file still have lines to read
-        inFile >> line;
-        for (size_t caracter = 0; caracter < line.length(); caracter++) {
-            if (line[caracter] == '<') {
-                tag = getTag(line, caracter);
-                if (tag.compare("<img>") == 0) {  // Found the binary image
-                  caracter = caracter + 6; // goes to tag <name>
-                  if (line[caracter] == '<') {
-                    tag = getTag(line, caracter);
-                    if (tag.compare("<name>") == 0) {  // Found the binary image name
-                      caracter++;
-                      while(line[caracter] != '<') {
-                        name = name + line[caracter];
-                      }
-                      cout << name << endl;
-                    }
-                  }
-                }
-            }
+    // Second Part:
+    size_t image_width = 0;
+    size_t image_height = 0;
+    structures::LinkedStack<string> coord_stack;
+    
+    string image = getImage(xmlfilename, image_width, image_height);
+    
+    cout << "Width: " << image_width << endl;
+    cout << "Height: " << image_height << endl;
+    cout << "Image Length: " << image.length() << endl;
+    cout << "Image: " << image << endl;
+    
+    for (size_t i = 0; i < image_width; i++) {
+        for (size_t j = 0; j < image_height; j++) {
+            //cout << image[i+j];
         }
-    }*/
+        //cout << endl;
+    }
+
+
 }

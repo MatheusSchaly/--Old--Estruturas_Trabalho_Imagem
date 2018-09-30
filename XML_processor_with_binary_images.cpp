@@ -133,11 +133,7 @@ T structures::LinkedStack<T>::pop() {
 
 template<typename T>
 T& structures::LinkedStack<T>::top() const {
-  if (empty()) {
-    throw std::out_of_range("não há elementos!!");
-  } else {
     return top_->data();
-  }
 }
 
 template<typename T>
@@ -187,7 +183,7 @@ string getTag(string line, int pos) {
     return tag;
 }
 
-    
+
 string getImage(string xmlfilename, size_t &image_width, size_t &image_height) {
     ifstream inFile;
     inFile.open(xmlfilename);
@@ -243,7 +239,6 @@ int main() {
     char xmlfilename[100];
     std::cin >> xmlfilename;
 
-
     // First Part:
     ifstream inFile;
     inFile.open(xmlfilename);
@@ -251,55 +246,58 @@ int main() {
     structures::LinkedStack<string> tag_list;
     string tag = "";
     string line = "";
+    bool finished_part_1 = false;
 
-    while (!inFile.eof()) { // While file still have lines to read
+    while (inFile && finished_part_1 == false){
         inFile >> line;
         for (size_t caracter = 0; caracter < line.length(); caracter++) {
             if (line[caracter] == '<') {
                 tag = getTag(line, caracter);
                 if (tag[1] == '/') {
-                    if ((tag.compare("</dataset>") != 0) && (tag_list.empty())) {
+                  if((tag.erase(1,1)).compare(tag_list.top()) == 0) {
+                    if (tag.compare("<dataset>") != 0) {
+                      if(tag_list.empty()){
                         cout << "error" << endl;
-                        return 0;
-                    } else if((tag.compare("</dataset>") == 0) && (tag.erase(1,1)).compare(tag_list.top()) == 0) {
+                      } else{
                         tag_list.pop();
-                        return 0;
-                    } else {
-                        if((tag.erase(1,1)).compare(tag_list.top()) == 0) {
-                            tag_list.pop();
-                        } else {
-                            cout << "error" << endl;
-                            return 0;
-                        }
+                      }
+                    } else if(tag.compare("<dataset>") == 0) {
+                      if(tag_list.size() > 0) {
+                        tag_list.pop();
+                        finished_part_1 = true;
+                      }
                     }
+                  } else { //top != popped
+                    cout << "error" << endl;
+                    finished_part_1 = true;
+                  }
                 } else {
                     tag_list.push(tag);
                 }
             }
         }
     }
+
     inFile.close();
     inFile.clear();
-
 
     // Second Part:
     size_t image_width = 0;
     size_t image_height = 0;
     structures::LinkedStack<string> coord_stack;
-    
+
     string image = getImage(xmlfilename, image_width, image_height);
-    
+
     cout << "Width: " << image_width << endl;
     cout << "Height: " << image_height << endl;
     cout << "Image Length: " << image.length() << endl;
     cout << "Image: " << image << endl;
-    
+
     for (size_t i = 0; i < image_width; i++) {
         for (size_t j = 0; j < image_height; j++) {
             //cout << image[i+j];
         }
         //cout << endl;
     }
-
 
 }

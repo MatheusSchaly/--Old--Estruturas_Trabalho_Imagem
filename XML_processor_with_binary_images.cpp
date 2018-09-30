@@ -14,6 +14,7 @@
 #include <string.h>
 #include <sstream>
 #include <list>
+#include <vector>
 
 using namespace std;
 
@@ -39,6 +40,7 @@ class LinkedStack {
     bool empty() const;  // pilha vazia
     //! Returns the size of the stack
     std::size_t size() const;  // tamanho da pilha
+    void print_stack();
 
  private:
     class Node {
@@ -101,7 +103,6 @@ void structures::LinkedStack<T>::clear() {
 template<typename T>
 void structures::LinkedStack<T>::push(const T& data) {
   Node *novo = new Node(data);
-
   if (novo == nullptr) {
     throw std::out_of_range("Nodo não alocado!");
   } else {
@@ -152,6 +153,16 @@ bool structures::LinkedStack<T>::empty() const {
 template<typename T>
 std::size_t structures::LinkedStack<T>::size() const {
     return size_;
+}
+
+template<typename T>
+void structures::LinkedStack<T>::print_stack() {
+    Node* node = top_;
+    for (int i = 0; i < size_; i++) {
+        cout << node->data()[0] << "," << node->data()[1] << " ";
+        node = node->next();
+    }
+    cout << endl;
 }
 
 string getFile(string filename) {
@@ -279,6 +290,7 @@ int main() {
                   }
                 } else {
                     tag_list.push(tag);
+                    tag_list.print_stack();
                 }
             }
         }
@@ -289,7 +301,6 @@ int main() {
 
     // Second Part:
     string image_name = "";
-    int coord[2];
     size_t image_width = 0;
     size_t image_height = 0;
     structures::LinkedStack<int*> coord_stack;
@@ -321,50 +332,75 @@ int main() {
     for (size_t i = 0; i < image_height; i++) {
         for (size_t j = 0; j < image_width; j++) {
             if (dataset[i][j] == 1) {
+                int *coord;
+                coord = new int[2];
                 coord[0] = i;
                 coord[1] = j;
                 coord_stack.push(coord);
-                cout << coord[0] << "," << coord[1] << " pushed" << endl;
+                cout << coord_stack.top()[0] << "," << coord_stack.top()[1] << " pushed" << endl;
                 dataset_temp[i][j] = label;
                 i_aux = i;
                 j_aux = j;
             }
             while (!coord_stack.empty()) {
+                cout << endl << "STACK: ";
+                coord_stack.print_stack();
+                i_aux = coord_stack.top()[0];
+                j_aux = coord_stack.top()[1];
+                cout << coord_stack.top()[0] << "," << coord_stack.top()[1] << " popped" << endl;
                 coord_stack.pop();
-                cout << coord[0] << "," << coord[1] << " popped" << endl;
                 if (i_aux-1 >= 0 && dataset[i_aux-1][j_aux] == 1 && dataset_temp[i_aux-1][j_aux] == 0) {
+                    cout << "PRIMEIRO IF" << endl;
+                    int *coord;
+                    coord = new int[2];
                     coord[0] = i_aux-1;
                     coord[1] = j_aux;
                     coord_stack.push(coord);
-                    cout << coord[0] << "," << coord[1] << " pushed" << endl;
+                    cout << coord_stack.top()[0] << "," << coord_stack.top()[1] << " pushed" << endl;
                     i_aux--;
-                    dataset_temp[i_aux][j_aux] = label;
+                    dataset_temp[coord_stack.top()[0]][coord_stack.top()[1]] = label;
                 }
                 if (i_aux+1 <= image_height && dataset[i_aux+1][j_aux] == 1 && dataset_temp[i_aux+1][j_aux] == 0) {
+                    cout << "SEGUNDO IF" << endl;
+                    int *coord;
+                    coord = new int[2];
                     coord[0] = i_aux+1;
                     coord[1] = j_aux;
                     coord_stack.push(coord);
-                    cout << coord[0] << "," << coord[1] << " pushed" << endl;
+                    cout << endl << "STACK: ";
+                    coord_stack.print_stack();
+                    cout << coord_stack.top()[0] << "," << coord_stack.top()[1] << " pushed" << endl;
                     i_aux++;
-                    dataset_temp[i_aux][j_aux] = label;
+                    dataset_temp[coord_stack.top()[0]][coord_stack.top()[1]] = label;
                 }
                 if (j_aux-1 >= 0 && dataset[i_aux][j_aux-1] == 1 && dataset_temp[i_aux][j_aux-1] == 0) {
+                    cout << "TERCEIRO IF" << endl;
+                    int *coord;
+                    coord = new int[2];
                     coord[0] = i_aux;
                     coord[1] = j_aux-1;
+                    cout << endl << "STACK: ";
+                    coord_stack.print_stack();
                     coord_stack.push(coord);
-                    cout << coord[0] << "," << coord[1] << " pushed" << endl;
+                    cout << coord_stack.top()[0] << "," << coord_stack.top()[1] << " pushed" << endl;
                     j_aux--;
-                    dataset_temp[i_aux][j_aux] = label;
+                    dataset_temp[coord_stack.top()[0]][coord_stack.top()[1]] = label;
                 }
                 if (j_aux+1 <= image_width && dataset[i_aux][j_aux+1] == 1 && dataset_temp[i_aux][j_aux+1] == 0) {
+                    cout << "QUARTO IF" << endl;
+                    int *coord;
+                    coord = new int[2];
                     coord[0] = i_aux;
                     coord[1] = j_aux+1;
+                    cout << endl << "STACK: ";
+                    coord_stack.print_stack();
                     coord_stack.push(coord);
-                    cout << coord[0] << "," << coord[1] << " pushed" << endl;
+                    cout << coord_stack.top()[0] << "," << coord_stack.top()[1] << " pushed" << endl;
                     j_aux++;
-                    dataset_temp[i_aux][j_aux] = label;
+                    dataset_temp[coord_stack.top()[0]][coord_stack.top()[1]] = label;
                 }
                 if (coord_stack.empty()) {
+                    cout << "Label++" << endl;
                     label++;
                 }
             }

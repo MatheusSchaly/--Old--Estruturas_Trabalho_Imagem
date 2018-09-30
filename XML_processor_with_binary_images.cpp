@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <sstream>
+#include <list>
 
 using namespace std;
 
@@ -133,6 +134,9 @@ T structures::LinkedStack<T>::pop() {
 
 template<typename T>
 T& structures::LinkedStack<T>::top() const {
+    if (empty()) {
+        throw std::out_of_range("Lista vazia");
+    }
     return top_->data();
 }
 
@@ -279,52 +283,72 @@ int main() {
             }
         }
     }
-
     inFile.close();
     inFile.clear();
+    
 
     // Second Part:
-    string image_name="";
+    string image_name = "";
+    int coord[2];
     size_t image_width = 0;
     size_t image_height = 0;
-
-    structures::LinkedStack<string> coord_stack;
+    structures::LinkedStack<int*> coord_stack;
 
     string image = getImage(xmlfilename, image_name, image_width, image_height);
 
     int dataset[image_height][image_width];
-
-    cout << "Name: " << image_name << endl;
-    cout << "Width: " << image_width << endl;
-    cout << "Height: " << image_height << endl;
-    cout << "Image Length: " << image.length() << endl;
-    cout << "Image: " << image << endl;
+    int dataset_temp[image_height][image_width];
     int index = 0;
+    int label = 1;
 
-    //zerar dataset[][];
-    for (size_t i = 0; i < image_height; i++) {
-        for (size_t j = 0; j < image_width; j++) {
-            dataset[i][j]=0;
-        }
-    }
-
-    //alimentar dataset[][];
     for (size_t i = 0; i < image_height; i++) {
         for (size_t j = 0; j < image_width; j++) {
             dataset[i][j] = (int)(image[index]) - 48;
+            dataset_temp[i][j] = 0;
             index++;
         }
     }
-cout << endl;
-cout << endl;
-    //imprimir dataset[][];
+    
     for (size_t i = 0; i < image_height; i++) {
         for (size_t j = 0; j < image_width; j++) {
             cout << dataset[i][j];
         }
         cout << endl;
     }
+
+    for (size_t i = 0; i < image_height; i++) {
+        for (size_t j = 0; j < image_width; j++) {
+            if (dataset[i][j] == 1) {
+                coord[0] = i;
+                coord[1] = j;
+                coord_stack.push(coord);
+            }
+            while (!coord_stack.empty()) {
+                coord_stack.pop();
+                dataset_temp[i][j] = label;
+                if (i-1 >= 0 && dataset[i-1][j] == 1 && dataset_temp != 0) {
+                    dataset_temp[i-1][j] = label;
+                }
+                if (i+1 <= image_height && dataset[i+1][j] == 1 && dataset_temp != 0) {
+                    dataset_temp[i+1][j] = label;
+                }
+                if (j-1 >= 0 && dataset[i][j-1] == 1 && dataset_temp != 0) {
+                    dataset_temp[i][j-1] = label;
+                }
+                if (j+1 <= image_width && dataset[i][j+1] == 1 && dataset_temp != 0) {
+                    dataset_temp[i][j+1] = label;
+                }
+            }
+            //if (dataset_temp[i][j] == 0 && )
+            //label ++;
+        }
+    }
+    
     cout << endl;
-
-
+    for (size_t i = 0; i < image_height; i++) {
+        for (size_t j = 0; j < image_width; j++) {
+            cout << dataset_temp[i][j];
+        }
+        cout << endl;
+    }
 }

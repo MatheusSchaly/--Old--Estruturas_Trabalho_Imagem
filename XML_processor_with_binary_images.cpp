@@ -131,11 +131,7 @@ T structures::LinkedStack<T>::pop() {
 
 template<typename T>
 T& structures::LinkedStack<T>::top() const {
-  if (empty()) {
-    throw std::out_of_range("não há elementos!!");
-  } else {
-    return top_->data();
-  }
+  return top_->data();
 }
 
 template<typename T>
@@ -205,14 +201,19 @@ int main() {
             if (line[caracter] == '<') {
                 tag = getTag(line, caracter);
                 if (tag[1] == '/') {
-                    if (tag_list.empty()) {
+                    if ((tag.compare("</dataset>") != 0) && (tag_list.empty())) {
                         cout << "error" << endl;
+                        return 0;
+                    } else if((tag.compare("</dataset>") == 0) && (tag.erase(1,1)).compare(tag_list.top()) == 0){  // W
+                      tag_list.pop();
+                      return 0;
                     } else {
-                        if ((tag).compare(tag_list.top().erase(1,1))==0) {
-                            tag_list.pop();
-                        } else {
-                            cout << "error" << endl;
-                        }
+                      if((tag.erase(1,1)).compare(tag_list.top()) == 0) {
+                        tag_list.pop();
+                      } else {
+                        cout << "error" << endl;
+                        return 0;
+                      }
                     }
                 } else {
                     tag_list.push(tag);
@@ -222,23 +223,37 @@ int main() {
     }
     inFile.close();
 
-
+/*
     // Second Part:
     inFile.clear();
     inFile.open(xmlfilename);
 
     tag = "";
+    string name = "";
+    int height = 0;
+    int width= 0;
+    //int data[][];
+
 
     while (!inFile.eof()) { // While file still have lines to read
         inFile >> line;
         for (size_t caracter = 0; caracter < line.length(); caracter++) {
             if (line[caracter] == '<') {
                 tag = getTag(line, caracter);
-                if (tag.compare("<img>") == 0) {
-                    // Found the binary image
+                if (tag.compare("<img>") == 0) {  // Found the binary image
+                  caracter = caracter + 6; // goes to tag <name>
+                  if (line[caracter] == '<') {
+                    tag = getTag(line, caracter);
+                    if (tag.compare("<name>") == 0) {  // Found the binary image name
+                      caracter++;
+                      while(line[caracter] != '<') {
+                        name = name + line[caracter];
+                      }
+                      cout << name << endl;
+                    }
+                  }
                 }
             }
         }
-    }
-
+    }*/
 }

@@ -136,7 +136,7 @@ T structures::LinkedStack<T>::pop() {
 template<typename T>
 T& structures::LinkedStack<T>::top() const {
     if (empty()) {
-        throw std::out_of_range("Lista vazia");
+        throw std::out_of_range("Lista vazia, metodo top()");
     }
     return top_->data();
 }
@@ -159,7 +159,7 @@ template<typename T>
 void structures::LinkedStack<T>::print_stack() {
     Node* node = top_;
     for (int i = 0; i < size_; i++) {
-        cout << node->data()[0] << "," << node->data()[1] << " ";
+        cout << node->data() << " ";
         node = node->next();
     }
     cout << endl;
@@ -198,7 +198,7 @@ string getTag(string line, int pos) {
     return tag;
 }
 
-string getImage(string xmlfilename, string &image_name, size_t &image_width, size_t &image_height) {
+string getImage(size_t img_line, string xmlfilename, string &image_name, size_t &image_width, size_t &image_height) {
     ifstream inFile;
     inFile.open(xmlfilename);
 
@@ -208,8 +208,15 @@ string getImage(string xmlfilename, string &image_name, size_t &image_width, siz
     string string_height = "";
     string string_width = "";
     bool found = false;
+    bool jumped = false;
 
-    while (!inFile.eof()) { // While file still have lines to read
+    while (inFile) { // While file still have lines to read
+        if (!jumped) {
+            for (size_t jump; jump < img_line; jump++) {
+                inFile >> line;
+            }
+            jumped = true;
+        }
         inFile >> line;
         for (size_t caracter = 0; caracter < line.length(); caracter++) {
             if (found) {
@@ -248,61 +255,52 @@ string getImage(string xmlfilename, string &image_name, size_t &image_width, siz
             }
         }
     }
+    inFile.close();
+    inFile.clear();
     return image;
 }
 
-int main() {
-
-    char xmlfilename[100];
-    std::cin >> xmlfilename;
-
+bool doFirstPart (size_t img_line, string xmlfilename) {
     // First Part:
     ifstream inFile;
     inFile.open(xmlfilename);
 
-    search_next_image:
     structures::LinkedStack<string> tag_list;
     string tag = "";
     string line = "";
-    bool error = false;
-    bool finished_part_1 = false;
-    while (inFile) {
-        caracter ++;
-        if (line[caracter] == '<') {
-            tag = getTag(line, character);
-            if (tag.compare("<name>" == 0)) {
-                break; // ANALISAR MELHOR COMO FAZER ISSO
-            }
-        }
-    }
+    bool jumped = false;
 
-    while (inFile && finished_part_1 == false){
+    // Nao da pra usar <dataset> como delimitador, 
+    // ele só aparece uma vez em um conjunto de imagens
+    // o historico do codigo ta no historico do git
+
+    while (inFile) { // While file still have lines to read
+        if (!jumped) {
+            for (size_t jump; jump < img_line; jump++) {
+                inFile >> line;
+            }
+            jumped = true;
+        }
         inFile >> line;
         for (size_t caracter = 0; caracter < line.length(); caracter++) {
             if (line[caracter] == '<') {
                 tag = getTag(line, caracter);
                 if (tag[1] == '/') {
-                  if((tag.erase(1,1)).compare(tag_list.top()) == 0) {
-                    if (tag.compare("<dataset>") != 0) {
-                      if(tag_list.empty()){
+                    if (tag_list.empty()) {
                         cout << "error" << endl;
-                        error = true;
-                        goto search_next_image;
-                      } else{
-                        tag_list.pop();
-                      }
-                    } else if(tag.compare("<dataset>") == 0) {
-                      if(tag_list.size() > 0) {
-                        tag_list.pop();
-                        finished_part_1 = true;
-                      }
+                        inFile.close();
+                        inFile.clear();
+                        return true;
+                    } else {
+                        if ((tag).compare(tag_list.top().erase(1,1)) == 0) {
+                            tag_list.pop();
+                        } else {
+                            cout << "error" << endl;
+                            inFile.close();
+                            inFile.clear();
+                            return true;
+                        }
                     }
-                  } else { //top != popped
-                    cout << "error" << endl;
-                    finished_part_1 = true;
-                    error = true;
-                    goto search_next_image;
-                  }
                 } else {
                     tag_list.push(tag);
                 }
@@ -311,15 +309,17 @@ int main() {
     }
     inFile.close();
     inFile.clear();
-    
+    return false;
+}
 
+void doSecondPart (size_t img_line, string xmlfilename) {
     // Second Part:
     string image_name = "";
     size_t image_width = 0;
     size_t image_height = 0;
     structures::LinkedStack<int*> coord_stack;
 
-    string image = getImage(xmlfilename, image_name, image_width, image_height);
+    string image = getImage(img_line, xmlfilename, image_name, image_width, image_height);
 
     int dataset[image_height][image_width];
     int dataset_temp[image_height][image_width];
@@ -335,6 +335,12 @@ int main() {
             dataset_temp[i][j] = 0;
             dataset_temp[i][j] = 0;
             index++;
+        }
+    }
+    
+   for (size_t i = 0; i < image_height; i++) {
+        for (size_t j = 0; j < image_width; j++) {
+            cout << dataset[i][j];
         }
     }
 
@@ -397,9 +403,43 @@ int main() {
             }
         }
     }
+    cout << image_name << " " <<  label - 1 << endl;
+}
+
+int main() {
+
+    char xmlfilename[100];
+    std::cin >> xmlfilename;
+
+    // Finds <Img> indexes
+    ifstream inFile;
+    inFile.open(xmlfilename);
+
+    structures::LinkedStack<size_t> img_lines;
+    int img_line = 0;
+    string tag = "";
+    string line = "";
+
+    while (inFile) {
+        inFile >> line;
+        for (size_t caracter = 0; caracter < line.length(); caracter++) {
+            if (line[caracter] == '<') {
+                tag = getTag(line, caracter);
+                if (tag.compare("<img>") == 0) {
+                    img_lines.push(img_line);
+                }
+            }
+        }
+        img_line++;
+    }
+    inFile.close();
+    inFile.clear();
     
-    if (!error == true) {
-        cout << image_name << " " <<  label - 1 << endl;
+    for (size_t i = 0; i < img_lines.size(); i++) {
+        bool error = doFirstPart(img_lines.pop(), xmlfilename); // Aparentemente ta dando erro quando nao deveria...
+        if (!error) {
+            doSecondPart(img_lines.pop(), xmlfilename);
+        }
     }
 
 }

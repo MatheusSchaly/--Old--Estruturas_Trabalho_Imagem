@@ -348,7 +348,6 @@ bool doFirstPart (string xmlfilename, size_t lines) {
           tag = getTag(line, caracter);;
           if (tag[1] == '/') {
             if (tag_list.empty()) {
-              cout << "error" << endl;
               inFile.close();
               inFile.clear();
               return true;
@@ -359,7 +358,6 @@ bool doFirstPart (string xmlfilename, size_t lines) {
                   tag_list.pop();
                   //cout << tag << " popped" << endl;
               } else {
-                  cout << "error" << endl;
                   inFile.close();
                   inFile.clear();
                   return true;
@@ -512,7 +510,8 @@ int main() {
     //cout << imgTagCount << " imagens"<< endl;
 
     for (size_t i = 1; i <= imgTagCount; i++) {
-      bool error = doFirstPart(xmlfilename, line_counter);
+      bool error = false;
+      error = doFirstPart(xmlfilename, line_counter);
       if (!error) {
         string image = getImage(xmlfilename, imgTagCount, i);
 
@@ -527,8 +526,11 @@ int main() {
         //cout << "Data: " << image_data << endl;
 
         //print_array(image);
-
+        
         cout << image_name << " " << doSecondPart(xmlfilename, image) << endl;
+      } else{
+        cout << "error" << endl;
+        break;
       }
     }
 }

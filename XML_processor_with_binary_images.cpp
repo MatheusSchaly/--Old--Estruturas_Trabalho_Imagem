@@ -418,7 +418,6 @@ size_t doSecondPart (string xmlfilename, string image) {
             dataset_temp[i][j] = 0;
             dataset_visited[i][j] = 0;
             dataset[i][j] = 0;
-
         }
     }
 
@@ -442,14 +441,16 @@ size_t doSecondPart (string xmlfilename, string image) {
     //     cout<<endl;
     // }
 
+    if(image_name.compare("P1030144.png")==0){
+      cout<<endl<<"DATASEEEEEEEEEEEEEEEEET!!!!"<<endl;
+      for (size_t i = 0; i < getHeight(image); i++) {
+        for (size_t j = 0; j < getWidth(image); j++) {
+          cout<<dataset[i][j];
+        }
+        cout<<endl;
+      }
+    }
 
-    // cout<<endl<<"DATASEEEEEEEEEEEEEEEEET!!!!"<<endl;
-    // for (size_t i = 0; i < getHeight(image); i++) {
-    //   for (size_t j = 0; j < getWidth(image); j++) {
-    //     cout<<dataset[i][j];
-    //   }
-    //   cout<<endl;
-    // }
 
     for (size_t i = 0; i < image_height; i++) {
         for (size_t j = 0; j < image_width; j++) {
@@ -510,6 +511,17 @@ size_t doSecondPart (string xmlfilename, string image) {
             }
         }
     }
+      if(image_name.compare("P1030144.png")==0){
+        cout<<endl<<"TEMPPPPPPPPPPPPPPPPPPPP!!!!"<<endl;
+        for (size_t i = 0; i < getHeight(image); i++) {
+          for (size_t j = 0; j < getWidth(image); j++) {
+            cout<<dataset_temp[i][j];
+          }
+          cout<<endl;
+        }
+      }
+    }
+
     return label-1;
 }
 

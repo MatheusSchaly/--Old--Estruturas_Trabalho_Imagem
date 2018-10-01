@@ -520,7 +520,7 @@ size_t doSecondPart (string xmlfilename, string image) {
           cout<<endl;
         }
       }
-    }
+
 
     return label-1;
 }

@@ -166,18 +166,18 @@ void structures::LinkedStack<T>::print_stack() {
 }
 
 string getFile(string filename) {
-   string buffer;
-   char c;
+  string buffer;
+  char c;
 
-   ifstream in(filename);
-   if (!in) {
+  ifstream in(filename);
+  if (!in) {
      cout << filename << "not found";
      exit(1);
-   }
-   while (in.get(c)) buffer += c;
-   in.close();
+  }
+  while (in.get(c)) buffer += c;
+  in.close();
 
-   return buffer;
+  return buffer;
 }
 
 #endif
@@ -371,6 +371,10 @@ bool doFirstPart (string xmlfilename, size_t lines) {
       }
     }
 
+    if(!tag_list.empty()){
+      return true;
+    }
+
     inFile.close();
     inFile.clear();
     return false;
@@ -411,12 +415,41 @@ size_t doSecondPart (string xmlfilename, string image) {
 
     for (size_t i = 0; i < image_height; i++) {
         for (size_t j = 0; j < image_width; j++) {
-            dataset[i][j] = (int)(image[index]) - 48;
             dataset_temp[i][j] = 0;
-            dataset_temp[i][j] = 0;
+            dataset_visited[i][j] = 0;
+            dataset[i][j] = 0;
+
+        }
+    }
+
+
+    for (size_t i = 0; i < image_height; i++) {
+        for (size_t j = 0; j < image_width; j++) {
+            dataset[i][j] = (int)(image_data[index]) - 48;
             index++;
         }
     }
+
+    int lolo=0;
+
+    // cout<<"ORIGINAU!!!!"<<endl;
+
+    // for (size_t i = 0; i < image_height; i++) {
+    //     for (size_t j = 0; j < image_width; j++) {
+    //         cout<<getData(image)[lolo];
+    //         lolo++;
+    //     }
+    //     cout<<endl;
+    // }
+
+
+    // cout<<endl<<"DATASEEEEEEEEEEEEEEEEET!!!!"<<endl;
+    // for (size_t i = 0; i < getHeight(image); i++) {
+    //   for (size_t j = 0; j < getWidth(image); j++) {
+    //     cout<<dataset[i][j];
+    //   }
+    //   cout<<endl;
+    // }
 
     for (size_t i = 0; i < image_height; i++) {
         for (size_t j = 0; j < image_width; j++) {
@@ -477,17 +510,15 @@ size_t doSecondPart (string xmlfilename, string image) {
             }
         }
     }
-    //cout << image_name << " " <<  label - 1 << endl;
-
     return label-1;
 }
 
 int main() {
 
-    //char xmlfilename[100];
-    //std::cin >> xmlfilename;
-    string xmlfilename;
-    xmlfilename="dataset01.xml";
+    char xmlfilename[100];
+    std::cin >> xmlfilename;
+    //string xmlfilename;
+    //xmlfilename="dataset01.xml";
     ifstream inFile;
     inFile.open(xmlfilename);
 
@@ -507,7 +538,7 @@ int main() {
     inFile.clear();
     size_t imgTagCount = getImgTagCount(xmlfilename, line_counter);
     //cout << line_counter << " linhas"<< endl;
-    //cout << imgTagCount << " imagens"<< endl;
+    cout << imgTagCount << " imagens"<< endl;
 
     for (size_t i = 1; i <= imgTagCount; i++) {
       bool error = false;
@@ -521,12 +552,12 @@ int main() {
         image_data = getData(image);
 
         //cout << "Name: " << image_name << endl;
-        //cout << "Height: " << image_height << endl;
-        //cout << "Width: " << image_width << endl;
+        // cout << "Height: " << image_height << endl;
+        // cout << "Width: " << image_width << endl;
         //cout << "Data: " << image_data << endl;
 
-        //print_array(image);
-        
+        // print_array(image);
+
         cout << image_name << " " << doSecondPart(xmlfilename, image) << endl;
       } else{
         cout << "error" << endl;

@@ -396,8 +396,9 @@ void print_array(string image) {
 size_t doSecondPart (string xmlfilename, string image) {
 
     // Second Part:
-    size_t image_height = getWidth(image);
-    size_t image_width =  getHeight(image);
+    string image_name = getName(image);
+    size_t image_height = getHeight(image);
+    size_t image_width =  getWidth(image);
     string image_data = getData(image);
 
     structures::LinkedStack<int*> coord_stack;
@@ -416,12 +417,6 @@ size_t doSecondPart (string xmlfilename, string image) {
             dataset_temp[i][j] = 0;
             dataset_temp[i][j] = 0;
             index++;
-        }
-    }
-
-   for (size_t i = 0; i < image_height; i++) {
-        for (size_t j = 0; j < image_width; j++) {
-            cout << dataset[i][j];
         }
     }
 
@@ -486,7 +481,7 @@ size_t doSecondPart (string xmlfilename, string image) {
     }
     //cout << image_name << " " <<  label - 1 << endl;
 
-    return label;
+    return label-1;
 }
 
 int main() {
@@ -513,8 +508,8 @@ int main() {
     inFile.close();
     inFile.clear();
     size_t imgTagCount = getImgTagCount(xmlfilename, line_counter);
-    cout << line_counter << " linhas"<< endl;
-    cout << imgTagCount << " imagens"<< endl;
+    //cout << line_counter << " linhas"<< endl;
+    //cout << imgTagCount << " imagens"<< endl;
 
     for (size_t i = 1; i <= imgTagCount; i++) {
       bool error = doFirstPart(xmlfilename, line_counter);
@@ -526,13 +521,14 @@ int main() {
         image_width =  getWidth(image);
         image_data = getData(image);
 
-        cout << "Name: " << image_name << endl;
-        cout << "Height: " << image_height << endl;
-        cout << "Width: " << image_width << endl;
-        cout << "Data: " << image_data << endl;
-        print_array(image);
+        //cout << "Name: " << image_name << endl;
+        //cout << "Height: " << image_height << endl;
+        //cout << "Width: " << image_width << endl;
+        //cout << "Data: " << image_data << endl;
 
-        //cout<<doSecondPart(xmlfilename, image)<<endl;
+        //print_array(image);
+
+        cout << image_name << " " << doSecondPart(xmlfilename, image) << endl;
       }
     }
 }

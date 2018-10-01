@@ -198,128 +198,209 @@ string getTag(string line, int pos) {
     return tag;
 }
 
-string getImage(size_t img_line, string xmlfilename, string &image_name, size_t &image_width, size_t &image_height) {
+size_t getImgTagCount(string xmlfilename, size_t lines) {
+  // First Part:
+  ifstream inFile;
+  inFile.open(xmlfilename);
+
+  string tag = "";
+  string line = "";
+  size_t img_tag_counter = 0;
+
+  while (inFile) { // While file still have lines to read
+    inFile >> line;
+    for (size_t caracter = 0; caracter < line.length(); caracter++) {
+      if (line[caracter] == '<') {
+        tag = getTag(line, caracter);
+        if (tag.compare("<img>") == 0) {
+          img_tag_counter++;
+        }
+      }
+    }
+  }
+
+  inFile.close();
+  inFile.clear();
+  return img_tag_counter;
+}
+
+string getImage(string xmlfilename, size_t totalImgTag, size_t index) {
     ifstream inFile;
     inFile.open(xmlfilename);
 
     string tag = "";
-    string image = "";
+    string image = "<";
     string line = "";
-    string string_height = "";
-    string string_width = "";
-    bool found = false;
-    bool jumped = false;
+    size_t imgsFounded = 0;
 
-    while (inFile) { // While file still have lines to read
-        if (!jumped) {
-            for (size_t jump; jump < img_line; jump++) {
-                inFile >> line;
-            }
-            jumped = true;
+    while (inFile) {
+      inFile >> line;
+      for (size_t caracter = 0; caracter < line.length(); caracter++) {
+        if (imgsFounded==index && tag.compare("</img>") != 0) {
+            image += line[caracter];
         }
-        inFile >> line;
-        for (size_t caracter = 0; caracter < line.length(); caracter++) {
-            if (found) {
-                image += line[caracter];
-            }
-            if (line[caracter] == '<') {
-                tag = getTag(line, caracter);
-                if (tag.compare("<name>") == 0) {
-                    caracter += 6;  // To skip the caracters name>
-                    while (line[caracter] != '<') {
-                        image_name += line[caracter];
-                        caracter ++;
-                    }
-                } else if (tag.compare("<height>") == 0) {
-                    caracter += 8;  // To skip the caracters height>
-                    while (line[caracter] != '<') {
-                        string_height += line[caracter];
-                        caracter ++;
-                    }
-                    stringstream sstream(string_height); // Converts string to size_t
-                    sstream >> image_height;
-                } else if (tag.compare("<width>") == 0) {
-                    caracter += 7;  // To skip the caracters width>
-                    while (line[caracter] != '<') {
-                        string_width += line[caracter];
-                        caracter ++;
-                    }
-                    stringstream sstream(string_width); // Converts string to size_t
-                    sstream >> image_width;
-                } else if (tag.compare("<data>") == 0) {
-                    caracter += 6;  // To skip the caracters data>
-                    found = true;
-                } else if (tag.compare("</data>") == 0) {
-                    return image.erase(image.length() - 1, image.length()); // Removes a <
-                }
-            }
+        if (line[caracter] == '<') {
+          tag = getTag(line, caracter);;
+          if (tag.compare("<img>") == 0) {
+            imgsFounded++;
+          }
         }
+      }
     }
     inFile.close();
     inFile.clear();
-    return image;
+    return image+"/img>";
 }
 
-bool doFirstPart (size_t img_line, string xmlfilename) {
+string getName(string image) {
+
+    string image_name = "";
+
+    for (int caracter = 0; caracter < image.length(); caracter++) {
+      if (image[caracter] == '<'){
+        if (getTag(image, caracter).compare("<name>") == 0) {
+          caracter += 6;
+          while (image[caracter] != '<') {
+            image_name += image[caracter];
+            caracter++;
+          }
+        }
+      }
+    }
+    return image_name;
+}
+
+size_t getHeight(string image) {
+
+  string string_height = "";
+  size_t image_height;
+
+  for (int caracter = 0; caracter < image.length(); caracter++) {
+    if (image[caracter] == '<'){
+      if (getTag(image, caracter).compare("<height>") == 0) {
+        caracter += 8;
+        while (image[caracter] != '<') {
+          string_height += image[caracter];
+          caracter ++;
+        }
+        stringstream sstream(string_height); // Converts string to size_t
+        sstream >> image_height;
+      }
+    }
+  }
+  return image_height;
+}
+
+size_t getWidth(string image) {
+
+  string string_width = "";
+  size_t image_width;
+
+  for (int caracter = 0; caracter < image.length(); caracter++) {
+    if (image[caracter] == '<'){
+      if (getTag(image, caracter).compare("<width>") == 0) {
+        caracter += 7;  // To skip the caracters height>
+        while (image[caracter] != '<') {
+          string_width += image[caracter];
+          caracter ++;
+        }
+        stringstream sstream(string_width); // Converts string to size_t
+        sstream >> image_width;
+      }
+    }
+  }
+  return image_width;
+}
+
+string getData(string image) {
+
+    string image_data = "";
+    string data[getHeight(image)][getWidth(image)];
+
+    for (int caracter = 0; caracter < image.length(); caracter++) {
+      if (image[caracter] == '<' && getTag(image, caracter).compare("<data>") == 0){
+        caracter += 6;  // To skip the caracters name>
+        while (image[caracter] != '<') {
+          image_data += image[caracter];
+          caracter++;
+        }
+      }
+    }
+    return image_data;
+}
+
+bool doFirstPart (string xmlfilename, size_t lines) {
     // First Part:
     ifstream inFile;
     inFile.open(xmlfilename);
 
     structures::LinkedStack<string> tag_list;
+    size_t line_counter = lines;
     string tag = "";
     string line = "";
-    bool jumped = false;
 
-    // Nao da pra usar <dataset> como delimitador, 
-    // ele só aparece uma vez em um conjunto de imagens
-    // o historico do codigo ta no historico do git
-
-    while (inFile) { // While file still have lines to read
-        if (!jumped) {
-            for (size_t jump; jump < img_line; jump++) {
-                inFile >> line;
+    while (inFile && line_counter > 1) {
+      //cout<<endl<<"linhas: "<<line_counter<<"/"<<lines<<endl;
+      inFile >> line;
+      line_counter--;
+      for (size_t caracter = 0; caracter < line.length(); caracter++) {
+        if (line[caracter] == '<') {
+          tag = getTag(line, caracter);;
+          if (tag[1] == '/') {
+            if (tag_list.empty()) {
+              cout << "error" << endl;
+              inFile.close();
+              inFile.clear();
+              return true;
+            } else {
+              string temp = tag.erase(1,1);
+              //cout << tag_list.top() << " == " << tag<< endl;
+              if (temp.compare(tag_list.top()) == 0) {
+                  tag_list.pop();
+                  //cout << tag << " popped" << endl;
+              } else {
+                  cout << "error" << endl;
+                  inFile.close();
+                  inFile.clear();
+                  return true;
+              }
             }
-            jumped = true;
+          } else {
+            tag_list.push(tag);
+            //cout << tag << " pushed" << endl;
+          }
         }
-        inFile >> line;
-        for (size_t caracter = 0; caracter < line.length(); caracter++) {
-            if (line[caracter] == '<') {
-                tag = getTag(line, caracter);
-                if (tag[1] == '/') {
-                    if (tag_list.empty()) {
-                        cout << "error" << endl;
-                        inFile.close();
-                        inFile.clear();
-                        return true;
-                    } else {
-                        if ((tag).compare(tag_list.top().erase(1,1)) == 0) {
-                            tag_list.pop();
-                        } else {
-                            cout << "error" << endl;
-                            inFile.close();
-                            inFile.clear();
-                            return true;
-                        }
-                    }
-                } else {
-                    tag_list.push(tag);
-                }
-            }
-        }
+      }
     }
+
     inFile.close();
     inFile.clear();
     return false;
 }
 
-void doSecondPart (size_t img_line, string xmlfilename) {
-    // Second Part:
-    string image_name = "";
-    size_t image_width = 0;
-    size_t image_height = 0;
-    structures::LinkedStack<int*> coord_stack;
+void print_array(string image) {
+  int caracter = 0;
 
-    string image = getImage(img_line, xmlfilename, image_name, image_width, image_height);
+  string temp[getHeight(image)][getWidth(image)];
+
+  for (size_t i = 0; i < getHeight(image); i++) {
+    cout<<endl;
+    for (size_t j = 0; j < getWidth(image); j++) {
+      cout<<getData(image)[caracter];
+      caracter++;
+    }
+  }
+  cout<<endl<<endl;
+}
+
+size_t doSecondPart (string xmlfilename, string image) {
+
+    // Second Part:
+    size_t image_height = getWidth(image);
+    size_t image_width =  getHeight(image);
+    string image_data = getData(image);
+
+    structures::LinkedStack<int*> coord_stack;
 
     int dataset[image_height][image_width];
     int dataset_temp[image_height][image_width];
@@ -337,7 +418,7 @@ void doSecondPart (size_t img_line, string xmlfilename) {
             index++;
         }
     }
-    
+
    for (size_t i = 0; i < image_height; i++) {
         for (size_t j = 0; j < image_width; j++) {
             cout << dataset[i][j];
@@ -403,43 +484,55 @@ void doSecondPart (size_t img_line, string xmlfilename) {
             }
         }
     }
-    cout << image_name << " " <<  label - 1 << endl;
+    //cout << image_name << " " <<  label - 1 << endl;
+
+    return label;
 }
 
 int main() {
 
-    char xmlfilename[100];
-    std::cin >> xmlfilename;
-
-    // Finds <Img> indexes
+    //char xmlfilename[100];
+    //std::cin >> xmlfilename;
+    string xmlfilename;
+    xmlfilename="dataset01.xml";
     ifstream inFile;
     inFile.open(xmlfilename);
 
-    structures::LinkedStack<size_t> img_lines;
-    int img_line = 0;
+    size_t line_counter = 0;
     string tag = "";
     string line = "";
+    string image_name = "";
+    size_t image_width = 0;
+    size_t image_height = 0;
+    string image_data = "";
 
     while (inFile) {
         inFile >> line;
-        for (size_t caracter = 0; caracter < line.length(); caracter++) {
-            if (line[caracter] == '<') {
-                tag = getTag(line, caracter);
-                if (tag.compare("<img>") == 0) {
-                    img_lines.push(img_line);
-                }
-            }
-        }
-        img_line++;
+        line_counter++;
     }
     inFile.close();
     inFile.clear();
-    
-    for (size_t i = 0; i < img_lines.size(); i++) {
-        bool error = doFirstPart(img_lines.pop(), xmlfilename); // Aparentemente ta dando erro quando nao deveria...
-        if (!error) {
-            doSecondPart(img_lines.pop(), xmlfilename);
-        }
-    }
+    size_t imgTagCount = getImgTagCount(xmlfilename, line_counter);
+    cout << line_counter << " linhas"<< endl;
+    cout << imgTagCount << " imagens"<< endl;
 
+    for (size_t i = 1; i <= imgTagCount; i++) {
+      bool error = doFirstPart(xmlfilename, line_counter);
+      if (!error) {
+        string image = getImage(xmlfilename, imgTagCount, i);
+
+        image_name = getName(image);
+        image_height = getHeight(image);
+        image_width =  getWidth(image);
+        image_data = getData(image);
+
+        cout << "Name: " << image_name << endl;
+        cout << "Height: " << image_height << endl;
+        cout << "Width: " << image_width << endl;
+        cout << "Data: " << image_data << endl;
+        print_array(image);
+
+        //cout<<doSecondPart(xmlfilename, image)<<endl;
+      }
+    }
 }

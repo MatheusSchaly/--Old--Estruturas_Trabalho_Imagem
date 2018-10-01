@@ -13,86 +13,124 @@
 #include <stdio.h>
 #include <string.h>
 #include <sstream>
-#include <list>
-#include <vector>
 
 using namespace std;
 
 namespace structures {
 
-//! class LinkedStack
+/*! Linked Stack class */
 template<typename T>
 class LinkedStack {
  public:
-    //! Constructor method of LinkedStack();
+    //! Constructor method;
     LinkedStack();
-    //! Destructor method
+    //! Destructor method);
     ~LinkedStack();
-    //! Wipe the list
-    void clear();  // limpa pilha
-    //! Puts an element in the stack
-    void push(const T& data);  // empilha
-    //! Takes an element off
-    T pop();  // desempilha
-    //! Return the first element
-    T& top() const;  // dado no topo
-    //! Return if empty
-    bool empty() const;  // pilha vazia
+    //! Wipes the list
+    void clear();
+    //! Inserts an element in the stack
+    void push(const T& data);
+    //! Removes an element
+    T pop();
+    //! Returns the first element
+    T& top() const;
+    //! Returns true if empty and false otherwise
+    bool empty() const;
     //! Returns the size of the stack
-    std::size_t size() const;  // tamanho da pilha
-    void print_stack();
+    std::size_t size() const;
 
  private:
+    //! Node class
     class Node {
      public:
+        //! Constructor with 1 parameter
+        /*! 
+          @param data node's data
+         */
         explicit Node(const T& data):
             data_{data}
         {}
+        
+        
+        //! Constructor with 2 parameters
+        /*! 
+          @param data node's data
+          @param next node's next node
+         */
         Node(const T& data, Node* next):
             data_{data},
             next_{next}
         {}
 
+        //! Node's data getter
+        /*! 
+          @return node's data
+         */ 
         T& data() {
             return data_;
-        }  // getter: info
+        }
 
-        const T& data() const {  // getter const: dado
+        //! Node's data getter constant
+        /*!
+          @return node's data constant
+         */
+        const T& data() const {
             return data_;
         }
 
-        Node* next() {  // getter: próximo
+        //! Node's next node getter
+        /*! 
+          @return node's next node
+         */
+        Node* next() {
             return next_;
         }
-        const Node* next() const {  // getter const: próximo
+        
+        //! Node's next node getter constant
+        /*! 
+          @return node's next node constant
+         */
+        const Node* next() const {
             return next_;
         }
-        void next(Node* node) {  // setter: próximo
+        
+        //! Node's next node setter
+        /*! 
+          @param node node's next node
+         */
+        void next(Node* node) {
             next_ = node;
         }
 
      private:
+        //! Node's data
         T data_;
+        //! Node's next node
         Node* next_;
     };
 
-    Node* top_;  // nodo-topo
-    std::size_t size_;  // tamanho
+    //! Top node
+    Node* top_;
+    //! Stack's current size
+    std::size_t size_;
 };
 
 }  // namespace structures
 
+//! Constructor method
 template<typename T>
 structures::LinkedStack<T>::LinkedStack() {
     top_ = nullptr;
     size_ = 0;
 }
 
+//! Destructor method
 template<typename T>
 structures::LinkedStack<T>::~LinkedStack() {
   clear();
 }
 
+//! Wipe the list
 template<typename T>
 void structures::LinkedStack<T>::clear() {
     while (!empty()) {
@@ -100,6 +138,10 @@ void structures::LinkedStack<T>::clear() {
     }
 }
 
+//! Inserts an element in the stack
+/*!
+  \param data data to be inserted
+ */
 template<typename T>
 void structures::LinkedStack<T>::push(const T& data) {
   Node *novo = new Node(data);
@@ -116,6 +158,10 @@ void structures::LinkedStack<T>::push(const T& data) {
   }
 }
 
+//! Returns the first element
+/*!
+  \return the data inside the removed element 
+ */
 template<typename T>
 T structures::LinkedStack<T>::pop() {
   Node *saiu;
@@ -133,6 +179,10 @@ T structures::LinkedStack<T>::pop() {
   }
 }
 
+//! Removes an element
+/*!
+  \return the data of the node at the stack's top
+ */
 template<typename T>
 T& structures::LinkedStack<T>::top() const {
     if (empty()) {
@@ -141,6 +191,10 @@ T& structures::LinkedStack<T>::top() const {
     return top_->data();
 }
 
+//! Returns true if empty and false otherwise
+/*!
+  \return true if empty
+ */
 template<typename T>
 bool structures::LinkedStack<T>::empty() const {
   if (size_ == 0) {
@@ -150,21 +204,20 @@ bool structures::LinkedStack<T>::empty() const {
   }
 }
 
+//! Returns the size of the stack
+/*!
+  \return stack's current size
+ */
 template<typename T>
 std::size_t structures::LinkedStack<T>::size() const {
     return size_;
 }
 
-template<typename T>
-void structures::LinkedStack<T>::print_stack() {
-    Node* node = top_;
-    for (int i = 0; i < size_; i++) {
-        cout << node->data() << " ";
-        node = node->next();
-    }
-    cout << endl;
-}
-
+//! Gets a file by name
+/*!
+  \param filename the filename to return
+  \return filename as a string
+ */
 string getFile(string filename) {
   string buffer;
   char c;
@@ -182,6 +235,12 @@ string getFile(string filename) {
 
 #endif
 
+//! Gets a complete tag
+/*!
+  \param line the tag's line
+  \param pos the tag's index
+  \return the tag found
+ */
 string getTag(string line, int pos) {
     bool closed_bracket = false;  // >
     bool close_tag = false;  // /
@@ -198,7 +257,12 @@ string getTag(string line, int pos) {
     return tag;
 }
 
-size_t getImgTagCount(string xmlfilename, size_t lines) {
+//! Counts how many "imgs" tags there are
+/*!
+  \param xmlfilename the document's filename
+  \return quantity of tags in the file
+ */
+size_t getImgTagCount(string xmlfilename) {
   // First Part:
   ifstream inFile;
   inFile.open(xmlfilename);
@@ -224,7 +288,13 @@ size_t getImgTagCount(string xmlfilename, size_t lines) {
   return img_tag_counter;
 }
 
-string getImage(string xmlfilename, size_t totalImgTag, size_t index) {
+//! Gets the complete image, containing tags and the binary data
+/*!
+  \param xmlfilename the file's name
+  \param index the image's index
+  \return the image as a string
+ */
+string getImage(string xmlfilename, size_t index) {
     ifstream inFile;
     inFile.open(xmlfilename);
 
@@ -252,6 +322,11 @@ string getImage(string xmlfilename, size_t totalImgTag, size_t index) {
     return image+"/img>";
 }
 
+//! Gets the name of the image
+/*!
+  \param image the image that contains the name
+  \return the image's name
+ */
 string getName(string image) {
 
     string image_name = "";
@@ -270,6 +345,11 @@ string getName(string image) {
     return image_name;
 }
 
+//! Gets the binary image height
+/*!
+  \param image the image to be measured
+  \return the image's height
+ */
 size_t getHeight(string image) {
 
   string string_height = "";
@@ -291,6 +371,11 @@ size_t getHeight(string image) {
   return image_height;
 }
 
+//! Gets the binary image width
+/*!
+  \param image the image to be measured
+  \return the image's width
+ */
 size_t getWidth(string image) {
 
   string string_width = "";
@@ -312,6 +397,11 @@ size_t getWidth(string image) {
   return image_width;
 }
 
+//! Gets the binary image data
+/*!
+  \param image the image where the data will be extracted
+  \return the image's binary data
+ */
 string getData(string image) {
 
     string image_data = "";
@@ -329,6 +419,16 @@ string getData(string image) {
     return image_data;
 }
 
+//! Checks if all the tags are correctly formatted
+/*!
+  Returns false and prints error if: 
+  1 - A tag is openned but not closed
+  2 - A tag is openned but the last tag in the stack is not the openned tag
+  3 - The file ends and there is still some tag in the stack
+  \param xmlfilename the name of the file
+  \param lines the line where the the procedure should start
+  \return true if there was an error, false otherwise
+ */
 bool doFirstPart (string xmlfilename, size_t lines) {
     // First Part:
     ifstream inFile;
@@ -340,7 +440,6 @@ bool doFirstPart (string xmlfilename, size_t lines) {
     string line = "";
 
     while (inFile && line_counter > 1) {
-      //cout<<endl<<"linhas: "<<line_counter<<"/"<<lines<<endl;
       inFile >> line;
       line_counter--;
       for (size_t caracter = 0; caracter < line.length(); caracter++) {
@@ -353,10 +452,8 @@ bool doFirstPart (string xmlfilename, size_t lines) {
               return true;
             } else {
               string temp = tag.erase(1,1);
-              //cout << tag_list.top() << " == " << tag<< endl;
               if (temp.compare(tag_list.top()) == 0) {
                   tag_list.pop();
-                  //cout << tag << " popped" << endl;
               } else {
                   inFile.close();
                   inFile.clear();
@@ -365,7 +462,6 @@ bool doFirstPart (string xmlfilename, size_t lines) {
             }
           } else {
             tag_list.push(tag);
-            //cout << tag << " pushed" << endl;
           }
         }
       }
@@ -395,6 +491,17 @@ void print_array(string image) {
   cout<<endl<<endl;
 }
 
+//! Counts how many blocks of 1's there are
+/*!
+  Goes through the list, element by element, from left to 
+  right until a neighbour of such element is a 1.
+  When the number 1 is found, it checks all the other neighbours 
+  and add them to the stack, giving them a label.
+  It does it continously, until all the image is visited.
+  \param xmlfilename the name of the file
+  \param image the image containing the tags and the binary data
+  \return the number of clusters of numbers 1
+ */
 size_t doSecondPart (string xmlfilename, string image) {
 
     // Second Part:
@@ -417,7 +524,6 @@ size_t doSecondPart (string xmlfilename, string image) {
         for (size_t j = 0; j < image_width; j++) {
             dataset_temp[i][j] = 0;
             dataset_visited[i][j] = 0;
-            dataset[i][j] = 0;
         }
     }
 
@@ -428,29 +534,6 @@ size_t doSecondPart (string xmlfilename, string image) {
             index++;
         }
     }
-
-    int lolo=0;
-
-    // cout<<"ORIGINAU!!!!"<<endl;
-
-    // for (size_t i = 0; i < image_height; i++) {
-    //     for (size_t j = 0; j < image_width; j++) {
-    //         cout<<getData(image)[lolo];
-    //         lolo++;
-    //     }
-    //     cout<<endl;
-    // }
-
-    if(image_name.compare("P1030144.png")==0){
-      cout<<endl<<"DATASEEEEEEEEEEEEEEEEET!!!!"<<endl;
-      for (size_t i = 0; i < getHeight(image); i++) {
-        for (size_t j = 0; j < getWidth(image); j++) {
-          cout<<dataset[i][j];
-        }
-        cout<<endl;
-      }
-    }
-
 
     for (size_t i = 0; i < image_height; i++) {
         for (size_t j = 0; j < image_width; j++) {
@@ -469,7 +552,7 @@ size_t doSecondPart (string xmlfilename, string image) {
                 i_aux = coord_stack.top()[0];
                 j_aux = coord_stack.top()[1];
                 coord_stack.pop();
-                if (i_aux-1 >= 0 && dataset[i_aux-1][j_aux] == 1 && dataset_temp[i_aux-1][j_aux] == 0) {
+                if (i_aux-1 >= 0 && dataset[i_aux-1][j_aux] == 1 && dataset_visited[i_aux-1][j_aux] == 0) {
                     int *coord;
                     coord = new int[2];
                     coord[0] = i_aux-1;
@@ -478,7 +561,7 @@ size_t doSecondPart (string xmlfilename, string image) {
                     dataset_temp[coord_stack.top()[0]][coord_stack.top()[1]] = label;
                     dataset_visited[coord_stack.top()[0]][coord_stack.top()[1]] = 1;
                 }
-                if (i_aux+1 <= image_height && dataset[i_aux+1][j_aux] == 1 && dataset_temp[i_aux+1][j_aux] == 0) {
+                if (i_aux+1 < image_height && dataset[i_aux+1][j_aux] == 1 && dataset_visited[i_aux+1][j_aux] == 0) {
                     int *coord;
                     coord = new int[2];
                     coord[0] = i_aux+1;
@@ -487,7 +570,7 @@ size_t doSecondPart (string xmlfilename, string image) {
                     dataset_temp[coord_stack.top()[0]][coord_stack.top()[1]] = label;
                     dataset_visited[coord_stack.top()[0]][coord_stack.top()[1]] = 1;
                 }
-                if (j_aux-1 >= 0 && dataset[i_aux][j_aux-1] == 1 && dataset_temp[i_aux][j_aux-1] == 0) {
+                if (j_aux-1 >= 0 && dataset[i_aux][j_aux-1] == 1 && dataset_visited[i_aux][j_aux-1] == 0) {
                     int *coord;
                     coord = new int[2];
                     coord[0] = i_aux;
@@ -496,7 +579,7 @@ size_t doSecondPart (string xmlfilename, string image) {
                     dataset_temp[coord_stack.top()[0]][coord_stack.top()[1]] = label;
                     dataset_visited[coord_stack.top()[0]][coord_stack.top()[1]] = 1;
                 }
-                if (j_aux+1 <= image_width && dataset[i_aux][j_aux+1] == 1 && dataset_temp[i_aux][j_aux+1] == 0) {
+                if (j_aux+1 < image_width && dataset[i_aux][j_aux+1] == 1 && dataset_visited[i_aux][j_aux+1] == 0) {
                     int *coord;
                     coord = new int[2];
                     coord[0] = i_aux;
@@ -511,17 +594,6 @@ size_t doSecondPart (string xmlfilename, string image) {
             }
         }
     }
-      if(image_name.compare("P1030144.png")==0){
-        cout<<endl<<"TEMPPPPPPPPPPPPPPPPPPPP!!!!"<<endl;
-        for (size_t i = 0; i < getHeight(image); i++) {
-          for (size_t j = 0; j < getWidth(image); j++) {
-            cout<<dataset_temp[i][j];
-          }
-          cout<<endl;
-        }
-      }
-
-
     return label-1;
 }
 
@@ -529,8 +601,6 @@ int main() {
 
     char xmlfilename[100];
     std::cin >> xmlfilename;
-    //string xmlfilename;
-    //xmlfilename="dataset01.xml";
     ifstream inFile;
     inFile.open(xmlfilename);
 
@@ -548,27 +618,18 @@ int main() {
     }
     inFile.close();
     inFile.clear();
-    size_t imgTagCount = getImgTagCount(xmlfilename, line_counter);
-    //cout << line_counter << " linhas"<< endl;
-    cout << imgTagCount << " imagens"<< endl;
+    size_t imgTagCount = getImgTagCount(xmlfilename);
 
     for (size_t i = 1; i <= imgTagCount; i++) {
       bool error = false;
       error = doFirstPart(xmlfilename, line_counter);
       if (!error) {
-        string image = getImage(xmlfilename, imgTagCount, i);
+        string image = getImage(xmlfilename, i);
 
         image_name = getName(image);
         image_height = getHeight(image);
         image_width =  getWidth(image);
         image_data = getData(image);
-
-        //cout << "Name: " << image_name << endl;
-        // cout << "Height: " << image_height << endl;
-        // cout << "Width: " << image_width << endl;
-        //cout << "Data: " << image_data << endl;
-
-        // print_array(image);
 
         cout << image_name << " " << doSecondPart(xmlfilename, image) << endl;
       } else{

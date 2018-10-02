@@ -1,0 +1,324 @@
+\section{Referência ao ficheiro X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}
+\label{_x_m_l__processor__with__binary__images_8cpp}\index{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp@{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}}
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$stdexcept$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+Diagrama de dependências de inclusão para X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_x_m_l__processor__with__binary__images_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Componentes}
+\begin{DoxyCompactItemize}
+\item 
+class \textbf{ structures\+::\+Linked\+Stack$<$ T $>$}
+\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \textbf{ structures}
+\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ S\+T\+R\+U\+C\+T\+U\+R\+E\+S\+\_\+\+X\+M\+L\+\_\+\+P\+R\+O\+C\+E\+S\+S\+OR}
+\end{DoxyCompactItemize}
+\subsection*{Funções}
+\begin{DoxyCompactItemize}
+\item 
+string \textbf{ get\+File} (string filename)
+\begin{DoxyCompactList}\small\item\em Gets a file by name. \end{DoxyCompactList}\item 
+string \textbf{ get\+Tag} (string line, int pos)
+\begin{DoxyCompactList}\small\item\em Gets a complete tag. \end{DoxyCompactList}\item 
+size\+\_\+t \textbf{ get\+Img\+Tag\+Count} (string xmlfilename)
+\begin{DoxyCompactList}\small\item\em Counts how many \char`\"{}imgs\char`\"{} tags there are. \end{DoxyCompactList}\item 
+string \textbf{ get\+Image} (string xmlfilename, size\+\_\+t index)
+\begin{DoxyCompactList}\small\item\em Gets the complete image, containing tags and the binary data. \end{DoxyCompactList}\item 
+string \textbf{ get\+Name} (string image)
+\begin{DoxyCompactList}\small\item\em Gets the name of the image. \end{DoxyCompactList}\item 
+size\+\_\+t \textbf{ get\+Height} (string image)
+\begin{DoxyCompactList}\small\item\em Gets the binary image height. \end{DoxyCompactList}\item 
+size\+\_\+t \textbf{ get\+Width} (string image)
+\begin{DoxyCompactList}\small\item\em Gets the binary image width. \end{DoxyCompactList}\item 
+string \textbf{ get\+Data} (string image)
+\begin{DoxyCompactList}\small\item\em Gets the binary image data. \end{DoxyCompactList}\item 
+bool \textbf{ do\+First\+Part} (string xmlfilename, size\+\_\+t lines)
+\begin{DoxyCompactList}\small\item\em Checks if all the tags are correctly formatted. \end{DoxyCompactList}\item 
+void \textbf{ print\+\_\+array} (string image)
+\item 
+size\+\_\+t \textbf{ do\+Second\+Part} (string xmlfilename, string image)
+\begin{DoxyCompactList}\small\item\em Counts how many blocks of 1\textquotesingle{}s there are. \end{DoxyCompactList}\item 
+int \textbf{ main} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Documentação das macros}
+\mbox{\label{_x_m_l__processor__with__binary__images_8cpp_ab4940889fbe16c71ac218ba807587a74}} 
+\index{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp@{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}!S\+T\+R\+U\+C\+T\+U\+R\+E\+S\+\_\+\+X\+M\+L\+\_\+\+P\+R\+O\+C\+E\+S\+S\+OR@{S\+T\+R\+U\+C\+T\+U\+R\+E\+S\+\_\+\+X\+M\+L\+\_\+\+P\+R\+O\+C\+E\+S\+S\+OR}}
+\index{S\+T\+R\+U\+C\+T\+U\+R\+E\+S\+\_\+\+X\+M\+L\+\_\+\+P\+R\+O\+C\+E\+S\+S\+OR@{S\+T\+R\+U\+C\+T\+U\+R\+E\+S\+\_\+\+X\+M\+L\+\_\+\+P\+R\+O\+C\+E\+S\+S\+OR}!X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp@{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}}
+\subsubsection{S\+T\+R\+U\+C\+T\+U\+R\+E\+S\+\_\+\+X\+M\+L\+\_\+\+P\+R\+O\+C\+E\+S\+S\+OR}
+{\footnotesize\ttfamily \#define S\+T\+R\+U\+C\+T\+U\+R\+E\+S\+\_\+\+X\+M\+L\+\_\+\+P\+R\+O\+C\+E\+S\+S\+OR}
+
+
+
+Definido na linha \textbf{ 12} do ficheiro \textbf{ X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}.
+
+
+
+\subsection{Documentação das funções}
+\mbox{\label{_x_m_l__processor__with__binary__images_8cpp_a96686cdbe38df0bb13e417f97a93fbca}} 
+\index{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp@{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}!do\+First\+Part@{do\+First\+Part}}
+\index{do\+First\+Part@{do\+First\+Part}!X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp@{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}}
+\subsubsection{do\+First\+Part()}
+{\footnotesize\ttfamily bool do\+First\+Part (\begin{DoxyParamCaption}\item[{string}]{xmlfilename,  }\item[{size\+\_\+t}]{lines }\end{DoxyParamCaption})}
+
+
+
+Checks if all the tags are correctly formatted. 
+
+Returns false and prints error if\+: 1 -\/ A tag is openned but not closed 2 -\/ A tag is openned but the last tag in the stack is not the openned tag 3 -\/ The file ends and there is still some tag in the stack 
+\begin{DoxyParams}{Parâmetros}
+{\em xmlfilename} & the name of the file \\
+\hline
+{\em lines} & the line where the the procedure should start \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+true if there was an error, false otherwise 
+\end{DoxyReturn}
+
+
+Definido na linha \textbf{ 438} do ficheiro \textbf{ X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}.
+
+\mbox{\label{_x_m_l__processor__with__binary__images_8cpp_a46eccdc4bac32fc893146702272c2a0f}} 
+\index{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp@{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}!do\+Second\+Part@{do\+Second\+Part}}
+\index{do\+Second\+Part@{do\+Second\+Part}!X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp@{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}}
+\subsubsection{do\+Second\+Part()}
+{\footnotesize\ttfamily size\+\_\+t do\+Second\+Part (\begin{DoxyParamCaption}\item[{string}]{xmlfilename,  }\item[{string}]{image }\end{DoxyParamCaption})}
+
+
+
+Counts how many blocks of 1\textquotesingle{}s there are. 
+
+Goes through the list, element by element, from left to right until a neighbour of such element is a 1. When the number 1 is found, it checks all the other neighbours and add them to the stack, giving them a label. It does it continously, until all the image is visited. 
+\begin{DoxyParams}{Parâmetros}
+{\em xmlfilename} & the name of the file \\
+\hline
+{\em image} & the image containing the tags and the binary data \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+the number of clusters of numbers 1 
+\end{DoxyReturn}
+
+
+Definido na linha \textbf{ 511} do ficheiro \textbf{ X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}.
+
+\mbox{\label{_x_m_l__processor__with__binary__images_8cpp_ab3fcc8f0037aae0c9101a32b0612da78}} 
+\index{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp@{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}!get\+Data@{get\+Data}}
+\index{get\+Data@{get\+Data}!X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp@{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}}
+\subsubsection{get\+Data()}
+{\footnotesize\ttfamily string get\+Data (\begin{DoxyParamCaption}\item[{string}]{image }\end{DoxyParamCaption})}
+
+
+
+Gets the binary image data. 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em image} & the image where the data will be extracted \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+the image\textquotesingle{}s binary data 
+\end{DoxyReturn}
+
+
+Definido na linha \textbf{ 411} do ficheiro \textbf{ X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}.
+
+\mbox{\label{_x_m_l__processor__with__binary__images_8cpp_aa6a461ba9610542965f22f062b5a1bb3}} 
+\index{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp@{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}!get\+File@{get\+File}}
+\index{get\+File@{get\+File}!X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp@{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}}
+\subsubsection{get\+File()}
+{\footnotesize\ttfamily string get\+File (\begin{DoxyParamCaption}\item[{string}]{filename }\end{DoxyParamCaption})}
+
+
+
+Gets a file by name. 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em filename} & the filename to return \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+filename as a string 
+\end{DoxyReturn}
+
+
+Definido na linha \textbf{ 227} do ficheiro \textbf{ X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}.
+
+\mbox{\label{_x_m_l__processor__with__binary__images_8cpp_aed973101a10d973ff66c0c53dbe3237f}} 
+\index{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp@{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}!get\+Height@{get\+Height}}
+\index{get\+Height@{get\+Height}!X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp@{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}}
+\subsubsection{get\+Height()}
+{\footnotesize\ttfamily size\+\_\+t get\+Height (\begin{DoxyParamCaption}\item[{string}]{image }\end{DoxyParamCaption})}
+
+
+
+Gets the binary image height. 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em image} & the image to be measured \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+the image\textquotesingle{}s height 
+\end{DoxyReturn}
+
+
+Definido na linha \textbf{ 359} do ficheiro \textbf{ X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}.
+
+\mbox{\label{_x_m_l__processor__with__binary__images_8cpp_a3ad6079ed7ff0f7088dee883421b5a95}} 
+\index{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp@{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}!get\+Image@{get\+Image}}
+\index{get\+Image@{get\+Image}!X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp@{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}}
+\subsubsection{get\+Image()}
+{\footnotesize\ttfamily string get\+Image (\begin{DoxyParamCaption}\item[{string}]{xmlfilename,  }\item[{size\+\_\+t}]{index }\end{DoxyParamCaption})}
+
+
+
+Gets the complete image, containing tags and the binary data. 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em xmlfilename} & the file\textquotesingle{}s name \\
+\hline
+{\em index} & the image\textquotesingle{}s index \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+the image as a string 
+\end{DoxyReturn}
+
+
+Definido na linha \textbf{ 303} do ficheiro \textbf{ X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}.
+
+\mbox{\label{_x_m_l__processor__with__binary__images_8cpp_a27cae01ba0e58207d09b9c9a7c5266d3}} 
+\index{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp@{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}!get\+Img\+Tag\+Count@{get\+Img\+Tag\+Count}}
+\index{get\+Img\+Tag\+Count@{get\+Img\+Tag\+Count}!X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp@{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}}
+\subsubsection{get\+Img\+Tag\+Count()}
+{\footnotesize\ttfamily size\+\_\+t get\+Img\+Tag\+Count (\begin{DoxyParamCaption}\item[{string}]{xmlfilename }\end{DoxyParamCaption})}
+
+
+
+Counts how many \char`\"{}imgs\char`\"{} tags there are. 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em xmlfilename} & the document\textquotesingle{}s filename \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+quantity of tags in the file 
+\end{DoxyReturn}
+
+
+Definido na linha \textbf{ 271} do ficheiro \textbf{ X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}.
+
+\mbox{\label{_x_m_l__processor__with__binary__images_8cpp_a0a4f54b1a5414a00e2e44d3125a5e582}} 
+\index{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp@{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}!get\+Name@{get\+Name}}
+\index{get\+Name@{get\+Name}!X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp@{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}}
+\subsubsection{get\+Name()}
+{\footnotesize\ttfamily string get\+Name (\begin{DoxyParamCaption}\item[{string}]{image }\end{DoxyParamCaption})}
+
+
+
+Gets the name of the image. 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em image} & the image that contains the name \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+the image\textquotesingle{}s name 
+\end{DoxyReturn}
+
+
+Definido na linha \textbf{ 336} do ficheiro \textbf{ X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}.
+
+\mbox{\label{_x_m_l__processor__with__binary__images_8cpp_a891425af8c2c62f13a4c0e9a0eae4e05}} 
+\index{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp@{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}!get\+Tag@{get\+Tag}}
+\index{get\+Tag@{get\+Tag}!X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp@{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}}
+\subsubsection{get\+Tag()}
+{\footnotesize\ttfamily string get\+Tag (\begin{DoxyParamCaption}\item[{string}]{line,  }\item[{int}]{pos }\end{DoxyParamCaption})}
+
+
+
+Gets a complete tag. 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em line} & the tag\textquotesingle{}s line \\
+\hline
+{\em pos} & the tag\textquotesingle{}s index \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+the tag found 
+\end{DoxyReturn}
+
+
+Definido na linha \textbf{ 250} do ficheiro \textbf{ X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}.
+
+\mbox{\label{_x_m_l__processor__with__binary__images_8cpp_a0822dbda520f18cfe7358bc35e24a798}} 
+\index{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp@{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}!get\+Width@{get\+Width}}
+\index{get\+Width@{get\+Width}!X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp@{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}}
+\subsubsection{get\+Width()}
+{\footnotesize\ttfamily size\+\_\+t get\+Width (\begin{DoxyParamCaption}\item[{string}]{image }\end{DoxyParamCaption})}
+
+
+
+Gets the binary image width. 
+
+
+\begin{DoxyParams}{Parâmetros}
+{\em image} & the image to be measured \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Retorna}
+the image\textquotesingle{}s width 
+\end{DoxyReturn}
+
+
+Definido na linha \textbf{ 385} do ficheiro \textbf{ X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}.
+
+\mbox{\label{_x_m_l__processor__with__binary__images_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
+\index{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp@{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}!main@{main}}
+\index{main@{main}!X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp@{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}}
+\subsubsection{main()}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definido na linha \textbf{ 606} do ficheiro \textbf{ X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}.
+
+\mbox{\label{_x_m_l__processor__with__binary__images_8cpp_ac2b7ae7f131e19471daf077e84c64648}} 
+\index{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp@{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}!print\+\_\+array@{print\+\_\+array}}
+\index{print\+\_\+array@{print\+\_\+array}!X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp@{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}}
+\subsubsection{print\+\_\+array()}
+{\footnotesize\ttfamily void print\+\_\+array (\begin{DoxyParamCaption}\item[{string}]{image }\end{DoxyParamCaption})}
+
+
+
+Definido na linha \textbf{ 485} do ficheiro \textbf{ X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}.
+

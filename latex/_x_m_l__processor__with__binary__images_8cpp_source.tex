@@ -1,0 +1,535 @@
+\section{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001 }
+\DoxyCodeLine{00011 \textcolor{preprocessor}{\#ifndef STRUCTURES\_XML\_PROCESSOR}}
+\DoxyCodeLine{00012 \textcolor{preprocessor}{\#define STRUCTURES\_XML\_PROCESSOR}}
+\DoxyCodeLine{00013 }
+\DoxyCodeLine{00014 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{00015 \textcolor{preprocessor}{\#include <fstream>}}
+\DoxyCodeLine{00016 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{00017 \textcolor{preprocessor}{\#include <stdexcept>}}
+\DoxyCodeLine{00018 \textcolor{preprocessor}{\#include <stdlib.h>}}
+\DoxyCodeLine{00019 \textcolor{preprocessor}{\#include <stdio.h>}}
+\DoxyCodeLine{00020 \textcolor{preprocessor}{\#include <string.h>}}
+\DoxyCodeLine{00021 \textcolor{preprocessor}{\#include <sstream>}}
+\DoxyCodeLine{00022 }
+\DoxyCodeLine{00023 \textcolor{keyword}{using namespace }std;}
+\DoxyCodeLine{00024 }
+\DoxyCodeLine{00025 \textcolor{keyword}{namespace }structures \{}
+\DoxyCodeLine{00026 }
+\DoxyCodeLine{00028 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{00029 \textcolor{keyword}{class }LinkedStack \{}
+\DoxyCodeLine{00030  \textcolor{keyword}{public}:}
+\DoxyCodeLine{00032     LinkedStack();}
+\DoxyCodeLine{00034     ~LinkedStack();}
+\DoxyCodeLine{00036     \textcolor{keywordtype}{void} clear();}
+\DoxyCodeLine{00038     \textcolor{keywordtype}{void} push(\textcolor{keyword}{const} T\& data);}
+\DoxyCodeLine{00040     T pop();}
+\DoxyCodeLine{00042     T\& top() \textcolor{keyword}{const};}
+\DoxyCodeLine{00044     \textcolor{keywordtype}{bool} empty() \textcolor{keyword}{const};}
+\DoxyCodeLine{00046     std::size\_t size() \textcolor{keyword}{const};}
+\DoxyCodeLine{00047 }
+\DoxyCodeLine{00048  \textcolor{keyword}{private}:}
+\DoxyCodeLine{00050     \textcolor{keyword}{class }Node \{}
+\DoxyCodeLine{00051      \textcolor{keyword}{public}:}
+\DoxyCodeLine{00053 }
+\DoxyCodeLine{00056         \textcolor{keyword}{explicit} Node(\textcolor{keyword}{const} T\& data):}
+\DoxyCodeLine{00057             data\_\{data\}}
+\DoxyCodeLine{00058         \{\}}
+\DoxyCodeLine{00059 }
+\DoxyCodeLine{00060 }
+\DoxyCodeLine{00062 }
+\DoxyCodeLine{00066         Node(\textcolor{keyword}{const} T\& data, Node* next):}
+\DoxyCodeLine{00067             data\_\{data\},}
+\DoxyCodeLine{00068             next\_\{next\}}
+\DoxyCodeLine{00069         \{\}}
+\DoxyCodeLine{00070 }
+\DoxyCodeLine{00072 }
+\DoxyCodeLine{00075         T\& data() \{}
+\DoxyCodeLine{00076             \textcolor{keywordflow}{return} data\_;}
+\DoxyCodeLine{00077         \}}
+\DoxyCodeLine{00078 }
+\DoxyCodeLine{00080 }
+\DoxyCodeLine{00083         \textcolor{keyword}{const} T\& data()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{00084             \textcolor{keywordflow}{return} data\_;}
+\DoxyCodeLine{00085         \}}
+\DoxyCodeLine{00086 }
+\DoxyCodeLine{00088 }
+\DoxyCodeLine{00091         Node* next() \{}
+\DoxyCodeLine{00092             \textcolor{keywordflow}{return} next\_;}
+\DoxyCodeLine{00093         \}}
+\DoxyCodeLine{00094 }
+\DoxyCodeLine{00096 }
+\DoxyCodeLine{00099         \textcolor{keyword}{const} Node* next()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{00100             \textcolor{keywordflow}{return} next\_;}
+\DoxyCodeLine{00101         \}}
+\DoxyCodeLine{00102 }
+\DoxyCodeLine{00104 }
+\DoxyCodeLine{00107         \textcolor{keywordtype}{void} next(Node* node) \{}
+\DoxyCodeLine{00108             next\_ = node;}
+\DoxyCodeLine{00109         \}}
+\DoxyCodeLine{00110 }
+\DoxyCodeLine{00111      \textcolor{keyword}{private}:}
+\DoxyCodeLine{00113         T data\_;}
+\DoxyCodeLine{00115         Node* next\_;}
+\DoxyCodeLine{00116     \};}
+\DoxyCodeLine{00117 }
+\DoxyCodeLine{00119     Node* top\_;}
+\DoxyCodeLine{00121     std::size\_t size\_;}
+\DoxyCodeLine{00122 \};}
+\DoxyCodeLine{00123 }
+\DoxyCodeLine{00124 \}  \textcolor{comment}{// namespace structures}}
+\DoxyCodeLine{00125 }
+\DoxyCodeLine{00127 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{00128 structures::LinkedStack<T>::LinkedStack() \{}
+\DoxyCodeLine{00129     top\_ = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00130     size\_ = 0;}
+\DoxyCodeLine{00131 \}}
+\DoxyCodeLine{00132 }
+\DoxyCodeLine{00134 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{00135 structures::LinkedStack<T>::~LinkedStack() \{}
+\DoxyCodeLine{00136   clear();}
+\DoxyCodeLine{00137 \}}
+\DoxyCodeLine{00138 }
+\DoxyCodeLine{00140 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{00141 \textcolor{keywordtype}{void} structures::LinkedStack<T>::clear() \{}
+\DoxyCodeLine{00142     \textcolor{keywordflow}{while} (!empty()) \{}
+\DoxyCodeLine{00143         pop();}
+\DoxyCodeLine{00144     \}}
+\DoxyCodeLine{00145 \}}
+\DoxyCodeLine{00146 }
+\DoxyCodeLine{00148 }
+\DoxyCodeLine{00151 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{00152 \textcolor{keywordtype}{void} structures::LinkedStack<T>::push(\textcolor{keyword}{const} T\& data) \{}
+\DoxyCodeLine{00153   Node *novo = \textcolor{keyword}{new} Node(data);}
+\DoxyCodeLine{00154   \textcolor{keywordflow}{if} (novo == \textcolor{keyword}{nullptr}) \{}
+\DoxyCodeLine{00155     \textcolor{keywordflow}{throw} std::out\_of\_range(\textcolor{stringliteral}{"Nodo não alocado!"});}
+\DoxyCodeLine{00156   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{00157     \textcolor{keywordflow}{if} (size\_ == 0) \{}
+\DoxyCodeLine{00158       top\_ = novo;}
+\DoxyCodeLine{00159     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{00160       novo->next(top\_);}
+\DoxyCodeLine{00161       top\_ = novo;}
+\DoxyCodeLine{00162     \}}
+\DoxyCodeLine{00163     size\_++;}
+\DoxyCodeLine{00164   \}}
+\DoxyCodeLine{00165 \}}
+\DoxyCodeLine{00166 }
+\DoxyCodeLine{00168 }
+\DoxyCodeLine{00171 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{00172 T structures::LinkedStack<T>::pop() \{}
+\DoxyCodeLine{00173   Node *saiu;}
+\DoxyCodeLine{00174   T volta;}
+\DoxyCodeLine{00175 }
+\DoxyCodeLine{00176   \textcolor{keywordflow}{if} (empty()) \{}
+\DoxyCodeLine{00177     \textcolor{keywordflow}{throw} std::out\_of\_range(\textcolor{stringliteral}{"Lista vazia, não é possivel retirar!"});}
+\DoxyCodeLine{00178   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{00179     saiu = top\_;}
+\DoxyCodeLine{00180     volta = saiu->data();}
+\DoxyCodeLine{00181     top\_ = saiu->next();}
+\DoxyCodeLine{00182     size\_ = size\_ - 1;}
+\DoxyCodeLine{00183     \textcolor{keyword}{delete} saiu;}
+\DoxyCodeLine{00184     \textcolor{keywordflow}{return} volta;}
+\DoxyCodeLine{00185   \}}
+\DoxyCodeLine{00186 \}}
+\DoxyCodeLine{00187 }
+\DoxyCodeLine{00189 }
+\DoxyCodeLine{00192 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{00193 T\& structures::LinkedStack<T>::top()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{00194     \textcolor{keywordflow}{if} (empty()) \{}
+\DoxyCodeLine{00195         \textcolor{keywordflow}{throw} std::out\_of\_range(\textcolor{stringliteral}{"Lista vazia, metodo top()"});}
+\DoxyCodeLine{00196     \}}
+\DoxyCodeLine{00197     \textcolor{keywordflow}{return} top\_->data();}
+\DoxyCodeLine{00198 \}}
+\DoxyCodeLine{00199 }
+\DoxyCodeLine{00201 }
+\DoxyCodeLine{00204 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{00205 \textcolor{keywordtype}{bool} structures::LinkedStack<T>::empty()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{00206   \textcolor{keywordflow}{if} (size\_ == 0) \{}
+\DoxyCodeLine{00207     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{00208   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{00209     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{00210   \}}
+\DoxyCodeLine{00211 \}}
+\DoxyCodeLine{00212 }
+\DoxyCodeLine{00214 }
+\DoxyCodeLine{00217 \textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{00218 std::size\_t structures::LinkedStack<T>::size()\textcolor{keyword}{ const }\{}
+\DoxyCodeLine{00219     \textcolor{keywordflow}{return} size\_;}
+\DoxyCodeLine{00220 \}}
+\DoxyCodeLine{00221 }
+\DoxyCodeLine{00223 }
+\DoxyCodeLine{00227 \textcolor{keywordtype}{string} getFile(\textcolor{keywordtype}{string} filename) \{}
+\DoxyCodeLine{00228   \textcolor{keywordtype}{string} buffer;}
+\DoxyCodeLine{00229   \textcolor{keywordtype}{char} c;}
+\DoxyCodeLine{00230 }
+\DoxyCodeLine{00231   ifstream in(filename);}
+\DoxyCodeLine{00232   \textcolor{keywordflow}{if} (!in) \{}
+\DoxyCodeLine{00233      cout << filename << \textcolor{stringliteral}{"not found"};}
+\DoxyCodeLine{00234      exit(1);}
+\DoxyCodeLine{00235   \}}
+\DoxyCodeLine{00236   \textcolor{keywordflow}{while} (in.get(c)) buffer += c;}
+\DoxyCodeLine{00237   in.close();}
+\DoxyCodeLine{00238 }
+\DoxyCodeLine{00239   \textcolor{keywordflow}{return} buffer;}
+\DoxyCodeLine{00240 \}}
+\DoxyCodeLine{00241 }
+\DoxyCodeLine{00242 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00243 }
+\DoxyCodeLine{00245 }
+\DoxyCodeLine{00250 \textcolor{keywordtype}{string} getTag(\textcolor{keywordtype}{string} line, \textcolor{keywordtype}{int} pos) \{}
+\DoxyCodeLine{00251     \textcolor{keywordtype}{bool} closed\_bracket = \textcolor{keyword}{false};  \textcolor{comment}{// >}}
+\DoxyCodeLine{00252     \textcolor{keywordtype}{bool} close\_tag = \textcolor{keyword}{false};  \textcolor{comment}{// /}}
+\DoxyCodeLine{00253 }
+\DoxyCodeLine{00254     \textcolor{keywordtype}{string} tag = \textcolor{stringliteral}{""};}
+\DoxyCodeLine{00255     \textcolor{keywordtype}{size\_t} caracter = pos;}
+\DoxyCodeLine{00256     \textcolor{keywordflow}{while} (closed\_bracket == \textcolor{keyword}{false}) \{}
+\DoxyCodeLine{00257         \textcolor{keywordflow}{if}(line[caracter] == \textcolor{charliteral}{'>'}) \{}
+\DoxyCodeLine{00258             closed\_bracket = \textcolor{keyword}{true};}
+\DoxyCodeLine{00259         \}}
+\DoxyCodeLine{00260         tag += line[caracter];}
+\DoxyCodeLine{00261         caracter++;}
+\DoxyCodeLine{00262     \}}
+\DoxyCodeLine{00263     \textcolor{keywordflow}{return} tag;}
+\DoxyCodeLine{00264 \}}
+\DoxyCodeLine{00265 }
+\DoxyCodeLine{00267 }
+\DoxyCodeLine{00271 \textcolor{keywordtype}{size\_t} getImgTagCount(\textcolor{keywordtype}{string} xmlfilename) \{}
+\DoxyCodeLine{00272   \textcolor{comment}{// First Part:}}
+\DoxyCodeLine{00273   ifstream inFile;}
+\DoxyCodeLine{00274   inFile.open(xmlfilename);}
+\DoxyCodeLine{00275 }
+\DoxyCodeLine{00276   \textcolor{keywordtype}{string} tag = \textcolor{stringliteral}{""};}
+\DoxyCodeLine{00277   \textcolor{keywordtype}{string} line = \textcolor{stringliteral}{""};}
+\DoxyCodeLine{00278   \textcolor{keywordtype}{size\_t} img\_tag\_counter = 0;}
+\DoxyCodeLine{00279 }
+\DoxyCodeLine{00280   \textcolor{keywordflow}{while} (inFile) \{ \textcolor{comment}{// While file still have lines to read}}
+\DoxyCodeLine{00281     inFile >> line;}
+\DoxyCodeLine{00282     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} caracter = 0; caracter < line.length(); caracter++) \{}
+\DoxyCodeLine{00283       \textcolor{keywordflow}{if} (line[caracter] == \textcolor{charliteral}{'<'}) \{}
+\DoxyCodeLine{00284         tag = getTag(line, caracter);}
+\DoxyCodeLine{00285         \textcolor{keywordflow}{if} (tag.compare(\textcolor{stringliteral}{"<img>"}) == 0) \{}
+\DoxyCodeLine{00286           img\_tag\_counter++;}
+\DoxyCodeLine{00287         \}}
+\DoxyCodeLine{00288       \}}
+\DoxyCodeLine{00289     \}}
+\DoxyCodeLine{00290   \}}
+\DoxyCodeLine{00291 }
+\DoxyCodeLine{00292   inFile.close();}
+\DoxyCodeLine{00293   inFile.clear();}
+\DoxyCodeLine{00294   \textcolor{keywordflow}{return} img\_tag\_counter;}
+\DoxyCodeLine{00295 \}}
+\DoxyCodeLine{00296 }
+\DoxyCodeLine{00298 }
+\DoxyCodeLine{00303 \textcolor{keywordtype}{string} getImage(\textcolor{keywordtype}{string} xmlfilename, \textcolor{keywordtype}{size\_t} index) \{}
+\DoxyCodeLine{00304     ifstream inFile;}
+\DoxyCodeLine{00305     inFile.open(xmlfilename);}
+\DoxyCodeLine{00306 }
+\DoxyCodeLine{00307     \textcolor{keywordtype}{string} tag = \textcolor{stringliteral}{""};}
+\DoxyCodeLine{00308     \textcolor{keywordtype}{string} image = \textcolor{stringliteral}{"<"};}
+\DoxyCodeLine{00309     \textcolor{keywordtype}{string} line = \textcolor{stringliteral}{""};}
+\DoxyCodeLine{00310     \textcolor{keywordtype}{size\_t} imgsFounded = 0;}
+\DoxyCodeLine{00311 }
+\DoxyCodeLine{00312     \textcolor{keywordflow}{while} (inFile) \{}
+\DoxyCodeLine{00313       inFile >> line;}
+\DoxyCodeLine{00314       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} caracter = 0; caracter < line.length(); caracter++) \{}
+\DoxyCodeLine{00315         \textcolor{keywordflow}{if} (imgsFounded==index \&\& tag.compare(\textcolor{stringliteral}{"</img>"}) != 0) \{}
+\DoxyCodeLine{00316             image += line[caracter];}
+\DoxyCodeLine{00317         \}}
+\DoxyCodeLine{00318         \textcolor{keywordflow}{if} (line[caracter] == \textcolor{charliteral}{'<'}) \{}
+\DoxyCodeLine{00319           tag = getTag(line, caracter);;}
+\DoxyCodeLine{00320           \textcolor{keywordflow}{if} (tag.compare(\textcolor{stringliteral}{"<img>"}) == 0) \{}
+\DoxyCodeLine{00321             imgsFounded++;}
+\DoxyCodeLine{00322           \}}
+\DoxyCodeLine{00323         \}}
+\DoxyCodeLine{00324       \}}
+\DoxyCodeLine{00325     \}}
+\DoxyCodeLine{00326     inFile.close();}
+\DoxyCodeLine{00327     inFile.clear();}
+\DoxyCodeLine{00328     \textcolor{keywordflow}{return} image+\textcolor{stringliteral}{"/img>"};}
+\DoxyCodeLine{00329 \}}
+\DoxyCodeLine{00330 }
+\DoxyCodeLine{00332 }
+\DoxyCodeLine{00336 \textcolor{keywordtype}{string} getName(\textcolor{keywordtype}{string} image) \{}
+\DoxyCodeLine{00337 }
+\DoxyCodeLine{00338     \textcolor{keywordtype}{string} image\_name = \textcolor{stringliteral}{""};}
+\DoxyCodeLine{00339 }
+\DoxyCodeLine{00340     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} caracter = 0; caracter < image.length(); caracter++) \{}
+\DoxyCodeLine{00341       \textcolor{keywordflow}{if} (image[caracter] == \textcolor{charliteral}{'<'})\{}
+\DoxyCodeLine{00342         \textcolor{keywordflow}{if} (getTag(image, caracter).compare(\textcolor{stringliteral}{"<name>"}) == 0) \{}
+\DoxyCodeLine{00343           caracter += 6;}
+\DoxyCodeLine{00344           \textcolor{keywordflow}{while} (image[caracter] != \textcolor{charliteral}{'<'}) \{}
+\DoxyCodeLine{00345             image\_name += image[caracter];}
+\DoxyCodeLine{00346             caracter++;}
+\DoxyCodeLine{00347           \}}
+\DoxyCodeLine{00348         \}}
+\DoxyCodeLine{00349       \}}
+\DoxyCodeLine{00350     \}}
+\DoxyCodeLine{00351     \textcolor{keywordflow}{return} image\_name;}
+\DoxyCodeLine{00352 \}}
+\DoxyCodeLine{00353 }
+\DoxyCodeLine{00355 }
+\DoxyCodeLine{00359 \textcolor{keywordtype}{size\_t} getHeight(\textcolor{keywordtype}{string} image) \{}
+\DoxyCodeLine{00360 }
+\DoxyCodeLine{00361   \textcolor{keywordtype}{string} string\_height = \textcolor{stringliteral}{""};}
+\DoxyCodeLine{00362   \textcolor{keywordtype}{size\_t} image\_height;}
+\DoxyCodeLine{00363 }
+\DoxyCodeLine{00364   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} caracter = 0; caracter < image.length(); caracter++) \{}
+\DoxyCodeLine{00365     \textcolor{keywordflow}{if} (image[caracter] == \textcolor{charliteral}{'<'})\{}
+\DoxyCodeLine{00366       \textcolor{keywordflow}{if} (getTag(image, caracter).compare(\textcolor{stringliteral}{"<height>"}) == 0) \{}
+\DoxyCodeLine{00367         caracter += 8;}
+\DoxyCodeLine{00368         \textcolor{keywordflow}{while} (image[caracter] != \textcolor{charliteral}{'<'}) \{}
+\DoxyCodeLine{00369           string\_height += image[caracter];}
+\DoxyCodeLine{00370           caracter ++;}
+\DoxyCodeLine{00371         \}}
+\DoxyCodeLine{00372         stringstream sstream(string\_height); \textcolor{comment}{// Converts string to size\_t}}
+\DoxyCodeLine{00373         sstream >> image\_height;}
+\DoxyCodeLine{00374       \}}
+\DoxyCodeLine{00375     \}}
+\DoxyCodeLine{00376   \}}
+\DoxyCodeLine{00377   \textcolor{keywordflow}{return} image\_height;}
+\DoxyCodeLine{00378 \}}
+\DoxyCodeLine{00379 }
+\DoxyCodeLine{00381 }
+\DoxyCodeLine{00385 \textcolor{keywordtype}{size\_t} getWidth(\textcolor{keywordtype}{string} image) \{}
+\DoxyCodeLine{00386 }
+\DoxyCodeLine{00387   \textcolor{keywordtype}{string} string\_width = \textcolor{stringliteral}{""};}
+\DoxyCodeLine{00388   \textcolor{keywordtype}{size\_t} image\_width;}
+\DoxyCodeLine{00389 }
+\DoxyCodeLine{00390   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} caracter = 0; caracter < image.length(); caracter++) \{}
+\DoxyCodeLine{00391     \textcolor{keywordflow}{if} (image[caracter] == \textcolor{charliteral}{'<'})\{}
+\DoxyCodeLine{00392       \textcolor{keywordflow}{if} (getTag(image, caracter).compare(\textcolor{stringliteral}{"<width>"}) == 0) \{}
+\DoxyCodeLine{00393         caracter += 7;  \textcolor{comment}{// To skip the caracters height>}}
+\DoxyCodeLine{00394         \textcolor{keywordflow}{while} (image[caracter] != \textcolor{charliteral}{'<'}) \{}
+\DoxyCodeLine{00395           string\_width += image[caracter];}
+\DoxyCodeLine{00396           caracter ++;}
+\DoxyCodeLine{00397         \}}
+\DoxyCodeLine{00398         stringstream sstream(string\_width); \textcolor{comment}{// Converts string to size\_t}}
+\DoxyCodeLine{00399         sstream >> image\_width;}
+\DoxyCodeLine{00400       \}}
+\DoxyCodeLine{00401     \}}
+\DoxyCodeLine{00402   \}}
+\DoxyCodeLine{00403   \textcolor{keywordflow}{return} image\_width;}
+\DoxyCodeLine{00404 \}}
+\DoxyCodeLine{00405 }
+\DoxyCodeLine{00407 }
+\DoxyCodeLine{00411 \textcolor{keywordtype}{string} getData(\textcolor{keywordtype}{string} image) \{}
+\DoxyCodeLine{00412 }
+\DoxyCodeLine{00413     \textcolor{keywordtype}{string} image\_data = \textcolor{stringliteral}{""};}
+\DoxyCodeLine{00414     \textcolor{keywordtype}{string} data[getHeight(image)][getWidth(image)];}
+\DoxyCodeLine{00415 }
+\DoxyCodeLine{00416     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} caracter = 0; caracter < image.length(); caracter++) \{}
+\DoxyCodeLine{00417       \textcolor{keywordflow}{if} (image[caracter] == \textcolor{charliteral}{'<'} \&\& getTag(image, caracter).compare(\textcolor{stringliteral}{"<data>"}) == 0)\{}
+\DoxyCodeLine{00418         caracter += 6;  \textcolor{comment}{// To skip the caracters name>}}
+\DoxyCodeLine{00419         \textcolor{keywordflow}{while} (image[caracter] != \textcolor{charliteral}{'<'}) \{}
+\DoxyCodeLine{00420           image\_data += image[caracter];}
+\DoxyCodeLine{00421           caracter++;}
+\DoxyCodeLine{00422         \}}
+\DoxyCodeLine{00423       \}}
+\DoxyCodeLine{00424     \}}
+\DoxyCodeLine{00425     \textcolor{keywordflow}{return} image\_data;}
+\DoxyCodeLine{00426 \}}
+\DoxyCodeLine{00427 }
+\DoxyCodeLine{00429 }
+\DoxyCodeLine{00438 \textcolor{keywordtype}{bool} doFirstPart (\textcolor{keywordtype}{string} xmlfilename, \textcolor{keywordtype}{size\_t} lines) \{}
+\DoxyCodeLine{00439     \textcolor{comment}{// First Part:}}
+\DoxyCodeLine{00440     ifstream inFile;}
+\DoxyCodeLine{00441     inFile.open(xmlfilename);}
+\DoxyCodeLine{00442 }
+\DoxyCodeLine{00443     structures::LinkedStack<string> tag\_list;}
+\DoxyCodeLine{00444     \textcolor{keywordtype}{size\_t} line\_counter = lines;}
+\DoxyCodeLine{00445     \textcolor{keywordtype}{string} tag = \textcolor{stringliteral}{""};}
+\DoxyCodeLine{00446     \textcolor{keywordtype}{string} line = \textcolor{stringliteral}{""};}
+\DoxyCodeLine{00447 }
+\DoxyCodeLine{00448     \textcolor{keywordflow}{while} (inFile \&\& line\_counter > 1) \{}
+\DoxyCodeLine{00449       inFile >> line;}
+\DoxyCodeLine{00450       line\_counter--;}
+\DoxyCodeLine{00451       \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} caracter = 0; caracter < line.length(); caracter++) \{}
+\DoxyCodeLine{00452         \textcolor{keywordflow}{if} (line[caracter] == \textcolor{charliteral}{'<'}) \{}
+\DoxyCodeLine{00453           tag = getTag(line, caracter);;}
+\DoxyCodeLine{00454           \textcolor{keywordflow}{if} (tag[1] == \textcolor{charliteral}{'/'}) \{}
+\DoxyCodeLine{00455             \textcolor{keywordflow}{if} (tag\_list.empty()) \{}
+\DoxyCodeLine{00456               inFile.close();}
+\DoxyCodeLine{00457               inFile.clear();}
+\DoxyCodeLine{00458               \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{00459             \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{00460               \textcolor{keywordtype}{string} temp = tag.erase(1,1);}
+\DoxyCodeLine{00461               \textcolor{keywordflow}{if} (temp.compare(tag\_list.top()) == 0) \{}
+\DoxyCodeLine{00462                   tag\_list.pop();}
+\DoxyCodeLine{00463               \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{00464                   inFile.close();}
+\DoxyCodeLine{00465                   inFile.clear();}
+\DoxyCodeLine{00466                   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{00467               \}}
+\DoxyCodeLine{00468             \}}
+\DoxyCodeLine{00469           \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{00470             tag\_list.push(tag);}
+\DoxyCodeLine{00471           \}}
+\DoxyCodeLine{00472         \}}
+\DoxyCodeLine{00473       \}}
+\DoxyCodeLine{00474     \}}
+\DoxyCodeLine{00475 }
+\DoxyCodeLine{00476     \textcolor{keywordflow}{if}(!tag\_list.empty())\{}
+\DoxyCodeLine{00477       \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{00478     \}}
+\DoxyCodeLine{00479 }
+\DoxyCodeLine{00480     inFile.close();}
+\DoxyCodeLine{00481     inFile.clear();}
+\DoxyCodeLine{00482     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{00483 \}}
+\DoxyCodeLine{00484 }
+\DoxyCodeLine{00485 \textcolor{keywordtype}{void} print\_array(\textcolor{keywordtype}{string} image) \{}
+\DoxyCodeLine{00486   \textcolor{keywordtype}{int} caracter = 0;}
+\DoxyCodeLine{00487 }
+\DoxyCodeLine{00488   \textcolor{keywordtype}{string} temp[getHeight(image)][getWidth(image)];}
+\DoxyCodeLine{00489 }
+\DoxyCodeLine{00490   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} i = 0; i < getHeight(image); i++) \{}
+\DoxyCodeLine{00491     cout<<endl;}
+\DoxyCodeLine{00492     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} j = 0; j < getWidth(image); j++) \{}
+\DoxyCodeLine{00493       cout<<getData(image)[caracter];}
+\DoxyCodeLine{00494       caracter++;}
+\DoxyCodeLine{00495     \}}
+\DoxyCodeLine{00496   \}}
+\DoxyCodeLine{00497   cout<<endl<<endl;}
+\DoxyCodeLine{00498 \}}
+\DoxyCodeLine{00499 }
+\DoxyCodeLine{00501 }
+\DoxyCodeLine{00511 \textcolor{keywordtype}{size\_t} doSecondPart (\textcolor{keywordtype}{string} xmlfilename, \textcolor{keywordtype}{string} image) \{}
+\DoxyCodeLine{00512 }
+\DoxyCodeLine{00513     \textcolor{comment}{// Second Part:}}
+\DoxyCodeLine{00514     \textcolor{keywordtype}{string} image\_name = getName(image);}
+\DoxyCodeLine{00515     \textcolor{keywordtype}{size\_t} image\_height = getHeight(image);}
+\DoxyCodeLine{00516     \textcolor{keywordtype}{size\_t} image\_width =  getWidth(image);}
+\DoxyCodeLine{00517     \textcolor{keywordtype}{string} image\_data = getData(image);}
+\DoxyCodeLine{00518 }
+\DoxyCodeLine{00519     structures::LinkedStack<int*> coord\_stack;}
+\DoxyCodeLine{00520 }
+\DoxyCodeLine{00521     \textcolor{keywordtype}{int} dataset[image\_height][image\_width];}
+\DoxyCodeLine{00522     \textcolor{keywordtype}{int} dataset\_temp[image\_height][image\_width];}
+\DoxyCodeLine{00523     \textcolor{keywordtype}{int} dataset\_visited[image\_height][image\_width];}
+\DoxyCodeLine{00524     \textcolor{keywordtype}{int} index = 0;}
+\DoxyCodeLine{00525     \textcolor{keywordtype}{int} label = 1;}
+\DoxyCodeLine{00526     \textcolor{keywordtype}{int} i\_aux = 0;}
+\DoxyCodeLine{00527     \textcolor{keywordtype}{int} j\_aux = 0;}
+\DoxyCodeLine{00528 }
+\DoxyCodeLine{00529     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} i = 0; i < image\_height; i++) \{}
+\DoxyCodeLine{00530         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} j = 0; j < image\_width; j++) \{}
+\DoxyCodeLine{00531             dataset\_temp[i][j] = 0;}
+\DoxyCodeLine{00532             dataset\_visited[i][j] = 0;}
+\DoxyCodeLine{00533         \}}
+\DoxyCodeLine{00534     \}}
+\DoxyCodeLine{00535 }
+\DoxyCodeLine{00536 }
+\DoxyCodeLine{00537     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} i = 0; i < image\_height; i++) \{}
+\DoxyCodeLine{00538         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} j = 0; j < image\_width; j++) \{}
+\DoxyCodeLine{00539             dataset[i][j] = (int)(image\_data[index]) - 48;}
+\DoxyCodeLine{00540             index++;}
+\DoxyCodeLine{00541         \}}
+\DoxyCodeLine{00542     \}}
+\DoxyCodeLine{00543 }
+\DoxyCodeLine{00544     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} i = 0; i < image\_height; i++) \{}
+\DoxyCodeLine{00545         \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} j = 0; j < image\_width; j++) \{}
+\DoxyCodeLine{00546             \textcolor{keywordflow}{if} (dataset[i][j] == 1 \&\& dataset\_visited[i][j] != 1) \{}
+\DoxyCodeLine{00547                 \textcolor{keywordtype}{int} *coord;}
+\DoxyCodeLine{00548                 coord = \textcolor{keyword}{new} \textcolor{keywordtype}{int}[2];}
+\DoxyCodeLine{00549                 coord[0] = i;}
+\DoxyCodeLine{00550                 coord[1] = j;}
+\DoxyCodeLine{00551                 coord\_stack.push(coord);}
+\DoxyCodeLine{00552                 dataset\_visited[i][j] = 1;}
+\DoxyCodeLine{00553                 dataset\_temp[i][j] = label;}
+\DoxyCodeLine{00554                 i\_aux = i;}
+\DoxyCodeLine{00555                 j\_aux = j;}
+\DoxyCodeLine{00556             \}}
+\DoxyCodeLine{00557             \textcolor{keywordflow}{while} (!coord\_stack.empty()) \{}
+\DoxyCodeLine{00558                 i\_aux = coord\_stack.top()[0];}
+\DoxyCodeLine{00559                 j\_aux = coord\_stack.top()[1];}
+\DoxyCodeLine{00560                 coord\_stack.pop();}
+\DoxyCodeLine{00561                 \textcolor{keywordflow}{if} (i\_aux-1 >= 0 \&\& dataset[i\_aux-1][j\_aux] == 1 \&\& dataset\_visited[i\_aux-1][j\_aux] == 0) \{}
+\DoxyCodeLine{00562                     \textcolor{keywordtype}{int} *coord;}
+\DoxyCodeLine{00563                     coord = \textcolor{keyword}{new} \textcolor{keywordtype}{int}[2];}
+\DoxyCodeLine{00564                     coord[0] = i\_aux-1;}
+\DoxyCodeLine{00565                     coord[1] = j\_aux;}
+\DoxyCodeLine{00566                     coord\_stack.push(coord);}
+\DoxyCodeLine{00567                     dataset\_temp[coord\_stack.top()[0]][coord\_stack.top()[1]] = label;}
+\DoxyCodeLine{00568                     dataset\_visited[coord\_stack.top()[0]][coord\_stack.top()[1]] = 1;}
+\DoxyCodeLine{00569                 \}}
+\DoxyCodeLine{00570                 \textcolor{keywordflow}{if} (i\_aux+1 < image\_height \&\& dataset[i\_aux+1][j\_aux] == 1 \&\& dataset\_visited[i\_aux+1][j\_aux] == 0) \{}
+\DoxyCodeLine{00571                     \textcolor{keywordtype}{int} *coord;}
+\DoxyCodeLine{00572                     coord = \textcolor{keyword}{new} \textcolor{keywordtype}{int}[2];}
+\DoxyCodeLine{00573                     coord[0] = i\_aux+1;}
+\DoxyCodeLine{00574                     coord[1] = j\_aux;}
+\DoxyCodeLine{00575                     coord\_stack.push(coord);}
+\DoxyCodeLine{00576                     dataset\_temp[coord\_stack.top()[0]][coord\_stack.top()[1]] = label;}
+\DoxyCodeLine{00577                     dataset\_visited[coord\_stack.top()[0]][coord\_stack.top()[1]] = 1;}
+\DoxyCodeLine{00578                 \}}
+\DoxyCodeLine{00579                 \textcolor{keywordflow}{if} (j\_aux-1 >= 0 \&\& dataset[i\_aux][j\_aux-1] == 1 \&\& dataset\_visited[i\_aux][j\_aux-1] == 0) \{}
+\DoxyCodeLine{00580                     \textcolor{keywordtype}{int} *coord;}
+\DoxyCodeLine{00581                     coord = \textcolor{keyword}{new} \textcolor{keywordtype}{int}[2];}
+\DoxyCodeLine{00582                     coord[0] = i\_aux;}
+\DoxyCodeLine{00583                     coord[1] = j\_aux-1;}
+\DoxyCodeLine{00584                     coord\_stack.push(coord);}
+\DoxyCodeLine{00585                     dataset\_temp[coord\_stack.top()[0]][coord\_stack.top()[1]] = label;}
+\DoxyCodeLine{00586                     dataset\_visited[coord\_stack.top()[0]][coord\_stack.top()[1]] = 1;}
+\DoxyCodeLine{00587                 \}}
+\DoxyCodeLine{00588                 \textcolor{keywordflow}{if} (j\_aux+1 < image\_width \&\& dataset[i\_aux][j\_aux+1] == 1 \&\& dataset\_visited[i\_aux][j\_aux+1] == 0) \{}
+\DoxyCodeLine{00589                     \textcolor{keywordtype}{int} *coord;}
+\DoxyCodeLine{00590                     coord = \textcolor{keyword}{new} \textcolor{keywordtype}{int}[2];}
+\DoxyCodeLine{00591                     coord[0] = i\_aux;}
+\DoxyCodeLine{00592                     coord[1] = j\_aux+1;}
+\DoxyCodeLine{00593                     coord\_stack.push(coord);}
+\DoxyCodeLine{00594                     dataset\_temp[coord\_stack.top()[0]][coord\_stack.top()[1]] = label;}
+\DoxyCodeLine{00595                     dataset\_visited[coord\_stack.top()[0]][coord\_stack.top()[1]] = 1;}
+\DoxyCodeLine{00596                 \}}
+\DoxyCodeLine{00597                 \textcolor{keywordflow}{if} (coord\_stack.empty()) \{}
+\DoxyCodeLine{00598                     label++;}
+\DoxyCodeLine{00599                 \}}
+\DoxyCodeLine{00600             \}}
+\DoxyCodeLine{00601         \}}
+\DoxyCodeLine{00602     \}}
+\DoxyCodeLine{00603     \textcolor{keywordflow}{return} label-1;}
+\DoxyCodeLine{00604 \}}
+\DoxyCodeLine{00605 }
+\DoxyCodeLine{00606 \textcolor{keywordtype}{int} main() \{}
+\DoxyCodeLine{00607 }
+\DoxyCodeLine{00608     \textcolor{keywordtype}{char} xmlfilename[100];}
+\DoxyCodeLine{00609     std::cin >> xmlfilename;}
+\DoxyCodeLine{00610     ifstream inFile;}
+\DoxyCodeLine{00611     inFile.open(xmlfilename);}
+\DoxyCodeLine{00612 }
+\DoxyCodeLine{00613     \textcolor{keywordtype}{size\_t} line\_counter = 0;}
+\DoxyCodeLine{00614     \textcolor{keywordtype}{string} tag = \textcolor{stringliteral}{""};}
+\DoxyCodeLine{00615     \textcolor{keywordtype}{string} line = \textcolor{stringliteral}{""};}
+\DoxyCodeLine{00616     \textcolor{keywordtype}{string} image\_name = \textcolor{stringliteral}{""};}
+\DoxyCodeLine{00617     \textcolor{keywordtype}{size\_t} image\_width = 0;}
+\DoxyCodeLine{00618     \textcolor{keywordtype}{size\_t} image\_height = 0;}
+\DoxyCodeLine{00619     \textcolor{keywordtype}{string} image\_data = \textcolor{stringliteral}{""};}
+\DoxyCodeLine{00620 }
+\DoxyCodeLine{00621     \textcolor{keywordflow}{while} (inFile) \{}
+\DoxyCodeLine{00622         inFile >> line;}
+\DoxyCodeLine{00623         line\_counter++;}
+\DoxyCodeLine{00624     \}}
+\DoxyCodeLine{00625     inFile.close();}
+\DoxyCodeLine{00626     inFile.clear();}
+\DoxyCodeLine{00627     \textcolor{keywordtype}{size\_t} imgTagCount = getImgTagCount(xmlfilename);}
+\DoxyCodeLine{00628 }
+\DoxyCodeLine{00629     \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} i = 1; i <= imgTagCount; i++) \{}
+\DoxyCodeLine{00630       \textcolor{keywordtype}{bool} error = \textcolor{keyword}{false};}
+\DoxyCodeLine{00631       error = doFirstPart(xmlfilename, line\_counter);}
+\DoxyCodeLine{00632       \textcolor{keywordflow}{if} (!error) \{}
+\DoxyCodeLine{00633         \textcolor{keywordtype}{string} image = getImage(xmlfilename, i);}
+\DoxyCodeLine{00634 }
+\DoxyCodeLine{00635         image\_name = getName(image);}
+\DoxyCodeLine{00636         image\_height = getHeight(image);}
+\DoxyCodeLine{00637         image\_width =  getWidth(image);}
+\DoxyCodeLine{00638         image\_data = getData(image);}
+\DoxyCodeLine{00639 }
+\DoxyCodeLine{00640         cout << image\_name << \textcolor{stringliteral}{" "} << doSecondPart(xmlfilename, image) << endl;}
+\DoxyCodeLine{00641       \} \textcolor{keywordflow}{else}\{}
+\DoxyCodeLine{00642         cout << \textcolor{stringliteral}{"error"} << endl;}
+\DoxyCodeLine{00643         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00644       \}}
+\DoxyCodeLine{00645     \}}
+\DoxyCodeLine{00646 \}}
+
+\end{DoxyCode}

@@ -5,7 +5,8 @@ var indexSectionsWithContent =
   2: "s",
   3: "x",
   4: "cdeglmpst~",
-  5: "s"
+  5: "s",
+  6: "x"
 };
 
 var indexSectionNames =
@@ -15,16 +16,18 @@ var indexSectionNames =
   2: "namespaces",
   3: "files",
   4: "functions",
-  5: "defines"
+  5: "defines",
+  6: "pages"
 };
 
 var indexSectionLabels =
 {
-  0: "Todos",
+  0: "Tudo",
   1: "Classes",
   2: "Namespaces",
-  3: "Arquivos",
+  3: "Ficheiros",
   4: "Funções",
-  5: "Definições e Macros"
+  5: "Macros",
+  6: "Páginas"
 };
 

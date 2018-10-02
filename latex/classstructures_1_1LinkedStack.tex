@@ -1,6 +1,6 @@
-\hypertarget{classstructures_1_1LinkedStack}{}\section{structures\+:\+:Linked\+Stack$<$ T $>$ Class Template Reference}
+\hypertarget{classstructures_1_1LinkedStack}{}\section{Referência do $<$em$>$Template$<$/em$>$ da Classe structures\+:\+:Linked\+Stack$<$ T $>$}
 \label{classstructures_1_1LinkedStack}\index{structures\+::\+Linked\+Stack$<$ T $>$@{structures\+::\+Linked\+Stack$<$ T $>$}}
-\subsection*{Public Member Functions}
+\subsection*{Membros Públicos}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{classstructures_1_1LinkedStack_a546b827cccaa49b4f470110bc3a9004e}{Linked\+Stack}} ()
@@ -21,13 +21,17 @@ std\+::size\+\_\+t \mbox{\hyperlink{classstructures_1_1LinkedStack_ae1ca6a5a9b83
 \begin{DoxyCompactList}\small\item\em Returns the size of the stack. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
-\subsection{Detailed Description}
+\subsection{Descrição detalhada}
 \subsubsection*{template$<$typename T$>$\newline
 class structures\+::\+Linked\+Stack$<$ T $>$}
 
 Linked Stack class 
 
-\subsection{Constructor \& Destructor Documentation}
+Definição na linha 23 do arquivo X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp.
+
+
+
+\subsection{Construtores e Destrutores}
 \mbox{\Hypertarget{classstructures_1_1LinkedStack_a546b827cccaa49b4f470110bc3a9004e}\label{classstructures_1_1LinkedStack_a546b827cccaa49b4f470110bc3a9004e}} 
 \index{structures\+::\+Linked\+Stack@{structures\+::\+Linked\+Stack}!Linked\+Stack@{Linked\+Stack}}
 \index{Linked\+Stack@{Linked\+Stack}!structures\+::\+Linked\+Stack@{structures\+::\+Linked\+Stack}}
@@ -39,7 +43,19 @@ Linked Stack class
 
 Constructor method;. 
 
-Constructor method. \mbox{\Hypertarget{classstructures_1_1LinkedStack_aae17566eb103c92eb22be2e779286f2f}\label{classstructures_1_1LinkedStack_aae17566eb103c92eb22be2e779286f2f}} 
+Constructor method. 
+
+Definição na linha 122 do arquivo X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{122                                       \{}
+\DoxyCodeLine{123     top\_ = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{124     size\_ = 0;}
+\DoxyCodeLine{125 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classstructures_1_1LinkedStack_aae17566eb103c92eb22be2e779286f2f}\label{classstructures_1_1LinkedStack_aae17566eb103c92eb22be2e779286f2f}} 
 \index{structures\+::\+Linked\+Stack@{structures\+::\+Linked\+Stack}!````~Linked\+Stack@{$\sim$\+Linked\+Stack}}
 \index{````~Linked\+Stack@{$\sim$\+Linked\+Stack}!structures\+::\+Linked\+Stack@{structures\+::\+Linked\+Stack}}
 \subsubsection{\texorpdfstring{$\sim$\+Linked\+Stack()}{~LinkedStack()}}
@@ -52,7 +68,18 @@ Destructor method);.
 
 Destructor method. 
 
-\subsection{Member Function Documentation}
+Definição na linha 129 do arquivo X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{129                                        \{}
+\DoxyCodeLine{130   \mbox{\hyperlink{classstructures_1_1LinkedStack_a56cc909b4a3a0ff7a589f35032ca0ba8}{clear}}();}
+\DoxyCodeLine{131 \}}
+
+\end{DoxyCode}
+
+
+\subsection{Funções membros}
 \mbox{\Hypertarget{classstructures_1_1LinkedStack_a56cc909b4a3a0ff7a589f35032ca0ba8}\label{classstructures_1_1LinkedStack_a56cc909b4a3a0ff7a589f35032ca0ba8}} 
 \index{structures\+::\+Linked\+Stack@{structures\+::\+Linked\+Stack}!clear@{clear}}
 \index{clear@{clear}!structures\+::\+Linked\+Stack@{structures\+::\+Linked\+Stack}}
@@ -64,7 +91,20 @@ void \mbox{\hyperlink{classstructures_1_1LinkedStack}{structures\+::\+Linked\+St
 
 Wipes the list. 
 
-Wipe the list. \mbox{\Hypertarget{classstructures_1_1LinkedStack_ac9704fd697f9c4ed4f7fc4e786114e4f}\label{classstructures_1_1LinkedStack_ac9704fd697f9c4ed4f7fc4e786114e4f}} 
+Wipe the list. 
+
+Definição na linha 135 do arquivo X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{135                                      \{}
+\DoxyCodeLine{136     \textcolor{keywordflow}{while} (!\mbox{\hyperlink{classstructures_1_1LinkedStack_ac9704fd697f9c4ed4f7fc4e786114e4f}{empty}}()) \{}
+\DoxyCodeLine{137         \mbox{\hyperlink{classstructures_1_1LinkedStack_a8ff0ba0de594ec26971bb259e1d28c3c}{pop}}();}
+\DoxyCodeLine{138     \}}
+\DoxyCodeLine{139 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classstructures_1_1LinkedStack_ac9704fd697f9c4ed4f7fc4e786114e4f}\label{classstructures_1_1LinkedStack_ac9704fd697f9c4ed4f7fc4e786114e4f}} 
 \index{structures\+::\+Linked\+Stack@{structures\+::\+Linked\+Stack}!empty@{empty}}
 \index{empty@{empty}!structures\+::\+Linked\+Stack@{structures\+::\+Linked\+Stack}}
 \subsubsection{\texorpdfstring{empty()}{empty()}}
@@ -75,9 +115,24 @@ bool \mbox{\hyperlink{classstructures_1_1LinkedStack}{structures\+::\+Linked\+St
 
 Returns true if empty and false otherwise. 
 
-\begin{DoxyReturn}{Returns}
+\begin{DoxyReturn}{Retorna}
 true if empty 
 \end{DoxyReturn}
+
+
+Definição na linha 199 do arquivo X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{199                                            \{}
+\DoxyCodeLine{200   \textcolor{keywordflow}{if} (size\_ == 0) \{}
+\DoxyCodeLine{201     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{202   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{203     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{204   \}}
+\DoxyCodeLine{205 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classstructures_1_1LinkedStack_a8ff0ba0de594ec26971bb259e1d28c3c}\label{classstructures_1_1LinkedStack_a8ff0ba0de594ec26971bb259e1d28c3c}} 
 \index{structures\+::\+Linked\+Stack@{structures\+::\+Linked\+Stack}!pop@{pop}}
 \index{pop@{pop}!structures\+::\+Linked\+Stack@{structures\+::\+Linked\+Stack}}
@@ -91,9 +146,32 @@ Removes an element.
 
 Returns the first element.
 
-\begin{DoxyReturn}{Returns}
+\begin{DoxyReturn}{Retorna}
 the data inside the removed element 
 \end{DoxyReturn}
+
+
+Definição na linha 166 do arquivo X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{166                                 \{}
+\DoxyCodeLine{167   Node *saiu;}
+\DoxyCodeLine{168   T volta;}
+\DoxyCodeLine{169 }
+\DoxyCodeLine{170   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classstructures_1_1LinkedStack_ac9704fd697f9c4ed4f7fc4e786114e4f}{empty}}()) \{}
+\DoxyCodeLine{171     \textcolor{keywordflow}{throw} std::out\_of\_range(\textcolor{stringliteral}{"Lista vazia, não é possivel retirar!"});}
+\DoxyCodeLine{172   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{173     saiu = top\_;}
+\DoxyCodeLine{174     volta = saiu->data();}
+\DoxyCodeLine{175     top\_ = saiu->next();}
+\DoxyCodeLine{176     size\_ = size\_ - 1;}
+\DoxyCodeLine{177     \textcolor{keyword}{delete} saiu;}
+\DoxyCodeLine{178     \textcolor{keywordflow}{return} volta;}
+\DoxyCodeLine{179   \}}
+\DoxyCodeLine{180 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classstructures_1_1LinkedStack_adb8c6b231298ac25b17ba692d510a3fc}\label{classstructures_1_1LinkedStack_adb8c6b231298ac25b17ba692d510a3fc}} 
 \index{structures\+::\+Linked\+Stack@{structures\+::\+Linked\+Stack}!push@{push}}
 \index{push@{push}!structures\+::\+Linked\+Stack@{structures\+::\+Linked\+Stack}}
@@ -106,10 +184,32 @@ void \mbox{\hyperlink{classstructures_1_1LinkedStack}{structures\+::\+Linked\+St
 Inserts an element in the stack. 
 
 
-\begin{DoxyParams}{Parameters}
+\begin{DoxyParams}{Parâmetros}
 {\em data} & data to be inserted \\
 \hline
 \end{DoxyParams}
+
+
+Definição na linha 146 do arquivo X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{146                                                  \{}
+\DoxyCodeLine{147   Node *novo = \textcolor{keyword}{new} Node(data);}
+\DoxyCodeLine{148   \textcolor{keywordflow}{if} (novo == \textcolor{keyword}{nullptr}) \{}
+\DoxyCodeLine{149     \textcolor{keywordflow}{throw} std::out\_of\_range(\textcolor{stringliteral}{"Nodo não alocado!"});}
+\DoxyCodeLine{150   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{151     \textcolor{keywordflow}{if} (size\_ == 0) \{}
+\DoxyCodeLine{152       top\_ = novo;}
+\DoxyCodeLine{153     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{154       novo->next(top\_);}
+\DoxyCodeLine{155       top\_ = novo;}
+\DoxyCodeLine{156     \}}
+\DoxyCodeLine{157     size\_++;}
+\DoxyCodeLine{158   \}}
+\DoxyCodeLine{159 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classstructures_1_1LinkedStack_ae1ca6a5a9b837471863f1c8bb23cfe1d}\label{classstructures_1_1LinkedStack_ae1ca6a5a9b837471863f1c8bb23cfe1d}} 
 \index{structures\+::\+Linked\+Stack@{structures\+::\+Linked\+Stack}!size@{size}}
 \index{size@{size}!structures\+::\+Linked\+Stack@{structures\+::\+Linked\+Stack}}
@@ -121,9 +221,20 @@ std\+::size\+\_\+t \mbox{\hyperlink{classstructures_1_1LinkedStack}{structures\+
 
 Returns the size of the stack. 
 
-\begin{DoxyReturn}{Returns}
+\begin{DoxyReturn}{Retorna}
 stack\textquotesingle{}s current size 
 \end{DoxyReturn}
+
+
+Definição na linha 212 do arquivo X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{212                                                \{}
+\DoxyCodeLine{213     \textcolor{keywordflow}{return} size\_;}
+\DoxyCodeLine{214 \}}
+
+\end{DoxyCode}
 \mbox{\Hypertarget{classstructures_1_1LinkedStack_a14ab6e3507dd1206a87bba8c57e1733f}\label{classstructures_1_1LinkedStack_a14ab6e3507dd1206a87bba8c57e1733f}} 
 \index{structures\+::\+Linked\+Stack@{structures\+::\+Linked\+Stack}!top@{top}}
 \index{top@{top}!structures\+::\+Linked\+Stack@{structures\+::\+Linked\+Stack}}
@@ -137,11 +248,25 @@ Returns the first element.
 
 Removes an element.
 
-\begin{DoxyReturn}{Returns}
+\begin{DoxyReturn}{Retorna}
 the data of the node at the stack\textquotesingle{}s top 
 \end{DoxyReturn}
 
 
-The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+Definição na linha 187 do arquivo X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{187                                        \{}
+\DoxyCodeLine{188     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classstructures_1_1LinkedStack_ac9704fd697f9c4ed4f7fc4e786114e4f}{empty}}()) \{}
+\DoxyCodeLine{189         \textcolor{keywordflow}{throw} std::out\_of\_range(\textcolor{stringliteral}{"Lista vazia, metodo top()"});}
+\DoxyCodeLine{190     \}}
+\DoxyCodeLine{191     \textcolor{keywordflow}{return} top\_->data();}
+\DoxyCodeLine{192 \}}
+
+\end{DoxyCode}
+
+
+A documentação para essa classe foi gerada a partir do seguinte arquivo\+:\begin{DoxyCompactItemize}
 \item 
-X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp\end{DoxyCompactItemize}
+\mbox{\hyperlink{XML__processor__with__binary__images_8cpp}{X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}}\end{DoxyCompactItemize}

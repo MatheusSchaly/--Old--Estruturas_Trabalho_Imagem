@@ -1,4 +1,4 @@
-LATEX_CMD=pdflatex
+LATEX_CMD=YES
 
 all: refman.pdf
 

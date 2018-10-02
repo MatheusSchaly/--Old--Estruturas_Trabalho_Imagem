@@ -1,0 +1,256 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_classstructures_1_1LinkedStack">
+<title>Referência do &lt;em&gt;Template&lt;/em&gt; da Classe structures::LinkedStack&lt; T &gt;</title>
+<indexterm><primary>structures::LinkedStack&lt; T &gt;</primary></indexterm>
+<simplesect>
+    <title>Membros Públicos    </title>
+        <itemizedlist>
+            <listitem><para><link linkend="_classstructures_1_1LinkedStack_1a546b827cccaa49b4f470110bc3a9004e">LinkedStack</link> ()</para>
+
+<para>Constructor method;. </para>
+</listitem>
+            <listitem><para><link linkend="_classstructures_1_1LinkedStack_1aae17566eb103c92eb22be2e779286f2f">~LinkedStack</link> ()</para>
+
+<para>Destructor method);. </para>
+</listitem>
+            <listitem><para>void <link linkend="_classstructures_1_1LinkedStack_1a56cc909b4a3a0ff7a589f35032ca0ba8">clear</link> ()</para>
+
+<para>Wipes the list. </para>
+</listitem>
+            <listitem><para>void <link linkend="_classstructures_1_1LinkedStack_1adb8c6b231298ac25b17ba692d510a3fc">push</link> (const T &amp;data)</para>
+
+<para>Inserts an element in the stack. </para>
+</listitem>
+            <listitem><para>T <link linkend="_classstructures_1_1LinkedStack_1a8ff0ba0de594ec26971bb259e1d28c3c">pop</link> ()</para>
+
+<para>Removes an element. </para>
+</listitem>
+            <listitem><para>T &amp; <link linkend="_classstructures_1_1LinkedStack_1a14ab6e3507dd1206a87bba8c57e1733f">top</link> () const</para>
+
+<para>Returns the first element. </para>
+</listitem>
+            <listitem><para>bool <link linkend="_classstructures_1_1LinkedStack_1ac9704fd697f9c4ed4f7fc4e786114e4f">empty</link> () const</para>
+
+<para>Returns true if empty and false otherwise. </para>
+</listitem>
+            <listitem><para>std::size_t <link linkend="_classstructures_1_1LinkedStack_1ae1ca6a5a9b837471863f1c8bb23cfe1d">size</link> () const</para>
+
+<para>Returns the size of the stack. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Descrição detalhada</title>
+<simplesect><title>template&lt;typename T&gt;
+class structures::LinkedStack&lt; T &gt;</title></simplesect>
+
+
+<para>Linked Stack class </para>
+<para>
+Definição na linha 23 do arquivo XML_processor_with_binary_images.cpp.</para>
+</section>
+<section>
+<title>Construtores e Destrutores</title>
+<anchor xml:id="_classstructures_1_1LinkedStack_1a546b827cccaa49b4f470110bc3a9004e"/>    <section>
+    <title>LinkedStack()</title>
+<indexterm><primary>LinkedStack</primary><secondary>structures::LinkedStack</secondary></indexterm>
+<indexterm><primary>structures::LinkedStack</primary><secondary>LinkedStack</secondary></indexterm>
+<computeroutput>template&lt;typename T &gt; </computeroutput><para><computeroutput><link linkend="_classstructures_1_1LinkedStack">structures::LinkedStack</link>&lt; T &gt;::<link linkend="_classstructures_1_1LinkedStack">LinkedStack</link> ( )</computeroutput></para><para>
+
+<para>Constructor method;. </para>
+</para>
+
+<para>Constructor method. </para>
+<para>
+Definição na linha 122 do arquivo XML_processor_with_binary_images.cpp.</para>
+<programlisting>122 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+123 &#32;&#32;&#32;&#32;top_&#32;=&#32;<emphasis role="keyword">nullptr</emphasis>;
+124 &#32;&#32;&#32;&#32;size_&#32;=&#32;0;
+125 }
+</programlisting>    </section><anchor xml:id="_classstructures_1_1LinkedStack_1aae17566eb103c92eb22be2e779286f2f"/>    <section>
+    <title>~LinkedStack()</title>
+<indexterm><primary>~LinkedStack</primary><secondary>structures::LinkedStack</secondary></indexterm>
+<indexterm><primary>structures::LinkedStack</primary><secondary>~LinkedStack</secondary></indexterm>
+<computeroutput>template&lt;typename T &gt; </computeroutput><para><computeroutput><link linkend="_classstructures_1_1LinkedStack">structures::LinkedStack</link>&lt; T &gt;::~<link linkend="_classstructures_1_1LinkedStack">LinkedStack</link> ( )</computeroutput></para><para>
+
+<para>Destructor method);. </para>
+</para>
+
+<para>Destructor method. </para>
+<para>
+Definição na linha 129 do arquivo XML_processor_with_binary_images.cpp.</para>
+<programlisting>129 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+130 &#32;&#32;<link linkend="_classstructures_1_1LinkedStack_1a56cc909b4a3a0ff7a589f35032ca0ba8">clear</link>();
+131 }
+</programlisting></section>
+</section>
+<section>
+<title>Funções membros</title>
+<anchor xml:id="_classstructures_1_1LinkedStack_1a56cc909b4a3a0ff7a589f35032ca0ba8"/>    <section>
+    <title>clear()</title>
+<indexterm><primary>clear</primary><secondary>structures::LinkedStack</secondary></indexterm>
+<indexterm><primary>structures::LinkedStack</primary><secondary>clear</secondary></indexterm>
+<computeroutput>template&lt;typename T &gt; </computeroutput><para><computeroutput>void <link linkend="_classstructures_1_1LinkedStack">structures::LinkedStack</link>&lt; T &gt;::clear ( )</computeroutput></para><para>
+
+<para>Wipes the list. </para>
+</para>
+
+<para>Wipe the list. </para>
+<para>
+Definição na linha 135 do arquivo XML_processor_with_binary_images.cpp.</para>
+<programlisting>135 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+136 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">while</emphasis>&#32;(!<link linkend="_classstructures_1_1LinkedStack_1ac9704fd697f9c4ed4f7fc4e786114e4f">empty</link>())&#32;{
+137 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_classstructures_1_1LinkedStack_1a8ff0ba0de594ec26971bb259e1d28c3c">pop</link>();
+138 &#32;&#32;&#32;&#32;}
+139 }
+</programlisting>    </section><anchor xml:id="_classstructures_1_1LinkedStack_1ac9704fd697f9c4ed4f7fc4e786114e4f"/>    <section>
+    <title>empty()</title>
+<indexterm><primary>empty</primary><secondary>structures::LinkedStack</secondary></indexterm>
+<indexterm><primary>structures::LinkedStack</primary><secondary>empty</secondary></indexterm>
+<computeroutput>template&lt;typename T &gt; </computeroutput><para><computeroutput>bool <link linkend="_classstructures_1_1LinkedStack">structures::LinkedStack</link>&lt; T &gt;::empty ( ) const</computeroutput></para><para>
+
+<para>Returns true if empty and false otherwise. </para>
+</para>
+
+<para><formalpara><title>Retorna: </title>
+
+<para>true if empty </para>
+</formalpara>
+</para>
+<para>
+Definição na linha 199 do arquivo XML_processor_with_binary_images.cpp.</para>
+<programlisting>199 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+200 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(size_&#32;==&#32;0)&#32;{
+201 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">true</emphasis>;
+202 &#32;&#32;}&#32;<emphasis role="keywordflow">else</emphasis>&#32;{
+203 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+204 &#32;&#32;}
+205 }
+</programlisting>    </section><anchor xml:id="_classstructures_1_1LinkedStack_1a8ff0ba0de594ec26971bb259e1d28c3c"/>    <section>
+    <title>pop()</title>
+<indexterm><primary>pop</primary><secondary>structures::LinkedStack</secondary></indexterm>
+<indexterm><primary>structures::LinkedStack</primary><secondary>pop</secondary></indexterm>
+<computeroutput>template&lt;typename T &gt; </computeroutput><para><computeroutput>T <link linkend="_classstructures_1_1LinkedStack">structures::LinkedStack</link>&lt; T &gt;::pop ( )</computeroutput></para><para>
+
+<para>Removes an element. </para>
+</para>
+
+<para>Returns the first element.</para>
+
+<para><formalpara><title>Retorna: </title>
+
+<para>the data inside the removed element </para>
+</formalpara>
+</para>
+<para>
+Definição na linha 166 do arquivo XML_processor_with_binary_images.cpp.</para>
+<programlisting>166 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+167 &#32;&#32;Node&#32;*saiu;
+168 &#32;&#32;T&#32;volta;
+169 
+170 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_classstructures_1_1LinkedStack_1ac9704fd697f9c4ed4f7fc4e786114e4f">empty</link>())&#32;{
+171 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">throw</emphasis>&#32;std::out_of_range(<emphasis role="stringliteral">&quot;Lista&#32;vazia,&#32;não&#32;é&#32;possivel&#32;retirar!&quot;</emphasis>);
+172 &#32;&#32;}&#32;<emphasis role="keywordflow">else</emphasis>&#32;{
+173 &#32;&#32;&#32;&#32;saiu&#32;=&#32;top_;
+174 &#32;&#32;&#32;&#32;volta&#32;=&#32;saiu-&gt;data();
+175 &#32;&#32;&#32;&#32;top_&#32;=&#32;saiu-&gt;next();
+176 &#32;&#32;&#32;&#32;size_&#32;=&#32;size_&#32;-&#32;1;
+177 &#32;&#32;&#32;&#32;<emphasis role="keyword">delete</emphasis>&#32;saiu;
+178 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;volta;
+179 &#32;&#32;}
+180 }
+</programlisting>    </section><anchor xml:id="_classstructures_1_1LinkedStack_1adb8c6b231298ac25b17ba692d510a3fc"/>    <section>
+    <title>push()</title>
+<indexterm><primary>push</primary><secondary>structures::LinkedStack</secondary></indexterm>
+<indexterm><primary>structures::LinkedStack</primary><secondary>push</secondary></indexterm>
+<computeroutput>template&lt;typename T &gt; </computeroutput><para><computeroutput>void <link linkend="_classstructures_1_1LinkedStack">structures::LinkedStack</link>&lt; T &gt;::push (const T &amp; data)</computeroutput></para><para>
+
+<para>Inserts an element in the stack. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parâmetros                    </title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+                                <entry>data</entry>
+                                <entry>
+<para>data to be inserted </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+<para>
+Definição na linha 146 do arquivo XML_processor_with_binary_images.cpp.</para>
+<programlisting>146 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+147 &#32;&#32;Node&#32;*novo&#32;=&#32;<emphasis role="keyword">new</emphasis>&#32;Node(data);
+148 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(novo&#32;==&#32;<emphasis role="keyword">nullptr</emphasis>)&#32;{
+149 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">throw</emphasis>&#32;std::out_of_range(<emphasis role="stringliteral">&quot;Nodo&#32;não&#32;alocado!&quot;</emphasis>);
+150 &#32;&#32;}&#32;<emphasis role="keywordflow">else</emphasis>&#32;{
+151 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(size_&#32;==&#32;0)&#32;{
+152 &#32;&#32;&#32;&#32;&#32;&#32;top_&#32;=&#32;novo;
+153 &#32;&#32;&#32;&#32;}&#32;<emphasis role="keywordflow">else</emphasis>&#32;{
+154 &#32;&#32;&#32;&#32;&#32;&#32;novo-&gt;next(top_);
+155 &#32;&#32;&#32;&#32;&#32;&#32;top_&#32;=&#32;novo;
+156 &#32;&#32;&#32;&#32;}
+157 &#32;&#32;&#32;&#32;size_++;
+158 &#32;&#32;}
+159 }
+</programlisting>    </section><anchor xml:id="_classstructures_1_1LinkedStack_1ae1ca6a5a9b837471863f1c8bb23cfe1d"/>    <section>
+    <title>size()</title>
+<indexterm><primary>size</primary><secondary>structures::LinkedStack</secondary></indexterm>
+<indexterm><primary>structures::LinkedStack</primary><secondary>size</secondary></indexterm>
+<computeroutput>template&lt;typename T &gt; </computeroutput><para><computeroutput>std::size_t <link linkend="_classstructures_1_1LinkedStack">structures::LinkedStack</link>&lt; T &gt;::size ( ) const</computeroutput></para><para>
+
+<para>Returns the size of the stack. </para>
+</para>
+
+<para><formalpara><title>Retorna: </title>
+
+<para>stack&apos;s current size </para>
+</formalpara>
+</para>
+<para>
+Definição na linha 212 do arquivo XML_processor_with_binary_images.cpp.</para>
+<programlisting>212 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+213 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;size_;
+214 }
+</programlisting>    </section><anchor xml:id="_classstructures_1_1LinkedStack_1a14ab6e3507dd1206a87bba8c57e1733f"/>    <section>
+    <title>top()</title>
+<indexterm><primary>top</primary><secondary>structures::LinkedStack</secondary></indexterm>
+<indexterm><primary>structures::LinkedStack</primary><secondary>top</secondary></indexterm>
+<computeroutput>template&lt;typename T &gt; </computeroutput><para><computeroutput>T &amp; <link linkend="_classstructures_1_1LinkedStack">structures::LinkedStack</link>&lt; T &gt;::top ( ) const</computeroutput></para><para>
+
+<para>Returns the first element. </para>
+</para>
+
+<para>Removes an element.</para>
+
+<para><formalpara><title>Retorna: </title>
+
+<para>the data of the node at the stack&apos;s top </para>
+</formalpara>
+</para>
+<para>
+Definição na linha 187 do arquivo XML_processor_with_binary_images.cpp.</para>
+<programlisting>187 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+188 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_classstructures_1_1LinkedStack_1ac9704fd697f9c4ed4f7fc4e786114e4f">empty</link>())&#32;{
+189 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">throw</emphasis>&#32;std::out_of_range(<emphasis role="stringliteral">&quot;Lista&#32;vazia,&#32;metodo&#32;top()&quot;</emphasis>);
+190 &#32;&#32;&#32;&#32;}
+191 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;top_-&gt;data();
+192 }
+</programlisting></section>
+<para>
+A documentação para essa classe foi gerada a partir do seguinte arquivo:</para>
+<link linkend="_XML__processor__with__binary__images_8cpp">XML_processor_with_binary_images.cpp</link></section>
+</section>

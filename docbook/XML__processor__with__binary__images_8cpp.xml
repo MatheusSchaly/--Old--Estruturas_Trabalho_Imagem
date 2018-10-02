@@ -1,0 +1,852 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_XML__processor__with__binary__images_8cpp">
+<title>Referência do Arquivo XML_processor_with_binary_images.cpp</title>
+<indexterm><primary>XML_processor_with_binary_images.cpp</primary></indexterm>
+<programlisting>#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;string&gt;
+#include &lt;stdexcept&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;sstream&gt;
+</programlisting><simplesect>
+    <title>Componentes    </title>
+        <itemizedlist>
+            <listitem><para>class <link linkend="_classstructures_1_1LinkedStack">structures::LinkedStack&lt; T &gt;</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>&lt;em&gt;Namespaces&lt;/em&gt;    </title>
+        <itemizedlist>
+            <listitem><para> <link linkend="_namespacestructures">structures</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Definições e Macros    </title>
+        <itemizedlist>
+            <listitem><para>#define <link linkend="_XML__processor__with__binary__images_8cpp_1ab4940889fbe16c71ac218ba807587a74">STRUCTURES_XML_PROCESSOR</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Funções    </title>
+        <itemizedlist>
+            <listitem><para>string <link linkend="_XML__processor__with__binary__images_8cpp_1aa6a461ba9610542965f22f062b5a1bb3">getFile</link> (string filename)</para>
+
+<para>Gets a file by name. </para>
+</listitem>
+            <listitem><para>string <link linkend="_XML__processor__with__binary__images_8cpp_1a891425af8c2c62f13a4c0e9a0eae4e05">getTag</link> (string line, int pos)</para>
+
+<para>Gets a complete tag. </para>
+</listitem>
+            <listitem><para>size_t <link linkend="_XML__processor__with__binary__images_8cpp_1a27cae01ba0e58207d09b9c9a7c5266d3">getImgTagCount</link> (string xmlfilename)</para>
+
+<para>Counts how many &quot;imgs&quot; tags there are. </para>
+</listitem>
+            <listitem><para>string <link linkend="_XML__processor__with__binary__images_8cpp_1a3ad6079ed7ff0f7088dee883421b5a95">getImage</link> (string xmlfilename, size_t index)</para>
+
+<para>Gets the complete image, containing tags and the binary data. </para>
+</listitem>
+            <listitem><para>string <link linkend="_XML__processor__with__binary__images_8cpp_1a0a4f54b1a5414a00e2e44d3125a5e582">getName</link> (string image)</para>
+
+<para>Gets the name of the image. </para>
+</listitem>
+            <listitem><para>size_t <link linkend="_XML__processor__with__binary__images_8cpp_1aed973101a10d973ff66c0c53dbe3237f">getHeight</link> (string image)</para>
+
+<para>Gets the binary image height. </para>
+</listitem>
+            <listitem><para>size_t <link linkend="_XML__processor__with__binary__images_8cpp_1a0822dbda520f18cfe7358bc35e24a798">getWidth</link> (string image)</para>
+
+<para>Gets the binary image width. </para>
+</listitem>
+            <listitem><para>string <link linkend="_XML__processor__with__binary__images_8cpp_1ab3fcc8f0037aae0c9101a32b0612da78">getData</link> (string image)</para>
+
+<para>Gets the binary image data. </para>
+</listitem>
+            <listitem><para>bool <link linkend="_XML__processor__with__binary__images_8cpp_1a96686cdbe38df0bb13e417f97a93fbca">doFirstPart</link> (string xmlfilename, size_t lines)</para>
+
+<para>Checks if all the tags are correctly formatted. </para>
+</listitem>
+            <listitem><para>void <link linkend="_XML__processor__with__binary__images_8cpp_1ac2b7ae7f131e19471daf077e84c64648">print_array</link> (string image)</para>
+</listitem>
+            <listitem><para>size_t <link linkend="_XML__processor__with__binary__images_8cpp_1a46eccdc4bac32fc893146702272c2a0f">doSecondPart</link> (string xmlfilename, string image)</para>
+
+<para>Counts how many blocks of 1&apos;s there are. </para>
+</listitem>
+            <listitem><para>int <link linkend="_XML__processor__with__binary__images_8cpp_1ae66f6b31b5ad750f1fe042a706a4e3d4">main</link> ()</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Definições e macros</title>
+<anchor xml:id="_XML__processor__with__binary__images_8cpp_1ab4940889fbe16c71ac218ba807587a74"/>    <section>
+    <title>STRUCTURES_XML_PROCESSOR</title>
+<indexterm><primary>STRUCTURES_XML_PROCESSOR</primary><secondary>XML_processor_with_binary_images.cpp</secondary></indexterm>
+<indexterm><primary>XML_processor_with_binary_images.cpp</primary><secondary>STRUCTURES_XML_PROCESSOR</secondary></indexterm>
+<para><computeroutput>#define STRUCTURES_XML_PROCESSOR</computeroutput></para><para>
+Definição na linha 6 do arquivo XML_processor_with_binary_images.cpp.</para>
+</section>
+</section>
+<section>
+<title>Funções</title>
+<anchor xml:id="_XML__processor__with__binary__images_8cpp_1a96686cdbe38df0bb13e417f97a93fbca"/>    <section>
+    <title>doFirstPart()</title>
+<indexterm><primary>doFirstPart</primary><secondary>XML_processor_with_binary_images.cpp</secondary></indexterm>
+<indexterm><primary>XML_processor_with_binary_images.cpp</primary><secondary>doFirstPart</secondary></indexterm>
+<para><computeroutput>bool doFirstPart (string xmlfilename, size_t lines)</computeroutput></para><para>
+
+<para>Checks if all the tags are correctly formatted. </para>
+</para>
+
+<para>Returns false and prints error if: 1 - A tag is openned but not closed 2 - A tag is openned but the last tag in the stack is not the openned tag 3 - The file ends and there is still some tag in the stack 
+                <formalpara>
+                    <title>
+Parâmetros                    </title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+                                <entry>xmlfilename</entry>
+                                <entry>
+<para>the name of the file </para>
+</entry>
+                            </row>
+                            <row>
+                                <entry>lines</entry>
+                                <entry>
+<para>the line where the the procedure should start </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Retorna: </title>
+
+<para>true if there was an error, false otherwise </para>
+</formalpara>
+</para>
+<para>
+Definição na linha 432 do arquivo XML_processor_with_binary_images.cpp.</para>
+<programlisting>432 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+433 &#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;First&#32;Part:</emphasis>
+434 &#32;&#32;&#32;&#32;ifstream&#32;inFile;
+435 &#32;&#32;&#32;&#32;inFile.open(xmlfilename);
+436 
+437 &#32;&#32;&#32;&#32;<link linkend="_classstructures_1_1LinkedStack">structures::LinkedStack&lt;string&gt;</link>&#32;tag_list;
+438 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">size_t</emphasis>&#32;line_counter&#32;=&#32;lines;
+439 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">string</emphasis>&#32;tag&#32;=&#32;<emphasis role="stringliteral">&quot;&quot;</emphasis>;
+440 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">string</emphasis>&#32;line&#32;=&#32;<emphasis role="stringliteral">&quot;&quot;</emphasis>;
+441 
+442 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">while</emphasis>&#32;(inFile&#32;&amp;&amp;&#32;line_counter&#32;&gt;&#32;1)&#32;{
+443 &#32;&#32;&#32;&#32;&#32;&#32;inFile&#32;&gt;&gt;&#32;line;
+444 &#32;&#32;&#32;&#32;&#32;&#32;line_counter--;
+445 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">size_t</emphasis>&#32;caracter&#32;=&#32;0;&#32;caracter&#32;&lt;&#32;line.length();&#32;caracter++)&#32;{
+446 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(line[caracter]&#32;==&#32;<emphasis role="charliteral">&apos;&lt;&apos;</emphasis>)&#32;{
+447 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;tag&#32;=&#32;<link linkend="_XML__processor__with__binary__images_8cpp_1a891425af8c2c62f13a4c0e9a0eae4e05">getTag</link>(line,&#32;caracter);;
+448 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(tag[1]&#32;==&#32;<emphasis role="charliteral">&apos;/&apos;</emphasis>)&#32;{
+449 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(tag_list.<link linkend="_classstructures_1_1LinkedStack_1ac9704fd697f9c4ed4f7fc4e786114e4f">empty</link>())&#32;{
+450 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;inFile.close();
+451 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;inFile.clear();
+452 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">true</emphasis>;
+453 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}&#32;<emphasis role="keywordflow">else</emphasis>&#32;{
+454 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">string</emphasis>&#32;temp&#32;=&#32;tag.erase(1,1);
+455 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(temp.compare(tag_list.<link linkend="_classstructures_1_1LinkedStack_1a14ab6e3507dd1206a87bba8c57e1733f">top</link>())&#32;==&#32;0)&#32;{
+456 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;tag_list.<link linkend="_classstructures_1_1LinkedStack_1a8ff0ba0de594ec26971bb259e1d28c3c">pop</link>();
+457 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}&#32;<emphasis role="keywordflow">else</emphasis>&#32;{
+458 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;inFile.close();
+459 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;inFile.clear();
+460 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">true</emphasis>;
+461 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+462 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+463 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}&#32;<emphasis role="keywordflow">else</emphasis>&#32;{
+464 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;tag_list.<link linkend="_classstructures_1_1LinkedStack_1adb8c6b231298ac25b17ba692d510a3fc">push</link>(tag);
+465 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+466 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+467 &#32;&#32;&#32;&#32;&#32;&#32;}
+468 &#32;&#32;&#32;&#32;}
+469 
+470 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(!tag_list.<link linkend="_classstructures_1_1LinkedStack_1ac9704fd697f9c4ed4f7fc4e786114e4f">empty</link>()){
+471 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">true</emphasis>;
+472 &#32;&#32;&#32;&#32;}
+473 
+474 &#32;&#32;&#32;&#32;inFile.close();
+475 &#32;&#32;&#32;&#32;inFile.clear();
+476 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;<emphasis role="keyword">false</emphasis>;
+477 }
+</programlisting>    </section><anchor xml:id="_XML__processor__with__binary__images_8cpp_1a46eccdc4bac32fc893146702272c2a0f"/>    <section>
+    <title>doSecondPart()</title>
+<indexterm><primary>doSecondPart</primary><secondary>XML_processor_with_binary_images.cpp</secondary></indexterm>
+<indexterm><primary>XML_processor_with_binary_images.cpp</primary><secondary>doSecondPart</secondary></indexterm>
+<para><computeroutput>size_t doSecondPart (string xmlfilename, string image)</computeroutput></para><para>
+
+<para>Counts how many blocks of 1&apos;s there are. </para>
+</para>
+
+<para>Goes through the list, element by element, from left to right until a neighbour of such element is a 1. When the number 1 is found, it checks all the other neighbours and add them to the stack, giving them a label. It does it continously, until all the image is visited. 
+                <formalpara>
+                    <title>
+Parâmetros                    </title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+                                <entry>xmlfilename</entry>
+                                <entry>
+<para>the name of the file </para>
+</entry>
+                            </row>
+                            <row>
+                                <entry>image</entry>
+                                <entry>
+<para>the image containing the tags and the binary data </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Retorna: </title>
+
+<para>the number of clusters of numbers 1 </para>
+</formalpara>
+</para>
+<para>
+Definição na linha 505 do arquivo XML_processor_with_binary_images.cpp.</para>
+<programlisting>505 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+506 
+507 &#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;Second&#32;Part:</emphasis>
+508 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">string</emphasis>&#32;image_name&#32;=&#32;<link linkend="_XML__processor__with__binary__images_8cpp_1a0a4f54b1a5414a00e2e44d3125a5e582">getName</link>(image);
+509 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">size_t</emphasis>&#32;image_height&#32;=&#32;<link linkend="_XML__processor__with__binary__images_8cpp_1aed973101a10d973ff66c0c53dbe3237f">getHeight</link>(image);
+510 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">size_t</emphasis>&#32;image_width&#32;=&#32;&#32;<link linkend="_XML__processor__with__binary__images_8cpp_1a0822dbda520f18cfe7358bc35e24a798">getWidth</link>(image);
+511 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">string</emphasis>&#32;image_data&#32;=&#32;<link linkend="_XML__processor__with__binary__images_8cpp_1ab3fcc8f0037aae0c9101a32b0612da78">getData</link>(image);
+512 
+513 &#32;&#32;&#32;&#32;<link linkend="_classstructures_1_1LinkedStack">structures::LinkedStack&lt;int*&gt;</link>&#32;coord_stack;
+514 
+515 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;dataset[image_height][image_width];
+516 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;dataset_temp[image_height][image_width];
+517 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;dataset_visited[image_height][image_width];
+518 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;index&#32;=&#32;0;
+519 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;label&#32;=&#32;1;
+520 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;i_aux&#32;=&#32;0;
+521 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;j_aux&#32;=&#32;0;
+522 
+523 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">size_t</emphasis>&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;image_height;&#32;i++)&#32;{
+524 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">size_t</emphasis>&#32;j&#32;=&#32;0;&#32;j&#32;&lt;&#32;image_width;&#32;j++)&#32;{
+525 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dataset_temp[i][j]&#32;=&#32;0;
+526 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dataset_visited[i][j]&#32;=&#32;0;
+527 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+528 &#32;&#32;&#32;&#32;}
+529 
+530 
+531 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">size_t</emphasis>&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;image_height;&#32;i++)&#32;{
+532 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">size_t</emphasis>&#32;j&#32;=&#32;0;&#32;j&#32;&lt;&#32;image_width;&#32;j++)&#32;{
+533 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dataset[i][j]&#32;=&#32;(int)(image_data[index])&#32;-&#32;48;
+534 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;index++;
+535 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+536 &#32;&#32;&#32;&#32;}
+537 
+538 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">size_t</emphasis>&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;image_height;&#32;i++)&#32;{
+539 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">size_t</emphasis>&#32;j&#32;=&#32;0;&#32;j&#32;&lt;&#32;image_width;&#32;j++)&#32;{
+540 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(dataset[i][j]&#32;==&#32;1&#32;&amp;&amp;&#32;dataset_visited[i][j]&#32;!=&#32;1)&#32;{
+541 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;*coord;
+542 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;coord&#32;=&#32;<emphasis role="keyword">new</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>[2];
+543 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;coord[0]&#32;=&#32;i;
+544 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;coord[1]&#32;=&#32;j;
+545 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;coord_stack.<link linkend="_classstructures_1_1LinkedStack_1adb8c6b231298ac25b17ba692d510a3fc">push</link>(coord);
+546 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dataset_visited[i][j]&#32;=&#32;1;
+547 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dataset_temp[i][j]&#32;=&#32;label;
+548 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;i_aux&#32;=&#32;i;
+549 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;j_aux&#32;=&#32;j;
+550 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+551 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">while</emphasis>&#32;(!coord_stack.<link linkend="_classstructures_1_1LinkedStack_1ac9704fd697f9c4ed4f7fc4e786114e4f">empty</link>())&#32;{
+552 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;i_aux&#32;=&#32;coord_stack.<link linkend="_classstructures_1_1LinkedStack_1a14ab6e3507dd1206a87bba8c57e1733f">top</link>()[0];
+553 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;j_aux&#32;=&#32;coord_stack.<link linkend="_classstructures_1_1LinkedStack_1a14ab6e3507dd1206a87bba8c57e1733f">top</link>()[1];
+554 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;coord_stack.<link linkend="_classstructures_1_1LinkedStack_1a8ff0ba0de594ec26971bb259e1d28c3c">pop</link>();
+555 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(i_aux-1&#32;&gt;=&#32;0&#32;&amp;&amp;&#32;dataset[i_aux-1][j_aux]&#32;==&#32;1&#32;&amp;&amp;&#32;dataset_visited[i_aux-1][j_aux]&#32;==&#32;0)&#32;{
+556 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;*coord;
+557 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;coord&#32;=&#32;<emphasis role="keyword">new</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>[2];
+558 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;coord[0]&#32;=&#32;i_aux-1;
+559 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;coord[1]&#32;=&#32;j_aux;
+560 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;coord_stack.<link linkend="_classstructures_1_1LinkedStack_1adb8c6b231298ac25b17ba692d510a3fc">push</link>(coord);
+561 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dataset_temp[coord_stack.<link linkend="_classstructures_1_1LinkedStack_1a14ab6e3507dd1206a87bba8c57e1733f">top</link>()[0]][coord_stack.<link linkend="_classstructures_1_1LinkedStack_1a14ab6e3507dd1206a87bba8c57e1733f">top</link>()[1]]&#32;=&#32;label;
+562 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dataset_visited[coord_stack.<link linkend="_classstructures_1_1LinkedStack_1a14ab6e3507dd1206a87bba8c57e1733f">top</link>()[0]][coord_stack.<link linkend="_classstructures_1_1LinkedStack_1a14ab6e3507dd1206a87bba8c57e1733f">top</link>()[1]]&#32;=&#32;1;
+563 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+564 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(i_aux+1&#32;&lt;&#32;image_height&#32;&amp;&amp;&#32;dataset[i_aux+1][j_aux]&#32;==&#32;1&#32;&amp;&amp;&#32;dataset_visited[i_aux+1][j_aux]&#32;==&#32;0)&#32;{
+565 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;*coord;
+566 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;coord&#32;=&#32;<emphasis role="keyword">new</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>[2];
+567 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;coord[0]&#32;=&#32;i_aux+1;
+568 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;coord[1]&#32;=&#32;j_aux;
+569 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;coord_stack.<link linkend="_classstructures_1_1LinkedStack_1adb8c6b231298ac25b17ba692d510a3fc">push</link>(coord);
+570 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dataset_temp[coord_stack.<link linkend="_classstructures_1_1LinkedStack_1a14ab6e3507dd1206a87bba8c57e1733f">top</link>()[0]][coord_stack.<link linkend="_classstructures_1_1LinkedStack_1a14ab6e3507dd1206a87bba8c57e1733f">top</link>()[1]]&#32;=&#32;label;
+571 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dataset_visited[coord_stack.<link linkend="_classstructures_1_1LinkedStack_1a14ab6e3507dd1206a87bba8c57e1733f">top</link>()[0]][coord_stack.<link linkend="_classstructures_1_1LinkedStack_1a14ab6e3507dd1206a87bba8c57e1733f">top</link>()[1]]&#32;=&#32;1;
+572 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+573 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(j_aux-1&#32;&gt;=&#32;0&#32;&amp;&amp;&#32;dataset[i_aux][j_aux-1]&#32;==&#32;1&#32;&amp;&amp;&#32;dataset_visited[i_aux][j_aux-1]&#32;==&#32;0)&#32;{
+574 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;*coord;
+575 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;coord&#32;=&#32;<emphasis role="keyword">new</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>[2];
+576 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;coord[0]&#32;=&#32;i_aux;
+577 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;coord[1]&#32;=&#32;j_aux-1;
+578 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;coord_stack.<link linkend="_classstructures_1_1LinkedStack_1adb8c6b231298ac25b17ba692d510a3fc">push</link>(coord);
+579 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dataset_temp[coord_stack.<link linkend="_classstructures_1_1LinkedStack_1a14ab6e3507dd1206a87bba8c57e1733f">top</link>()[0]][coord_stack.<link linkend="_classstructures_1_1LinkedStack_1a14ab6e3507dd1206a87bba8c57e1733f">top</link>()[1]]&#32;=&#32;label;
+580 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dataset_visited[coord_stack.<link linkend="_classstructures_1_1LinkedStack_1a14ab6e3507dd1206a87bba8c57e1733f">top</link>()[0]][coord_stack.<link linkend="_classstructures_1_1LinkedStack_1a14ab6e3507dd1206a87bba8c57e1733f">top</link>()[1]]&#32;=&#32;1;
+581 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+582 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(j_aux+1&#32;&lt;&#32;image_width&#32;&amp;&amp;&#32;dataset[i_aux][j_aux+1]&#32;==&#32;1&#32;&amp;&amp;&#32;dataset_visited[i_aux][j_aux+1]&#32;==&#32;0)&#32;{
+583 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;*coord;
+584 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;coord&#32;=&#32;<emphasis role="keyword">new</emphasis>&#32;<emphasis role="keywordtype">int</emphasis>[2];
+585 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;coord[0]&#32;=&#32;i_aux;
+586 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;coord[1]&#32;=&#32;j_aux+1;
+587 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;coord_stack.<link linkend="_classstructures_1_1LinkedStack_1adb8c6b231298ac25b17ba692d510a3fc">push</link>(coord);
+588 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dataset_temp[coord_stack.<link linkend="_classstructures_1_1LinkedStack_1a14ab6e3507dd1206a87bba8c57e1733f">top</link>()[0]][coord_stack.<link linkend="_classstructures_1_1LinkedStack_1a14ab6e3507dd1206a87bba8c57e1733f">top</link>()[1]]&#32;=&#32;label;
+589 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;dataset_visited[coord_stack.<link linkend="_classstructures_1_1LinkedStack_1a14ab6e3507dd1206a87bba8c57e1733f">top</link>()[0]][coord_stack.<link linkend="_classstructures_1_1LinkedStack_1a14ab6e3507dd1206a87bba8c57e1733f">top</link>()[1]]&#32;=&#32;1;
+590 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+591 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(coord_stack.<link linkend="_classstructures_1_1LinkedStack_1ac9704fd697f9c4ed4f7fc4e786114e4f">empty</link>())&#32;{
+592 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;label++;
+593 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+594 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+595 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+596 &#32;&#32;&#32;&#32;}
+597 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;label-1;
+598 }
+</programlisting>    </section><anchor xml:id="_XML__processor__with__binary__images_8cpp_1ab3fcc8f0037aae0c9101a32b0612da78"/>    <section>
+    <title>getData()</title>
+<indexterm><primary>getData</primary><secondary>XML_processor_with_binary_images.cpp</secondary></indexterm>
+<indexterm><primary>XML_processor_with_binary_images.cpp</primary><secondary>getData</secondary></indexterm>
+<para><computeroutput>string getData (string image)</computeroutput></para><para>
+
+<para>Gets the binary image data. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parâmetros                    </title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+                                <entry>image</entry>
+                                <entry>
+<para>the image where the data will be extracted </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Retorna: </title>
+
+<para>the image&apos;s binary data </para>
+</formalpara>
+</para>
+<para>
+Definição na linha 405 do arquivo XML_processor_with_binary_images.cpp.</para>
+<programlisting>405 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+406 
+407 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">string</emphasis>&#32;image_data&#32;=&#32;<emphasis role="stringliteral">&quot;&quot;</emphasis>;
+408 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">string</emphasis>&#32;data[<link linkend="_XML__processor__with__binary__images_8cpp_1aed973101a10d973ff66c0c53dbe3237f">getHeight</link>(image)][<link linkend="_XML__processor__with__binary__images_8cpp_1a0822dbda520f18cfe7358bc35e24a798">getWidth</link>(image)];
+409 
+410 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;caracter&#32;=&#32;0;&#32;caracter&#32;&lt;&#32;image.length();&#32;caracter++)&#32;{
+411 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(image[caracter]&#32;==&#32;<emphasis role="charliteral">&apos;&lt;&apos;</emphasis>&#32;&amp;&amp;&#32;<link linkend="_XML__processor__with__binary__images_8cpp_1a891425af8c2c62f13a4c0e9a0eae4e05">getTag</link>(image,&#32;caracter).compare(<emphasis role="stringliteral">&quot;&lt;data&gt;&quot;</emphasis>)&#32;==&#32;0){
+412 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;caracter&#32;+=&#32;6;&#32;&#32;<emphasis role="comment">//&#32;To&#32;skip&#32;the&#32;caracters&#32;name&gt;</emphasis>
+413 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">while</emphasis>&#32;(image[caracter]&#32;!=&#32;<emphasis role="charliteral">&apos;&lt;&apos;</emphasis>)&#32;{
+414 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;image_data&#32;+=&#32;image[caracter];
+415 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;caracter++;
+416 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+417 &#32;&#32;&#32;&#32;&#32;&#32;}
+418 &#32;&#32;&#32;&#32;}
+419 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;image_data;
+420 }
+</programlisting>    </section><anchor xml:id="_XML__processor__with__binary__images_8cpp_1aa6a461ba9610542965f22f062b5a1bb3"/>    <section>
+    <title>getFile()</title>
+<indexterm><primary>getFile</primary><secondary>XML_processor_with_binary_images.cpp</secondary></indexterm>
+<indexterm><primary>XML_processor_with_binary_images.cpp</primary><secondary>getFile</secondary></indexterm>
+<para><computeroutput>string getFile (string filename)</computeroutput></para><para>
+
+<para>Gets a file by name. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parâmetros                    </title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+                                <entry>filename</entry>
+                                <entry>
+<para>the filename to return </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Retorna: </title>
+
+<para>filename as a string </para>
+</formalpara>
+</para>
+<para>
+Definição na linha 221 do arquivo XML_processor_with_binary_images.cpp.</para>
+<programlisting>221 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+222 &#32;&#32;<emphasis role="keywordtype">string</emphasis>&#32;buffer;
+223 &#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;c;
+224 
+225 &#32;&#32;ifstream&#32;in(filename);
+226 &#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(!in)&#32;{
+227 &#32;&#32;&#32;&#32;&#32;cout&#32;&lt;&lt;&#32;filename&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;not&#32;found&quot;</emphasis>;
+228 &#32;&#32;&#32;&#32;&#32;exit(1);
+229 &#32;&#32;}
+230 &#32;&#32;<emphasis role="keywordflow">while</emphasis>&#32;(in.get(c))&#32;buffer&#32;+=&#32;c;
+231 &#32;&#32;in.close();
+232 
+233 &#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;buffer;
+234 }
+</programlisting>    </section><anchor xml:id="_XML__processor__with__binary__images_8cpp_1aed973101a10d973ff66c0c53dbe3237f"/>    <section>
+    <title>getHeight()</title>
+<indexterm><primary>getHeight</primary><secondary>XML_processor_with_binary_images.cpp</secondary></indexterm>
+<indexterm><primary>XML_processor_with_binary_images.cpp</primary><secondary>getHeight</secondary></indexterm>
+<para><computeroutput>size_t getHeight (string image)</computeroutput></para><para>
+
+<para>Gets the binary image height. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parâmetros                    </title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+                                <entry>image</entry>
+                                <entry>
+<para>the image to be measured </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Retorna: </title>
+
+<para>the image&apos;s height </para>
+</formalpara>
+</para>
+<para>
+Definição na linha 353 do arquivo XML_processor_with_binary_images.cpp.</para>
+<programlisting>353 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+354 
+355 &#32;&#32;<emphasis role="keywordtype">string</emphasis>&#32;string_height&#32;=&#32;<emphasis role="stringliteral">&quot;&quot;</emphasis>;
+356 &#32;&#32;<emphasis role="keywordtype">size_t</emphasis>&#32;image_height;
+357 
+358 &#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;caracter&#32;=&#32;0;&#32;caracter&#32;&lt;&#32;image.length();&#32;caracter++)&#32;{
+359 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(image[caracter]&#32;==&#32;<emphasis role="charliteral">&apos;&lt;&apos;</emphasis>){
+360 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_XML__processor__with__binary__images_8cpp_1a891425af8c2c62f13a4c0e9a0eae4e05">getTag</link>(image,&#32;caracter).compare(<emphasis role="stringliteral">&quot;&lt;height&gt;&quot;</emphasis>)&#32;==&#32;0)&#32;{
+361 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;caracter&#32;+=&#32;8;
+362 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">while</emphasis>&#32;(image[caracter]&#32;!=&#32;<emphasis role="charliteral">&apos;&lt;&apos;</emphasis>)&#32;{
+363 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;string_height&#32;+=&#32;image[caracter];
+364 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;caracter&#32;++;
+365 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+366 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;stringstream&#32;sstream(string_height);&#32;<emphasis role="comment">//&#32;Converts&#32;string&#32;to&#32;size_t</emphasis>
+367 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sstream&#32;&gt;&gt;&#32;image_height;
+368 &#32;&#32;&#32;&#32;&#32;&#32;}
+369 &#32;&#32;&#32;&#32;}
+370 &#32;&#32;}
+371 &#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;image_height;
+372 }
+</programlisting>    </section><anchor xml:id="_XML__processor__with__binary__images_8cpp_1a3ad6079ed7ff0f7088dee883421b5a95"/>    <section>
+    <title>getImage()</title>
+<indexterm><primary>getImage</primary><secondary>XML_processor_with_binary_images.cpp</secondary></indexterm>
+<indexterm><primary>XML_processor_with_binary_images.cpp</primary><secondary>getImage</secondary></indexterm>
+<para><computeroutput>string getImage (string xmlfilename, size_t index)</computeroutput></para><para>
+
+<para>Gets the complete image, containing tags and the binary data. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parâmetros                    </title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+                                <entry>xmlfilename</entry>
+                                <entry>
+<para>the file&apos;s name </para>
+</entry>
+                            </row>
+                            <row>
+                                <entry>index</entry>
+                                <entry>
+<para>the image&apos;s index </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Retorna: </title>
+
+<para>the image as a string </para>
+</formalpara>
+</para>
+<para>
+Definição na linha 297 do arquivo XML_processor_with_binary_images.cpp.</para>
+<programlisting>297 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+298 &#32;&#32;&#32;&#32;ifstream&#32;inFile;
+299 &#32;&#32;&#32;&#32;inFile.open(xmlfilename);
+300 
+301 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">string</emphasis>&#32;tag&#32;=&#32;<emphasis role="stringliteral">&quot;&quot;</emphasis>;
+302 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">string</emphasis>&#32;image&#32;=&#32;<emphasis role="stringliteral">&quot;&lt;&quot;</emphasis>;
+303 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">string</emphasis>&#32;line&#32;=&#32;<emphasis role="stringliteral">&quot;&quot;</emphasis>;
+304 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">size_t</emphasis>&#32;imgsFounded&#32;=&#32;0;
+305 
+306 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">while</emphasis>&#32;(inFile)&#32;{
+307 &#32;&#32;&#32;&#32;&#32;&#32;inFile&#32;&gt;&gt;&#32;line;
+308 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">size_t</emphasis>&#32;caracter&#32;=&#32;0;&#32;caracter&#32;&lt;&#32;line.length();&#32;caracter++)&#32;{
+309 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(imgsFounded==index&#32;&amp;&amp;&#32;tag.compare(<emphasis role="stringliteral">&quot;&lt;/img&gt;&quot;</emphasis>)&#32;!=&#32;0)&#32;{
+310 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;image&#32;+=&#32;line[caracter];
+311 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+312 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(line[caracter]&#32;==&#32;<emphasis role="charliteral">&apos;&lt;&apos;</emphasis>)&#32;{
+313 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;tag&#32;=&#32;<link linkend="_XML__processor__with__binary__images_8cpp_1a891425af8c2c62f13a4c0e9a0eae4e05">getTag</link>(line,&#32;caracter);;
+314 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(tag.compare(<emphasis role="stringliteral">&quot;&lt;img&gt;&quot;</emphasis>)&#32;==&#32;0)&#32;{
+315 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;imgsFounded++;
+316 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+317 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+318 &#32;&#32;&#32;&#32;&#32;&#32;}
+319 &#32;&#32;&#32;&#32;}
+320 &#32;&#32;&#32;&#32;inFile.close();
+321 &#32;&#32;&#32;&#32;inFile.clear();
+322 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;image+<emphasis role="stringliteral">&quot;/img&gt;&quot;</emphasis>;
+323 }
+</programlisting>    </section><anchor xml:id="_XML__processor__with__binary__images_8cpp_1a27cae01ba0e58207d09b9c9a7c5266d3"/>    <section>
+    <title>getImgTagCount()</title>
+<indexterm><primary>getImgTagCount</primary><secondary>XML_processor_with_binary_images.cpp</secondary></indexterm>
+<indexterm><primary>XML_processor_with_binary_images.cpp</primary><secondary>getImgTagCount</secondary></indexterm>
+<para><computeroutput>size_t getImgTagCount (string xmlfilename)</computeroutput></para><para>
+
+<para>Counts how many &quot;imgs&quot; tags there are. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parâmetros                    </title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+                                <entry>xmlfilename</entry>
+                                <entry>
+<para>the document&apos;s filename </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Retorna: </title>
+
+<para>quantity of tags in the file </para>
+</formalpara>
+</para>
+<para>
+Definição na linha 265 do arquivo XML_processor_with_binary_images.cpp.</para>
+<programlisting>265 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+266 &#32;&#32;<emphasis role="comment">//&#32;First&#32;Part:</emphasis>
+267 &#32;&#32;ifstream&#32;inFile;
+268 &#32;&#32;inFile.open(xmlfilename);
+269 
+270 &#32;&#32;<emphasis role="keywordtype">string</emphasis>&#32;tag&#32;=&#32;<emphasis role="stringliteral">&quot;&quot;</emphasis>;
+271 &#32;&#32;<emphasis role="keywordtype">string</emphasis>&#32;line&#32;=&#32;<emphasis role="stringliteral">&quot;&quot;</emphasis>;
+272 &#32;&#32;<emphasis role="keywordtype">size_t</emphasis>&#32;img_tag_counter&#32;=&#32;0;
+273 
+274 &#32;&#32;<emphasis role="keywordflow">while</emphasis>&#32;(inFile)&#32;{&#32;<emphasis role="comment">//&#32;While&#32;file&#32;still&#32;have&#32;lines&#32;to&#32;read</emphasis>
+275 &#32;&#32;&#32;&#32;inFile&#32;&gt;&gt;&#32;line;
+276 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">size_t</emphasis>&#32;caracter&#32;=&#32;0;&#32;caracter&#32;&lt;&#32;line.length();&#32;caracter++)&#32;{
+277 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(line[caracter]&#32;==&#32;<emphasis role="charliteral">&apos;&lt;&apos;</emphasis>)&#32;{
+278 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;tag&#32;=&#32;<link linkend="_XML__processor__with__binary__images_8cpp_1a891425af8c2c62f13a4c0e9a0eae4e05">getTag</link>(line,&#32;caracter);
+279 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(tag.compare(<emphasis role="stringliteral">&quot;&lt;img&gt;&quot;</emphasis>)&#32;==&#32;0)&#32;{
+280 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;img_tag_counter++;
+281 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+282 &#32;&#32;&#32;&#32;&#32;&#32;}
+283 &#32;&#32;&#32;&#32;}
+284 &#32;&#32;}
+285 
+286 &#32;&#32;inFile.close();
+287 &#32;&#32;inFile.clear();
+288 &#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;img_tag_counter;
+289 }
+</programlisting>    </section><anchor xml:id="_XML__processor__with__binary__images_8cpp_1a0a4f54b1a5414a00e2e44d3125a5e582"/>    <section>
+    <title>getName()</title>
+<indexterm><primary>getName</primary><secondary>XML_processor_with_binary_images.cpp</secondary></indexterm>
+<indexterm><primary>XML_processor_with_binary_images.cpp</primary><secondary>getName</secondary></indexterm>
+<para><computeroutput>string getName (string image)</computeroutput></para><para>
+
+<para>Gets the name of the image. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parâmetros                    </title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+                                <entry>image</entry>
+                                <entry>
+<para>the image that contains the name </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Retorna: </title>
+
+<para>the image&apos;s name </para>
+</formalpara>
+</para>
+<para>
+Definição na linha 330 do arquivo XML_processor_with_binary_images.cpp.</para>
+<programlisting>330 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+331 
+332 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">string</emphasis>&#32;image_name&#32;=&#32;<emphasis role="stringliteral">&quot;&quot;</emphasis>;
+333 
+334 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;caracter&#32;=&#32;0;&#32;caracter&#32;&lt;&#32;image.length();&#32;caracter++)&#32;{
+335 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(image[caracter]&#32;==&#32;<emphasis role="charliteral">&apos;&lt;&apos;</emphasis>){
+336 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_XML__processor__with__binary__images_8cpp_1a891425af8c2c62f13a4c0e9a0eae4e05">getTag</link>(image,&#32;caracter).compare(<emphasis role="stringliteral">&quot;&lt;name&gt;&quot;</emphasis>)&#32;==&#32;0)&#32;{
+337 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;caracter&#32;+=&#32;6;
+338 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">while</emphasis>&#32;(image[caracter]&#32;!=&#32;<emphasis role="charliteral">&apos;&lt;&apos;</emphasis>)&#32;{
+339 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;image_name&#32;+=&#32;image[caracter];
+340 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;caracter++;
+341 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+342 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+343 &#32;&#32;&#32;&#32;&#32;&#32;}
+344 &#32;&#32;&#32;&#32;}
+345 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;image_name;
+346 }
+</programlisting>    </section><anchor xml:id="_XML__processor__with__binary__images_8cpp_1a891425af8c2c62f13a4c0e9a0eae4e05"/>    <section>
+    <title>getTag()</title>
+<indexterm><primary>getTag</primary><secondary>XML_processor_with_binary_images.cpp</secondary></indexterm>
+<indexterm><primary>XML_processor_with_binary_images.cpp</primary><secondary>getTag</secondary></indexterm>
+<para><computeroutput>string getTag (string line, int pos)</computeroutput></para><para>
+
+<para>Gets a complete tag. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parâmetros                    </title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+                                <entry>line</entry>
+                                <entry>
+<para>the tag&apos;s line </para>
+</entry>
+                            </row>
+                            <row>
+                                <entry>pos</entry>
+                                <entry>
+<para>the tag&apos;s index </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Retorna: </title>
+
+<para>the tag found </para>
+</formalpara>
+</para>
+<para>
+Definição na linha 244 do arquivo XML_processor_with_binary_images.cpp.</para>
+<programlisting>244 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+245 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">bool</emphasis>&#32;closed_bracket&#32;=&#32;<emphasis role="keyword">false</emphasis>;&#32;&#32;<emphasis role="comment">//&#32;&gt;</emphasis>
+246 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">bool</emphasis>&#32;close_tag&#32;=&#32;<emphasis role="keyword">false</emphasis>;&#32;&#32;<emphasis role="comment">//&#32;/</emphasis>
+247 
+248 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">string</emphasis>&#32;tag&#32;=&#32;<emphasis role="stringliteral">&quot;&quot;</emphasis>;
+249 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">size_t</emphasis>&#32;caracter&#32;=&#32;pos;
+250 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">while</emphasis>&#32;(closed_bracket&#32;==&#32;<emphasis role="keyword">false</emphasis>)&#32;{
+251 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(line[caracter]&#32;==&#32;<emphasis role="charliteral">&apos;&gt;&apos;</emphasis>)&#32;{
+252 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;closed_bracket&#32;=&#32;<emphasis role="keyword">true</emphasis>;
+253 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+254 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;tag&#32;+=&#32;line[caracter];
+255 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;caracter++;
+256 &#32;&#32;&#32;&#32;}
+257 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;tag;
+258 }
+</programlisting>    </section><anchor xml:id="_XML__processor__with__binary__images_8cpp_1a0822dbda520f18cfe7358bc35e24a798"/>    <section>
+    <title>getWidth()</title>
+<indexterm><primary>getWidth</primary><secondary>XML_processor_with_binary_images.cpp</secondary></indexterm>
+<indexterm><primary>XML_processor_with_binary_images.cpp</primary><secondary>getWidth</secondary></indexterm>
+<para><computeroutput>size_t getWidth (string image)</computeroutput></para><para>
+
+<para>Gets the binary image width. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parâmetros                    </title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+                                <entry>image</entry>
+                                <entry>
+<para>the image to be measured </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Retorna: </title>
+
+<para>the image&apos;s width </para>
+</formalpara>
+</para>
+<para>
+Definição na linha 379 do arquivo XML_processor_with_binary_images.cpp.</para>
+<programlisting>379 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+380 
+381 &#32;&#32;<emphasis role="keywordtype">string</emphasis>&#32;string_width&#32;=&#32;<emphasis role="stringliteral">&quot;&quot;</emphasis>;
+382 &#32;&#32;<emphasis role="keywordtype">size_t</emphasis>&#32;image_width;
+383 
+384 &#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;caracter&#32;=&#32;0;&#32;caracter&#32;&lt;&#32;image.length();&#32;caracter++)&#32;{
+385 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(image[caracter]&#32;==&#32;<emphasis role="charliteral">&apos;&lt;&apos;</emphasis>){
+386 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_XML__processor__with__binary__images_8cpp_1a891425af8c2c62f13a4c0e9a0eae4e05">getTag</link>(image,&#32;caracter).compare(<emphasis role="stringliteral">&quot;&lt;width&gt;&quot;</emphasis>)&#32;==&#32;0)&#32;{
+387 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;caracter&#32;+=&#32;7;&#32;&#32;<emphasis role="comment">//&#32;To&#32;skip&#32;the&#32;caracters&#32;height&gt;</emphasis>
+388 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">while</emphasis>&#32;(image[caracter]&#32;!=&#32;<emphasis role="charliteral">&apos;&lt;&apos;</emphasis>)&#32;{
+389 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;string_width&#32;+=&#32;image[caracter];
+390 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;caracter&#32;++;
+391 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;}
+392 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;stringstream&#32;sstream(string_width);&#32;<emphasis role="comment">//&#32;Converts&#32;string&#32;to&#32;size_t</emphasis>
+393 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sstream&#32;&gt;&gt;&#32;image_width;
+394 &#32;&#32;&#32;&#32;&#32;&#32;}
+395 &#32;&#32;&#32;&#32;}
+396 &#32;&#32;}
+397 &#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;image_width;
+398 }
+</programlisting>    </section><anchor xml:id="_XML__processor__with__binary__images_8cpp_1ae66f6b31b5ad750f1fe042a706a4e3d4"/>    <section>
+    <title>main()</title>
+<indexterm><primary>main</primary><secondary>XML_processor_with_binary_images.cpp</secondary></indexterm>
+<indexterm><primary>XML_processor_with_binary_images.cpp</primary><secondary>main</secondary></indexterm>
+<para><computeroutput>int main ( )</computeroutput></para><para>
+Definição na linha 600 do arquivo XML_processor_with_binary_images.cpp.</para>
+<programlisting>600 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+601 
+602 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;xmlfilename[100];
+603 &#32;&#32;&#32;&#32;std::cin&#32;&gt;&gt;&#32;xmlfilename;
+604 &#32;&#32;&#32;&#32;ifstream&#32;inFile;
+605 &#32;&#32;&#32;&#32;inFile.open(xmlfilename);
+606 
+607 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">size_t</emphasis>&#32;line_counter&#32;=&#32;0;
+608 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">string</emphasis>&#32;tag&#32;=&#32;<emphasis role="stringliteral">&quot;&quot;</emphasis>;
+609 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">string</emphasis>&#32;line&#32;=&#32;<emphasis role="stringliteral">&quot;&quot;</emphasis>;
+610 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">string</emphasis>&#32;image_name&#32;=&#32;<emphasis role="stringliteral">&quot;&quot;</emphasis>;
+611 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">size_t</emphasis>&#32;image_width&#32;=&#32;0;
+612 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">size_t</emphasis>&#32;image_height&#32;=&#32;0;
+613 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">string</emphasis>&#32;image_data&#32;=&#32;<emphasis role="stringliteral">&quot;&quot;</emphasis>;
+614 
+615 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">while</emphasis>&#32;(inFile)&#32;{
+616 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;inFile&#32;&gt;&gt;&#32;line;
+617 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;line_counter++;
+618 &#32;&#32;&#32;&#32;}
+619 &#32;&#32;&#32;&#32;inFile.close();
+620 &#32;&#32;&#32;&#32;inFile.clear();
+621 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">size_t</emphasis>&#32;imgTagCount&#32;=&#32;<link linkend="_XML__processor__with__binary__images_8cpp_1a27cae01ba0e58207d09b9c9a7c5266d3">getImgTagCount</link>(xmlfilename);
+622 
+623 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">size_t</emphasis>&#32;i&#32;=&#32;1;&#32;i&#32;&lt;=&#32;imgTagCount;&#32;i++)&#32;{
+624 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">bool</emphasis>&#32;error&#32;=&#32;<emphasis role="keyword">false</emphasis>;
+625 &#32;&#32;&#32;&#32;&#32;&#32;error&#32;=&#32;<link linkend="_XML__processor__with__binary__images_8cpp_1a96686cdbe38df0bb13e417f97a93fbca">doFirstPart</link>(xmlfilename,&#32;line_counter);
+626 &#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(!error)&#32;{
+627 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordtype">string</emphasis>&#32;image&#32;=&#32;<link linkend="_XML__processor__with__binary__images_8cpp_1a3ad6079ed7ff0f7088dee883421b5a95">getImage</link>(xmlfilename,&#32;i);
+628 
+629 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;image_name&#32;=&#32;<link linkend="_XML__processor__with__binary__images_8cpp_1a0a4f54b1a5414a00e2e44d3125a5e582">getName</link>(image);
+630 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;image_height&#32;=&#32;<link linkend="_XML__processor__with__binary__images_8cpp_1aed973101a10d973ff66c0c53dbe3237f">getHeight</link>(image);
+631 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;image_width&#32;=&#32;&#32;<link linkend="_XML__processor__with__binary__images_8cpp_1a0822dbda520f18cfe7358bc35e24a798">getWidth</link>(image);
+632 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;image_data&#32;=&#32;<link linkend="_XML__processor__with__binary__images_8cpp_1ab3fcc8f0037aae0c9101a32b0612da78">getData</link>(image);
+633 
+634 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cout&#32;&lt;&lt;&#32;image_name&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;&#32;&quot;</emphasis>&#32;&lt;&lt;&#32;<link linkend="_XML__processor__with__binary__images_8cpp_1a46eccdc4bac32fc893146702272c2a0f">doSecondPart</link>(xmlfilename,&#32;image)&#32;&lt;&lt;&#32;endl;
+635 &#32;&#32;&#32;&#32;&#32;&#32;}&#32;<emphasis role="keywordflow">else</emphasis>{
+636 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;cout&#32;&lt;&lt;&#32;<emphasis role="stringliteral">&quot;error&quot;</emphasis>&#32;&lt;&lt;&#32;endl;
+637 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">break</emphasis>;
+638 &#32;&#32;&#32;&#32;&#32;&#32;}
+639 &#32;&#32;&#32;&#32;}
+640 }
+</programlisting>    </section><anchor xml:id="_XML__processor__with__binary__images_8cpp_1ac2b7ae7f131e19471daf077e84c64648"/>    <section>
+    <title>print_array()</title>
+<indexterm><primary>print_array</primary><secondary>XML_processor_with_binary_images.cpp</secondary></indexterm>
+<indexterm><primary>XML_processor_with_binary_images.cpp</primary><secondary>print_array</secondary></indexterm>
+<para><computeroutput>void print_array (string image)</computeroutput></para><para>
+Definição na linha 479 do arquivo XML_processor_with_binary_images.cpp.</para>
+<programlisting>479 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;{
+480 &#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;caracter&#32;=&#32;0;
+481 
+482 &#32;&#32;<emphasis role="keywordtype">string</emphasis>&#32;temp[<link linkend="_XML__processor__with__binary__images_8cpp_1aed973101a10d973ff66c0c53dbe3237f">getHeight</link>(image)][<link linkend="_XML__processor__with__binary__images_8cpp_1a0822dbda520f18cfe7358bc35e24a798">getWidth</link>(image)];
+483 
+484 &#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">size_t</emphasis>&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;<link linkend="_XML__processor__with__binary__images_8cpp_1aed973101a10d973ff66c0c53dbe3237f">getHeight</link>(image);&#32;i++)&#32;{
+485 &#32;&#32;&#32;&#32;cout&lt;&lt;endl;
+486 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">size_t</emphasis>&#32;j&#32;=&#32;0;&#32;j&#32;&lt;&#32;<link linkend="_XML__processor__with__binary__images_8cpp_1a0822dbda520f18cfe7358bc35e24a798">getWidth</link>(image);&#32;j++)&#32;{
+487 &#32;&#32;&#32;&#32;&#32;&#32;cout&lt;&lt;<link linkend="_XML__processor__with__binary__images_8cpp_1ab3fcc8f0037aae0c9101a32b0612da78">getData</link>(image)[caracter];
+488 &#32;&#32;&#32;&#32;&#32;&#32;caracter++;
+489 &#32;&#32;&#32;&#32;}
+490 &#32;&#32;}
+491 &#32;&#32;cout&lt;&lt;endl&lt;&lt;endl;
+492 }
+</programlisting></section>
+</section>
+</section>

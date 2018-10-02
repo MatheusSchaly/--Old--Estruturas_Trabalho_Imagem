@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['size',['size',['../classstructures_1_1LinkedStack.html#ae1ca6a5a9b837471863f1c8bb23cfe1d',1,'structures::LinkedStack']]]
+  ['linkedstack',['LinkedStack',['../classstructures_1_1LinkedStack.html',1,'structures::LinkedStack&lt; T &gt;'],['../classstructures_1_1LinkedStack.html#a546b827cccaa49b4f470110bc3a9004e',1,'structures::LinkedStack::LinkedStack()']]]
 ];

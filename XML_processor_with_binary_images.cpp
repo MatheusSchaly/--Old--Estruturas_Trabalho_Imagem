@@ -1,11 +1,5 @@
-/*!
-* \authors Alan Djon Lüdke & Matheus Schaly
-* \version 1.0
-* \date 02-10-2018
-*
-* \copyright [2018]
-* \mainpage XML_processor_with_binary_images.cpp
-*
+/* Copyright [2018] <Alan Djon Lüdke & Matheus Schaly>
+* XML_processor_with_binary_images.cpp
 */
 
 #ifndef STRUCTURES_XML_PROCESSOR
@@ -22,6 +16,50 @@
 
 using namespace std;
 
+class Coordinates {
+ public:
+    //! Empty constructor method
+    Coordinates() {}
+ 
+    //! Constructor method
+    Coordinates(const int i, const int j) {
+        this -> i = i;
+        this -> j = j;
+    }
+    
+    //! Coordinate I getter
+    int getI() {
+        return i;
+    }
+    
+    //! Coordinate J getter
+    int getJ() {
+        return j;
+    }
+    
+    //! Coordinate I setter
+    void setI(const int i) {
+        this -> i = i;
+    }
+    
+    //! Coordinate J setter
+    void setJ(const int j) {
+        this -> j = j;
+    }
+    
+    //! Overloads the [] operator
+    const int operator[](std::size_t index) const {
+        if (index == 0) {
+            return i;
+        } else {
+            return j;
+        }
+    }
+    
+ private:
+    int i,j;
+};
+
 namespace structures {
 
 /*! Linked Stack class */
@@ -30,7 +68,7 @@ class LinkedStack {
  public:
     //! Constructor method;
     LinkedStack();
-    //! Destructor method);
+    //! Destructor method;
     ~LinkedStack();
     //! Wipes the list
     void clear();
@@ -50,16 +88,16 @@ class LinkedStack {
     class Node {
      public:
         //! Constructor with 1 parameter
-        /*!
+        /*! 
           @param data node's data
          */
         explicit Node(const T& data):
             data_{data}
         {}
-
-
+        
+        
         //! Constructor with 2 parameters
-        /*!
+        /*! 
           @param data node's data
           @param next node's next node
          */
@@ -69,9 +107,9 @@ class LinkedStack {
         {}
 
         //! Node's data getter
-        /*!
+        /*! 
           @return node's data
-         */
+         */ 
         T& data() {
             return data_;
         }
@@ -85,23 +123,23 @@ class LinkedStack {
         }
 
         //! Node's next node getter
-        /*!
+        /*! 
           @return node's next node
          */
         Node* next() {
             return next_;
         }
-
+        
         //! Node's next node getter constant
-        /*!
+        /*! 
           @return node's next node constant
          */
         const Node* next() const {
             return next_;
         }
-
+        
         //! Node's next node setter
-        /*!
+        /*! 
           @param node node's next node
          */
         void next(Node* node) {
@@ -166,7 +204,7 @@ void structures::LinkedStack<T>::push(const T& data) {
 
 //! Returns the first element
 /*!
-  \return the data inside the removed element
+  \return the data inside the removed element 
  */
 template<typename T>
 T structures::LinkedStack<T>::pop() {
@@ -427,7 +465,7 @@ string getData(string image) {
 
 //! Checks if all the tags are correctly formatted
 /*!
-  Returns false and prints error if:
+  Returns false and prints error if: 
   1 - A tag is openned but not closed
   2 - A tag is openned but the last tag in the stack is not the openned tag
   3 - The file ends and there is still some tag in the stack
@@ -482,6 +520,10 @@ bool doFirstPart (string xmlfilename, size_t lines) {
     return false;
 }
 
+//! Gets the binary image data
+/*!
+  \param image the image where the data will be extracted
+ */
 void print_array(string image) {
   int caracter = 0;
 
@@ -499,9 +541,9 @@ void print_array(string image) {
 
 //! Counts how many blocks of 1's there are
 /*!
-  Goes through the list, element by element, from left to
+  Goes through the list, element by element, from left to 
   right until a neighbour of such element is a 1.
-  When the number 1 is found, it checks all the other neighbours
+  When the number 1 is found, it checks all the other neighbours 
   and add them to the stack, giving them a label.
   It does it continously, until all the image is visited.
   \param xmlfilename the name of the file
@@ -515,12 +557,12 @@ size_t doSecondPart (string xmlfilename, string image) {
     size_t image_height = getHeight(image);
     size_t image_width =  getWidth(image);
     string image_data = getData(image);
-
-    structures::LinkedStack<int*> coord_stack;
+    Coordinates coord;
+    
+    structures::LinkedStack<Coordinates> coord_stack;
 
     int dataset[image_height][image_width];
     int dataset_temp[image_height][image_width];
-    int dataset_visited[image_height][image_width];
     int index = 0;
     int label = 1;
     int i_aux = 0;
@@ -528,28 +570,18 @@ size_t doSecondPart (string xmlfilename, string image) {
 
     for (size_t i = 0; i < image_height; i++) {
         for (size_t j = 0; j < image_width; j++) {
-            dataset_temp[i][j] = 0;
-            dataset_visited[i][j] = 0;
-        }
-    }
-
-
-    for (size_t i = 0; i < image_height; i++) {
-        for (size_t j = 0; j < image_width; j++) {
             dataset[i][j] = (int)(image_data[index]) - 48;
+            dataset_temp[i][j] = 0;
             index++;
         }
     }
 
     for (size_t i = 0; i < image_height; i++) {
         for (size_t j = 0; j < image_width; j++) {
-            if (dataset[i][j] == 1 && dataset_visited[i][j] != 1) {
-                int *coord;
-                coord = new int[2];
-                coord[0] = i;
-                coord[1] = j;
+            if (dataset[i][j] == 1 && dataset_temp[i][j] < 1) {
+                coord.setI(i);
+                coord.setJ(j);
                 coord_stack.push(coord);
-                dataset_visited[i][j] = 1;
                 dataset_temp[i][j] = label;
                 i_aux = i;
                 j_aux = j;
@@ -558,41 +590,29 @@ size_t doSecondPart (string xmlfilename, string image) {
                 i_aux = coord_stack.top()[0];
                 j_aux = coord_stack.top()[1];
                 coord_stack.pop();
-                if (i_aux-1 >= 0 && dataset[i_aux-1][j_aux] == 1 && dataset_visited[i_aux-1][j_aux] == 0) {
-                    int *coord;
-                    coord = new int[2];
-                    coord[0] = i_aux-1;
-                    coord[1] = j_aux;
+                if (i_aux-1 >= 0 && dataset[i_aux-1][j_aux] == 1 && dataset_temp[i_aux-1][j_aux] == 0) {
+                    coord.setI(i_aux-1);
+                    coord.setJ(j_aux);
                     coord_stack.push(coord);
                     dataset_temp[coord_stack.top()[0]][coord_stack.top()[1]] = label;
-                    dataset_visited[coord_stack.top()[0]][coord_stack.top()[1]] = 1;
                 }
-                if (i_aux+1 < image_height && dataset[i_aux+1][j_aux] == 1 && dataset_visited[i_aux+1][j_aux] == 0) {
-                    int *coord;
-                    coord = new int[2];
-                    coord[0] = i_aux+1;
-                    coord[1] = j_aux;
+                if (i_aux+1 < image_height && dataset[i_aux+1][j_aux] == 1 && dataset_temp[i_aux+1][j_aux] == 0) {
+                    coord.setI(i_aux+1);
+                    coord.setJ(j_aux);
                     coord_stack.push(coord);
                     dataset_temp[coord_stack.top()[0]][coord_stack.top()[1]] = label;
-                    dataset_visited[coord_stack.top()[0]][coord_stack.top()[1]] = 1;
                 }
-                if (j_aux-1 >= 0 && dataset[i_aux][j_aux-1] == 1 && dataset_visited[i_aux][j_aux-1] == 0) {
-                    int *coord;
-                    coord = new int[2];
-                    coord[0] = i_aux;
-                    coord[1] = j_aux-1;
+                if (j_aux-1 >= 0 && dataset[i_aux][j_aux-1] == 1 && dataset_temp[i_aux][j_aux-1] == 0) {
+                    coord.setI(i_aux);
+                    coord.setJ(j_aux-1);
                     coord_stack.push(coord);
                     dataset_temp[coord_stack.top()[0]][coord_stack.top()[1]] = label;
-                    dataset_visited[coord_stack.top()[0]][coord_stack.top()[1]] = 1;
                 }
-                if (j_aux+1 < image_width && dataset[i_aux][j_aux+1] == 1 && dataset_visited[i_aux][j_aux+1] == 0) {
-                    int *coord;
-                    coord = new int[2];
-                    coord[0] = i_aux;
-                    coord[1] = j_aux+1;
+                if (j_aux+1 < image_width && dataset[i_aux][j_aux+1] == 1 && dataset_temp[i_aux][j_aux+1] == 0) {
+                    coord.setI(i_aux);
+                    coord.setJ(j_aux+1);
                     coord_stack.push(coord);
                     dataset_temp[coord_stack.top()[0]][coord_stack.top()[1]] = label;
-                    dataset_visited[coord_stack.top()[0]][coord_stack.top()[1]] = 1;
                 }
                 if (coord_stack.empty()) {
                     label++;

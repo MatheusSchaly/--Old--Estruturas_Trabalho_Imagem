@@ -526,25 +526,6 @@ bool doFirstPart (string xmlfilename, size_t lines) {
     return false;
 }
 
-//! Gets the binary image data
-/*!
-  \param image the image where the data will be extracted
- */
-void print_array(string image) {
-  int caracter = 0;
-
-  string temp[getHeight(image)][getWidth(image)];
-
-  for (size_t i = 0; i < getHeight(image); i++) {
-    cout<<endl;
-    for (size_t j = 0; j < getWidth(image); j++) {
-      cout<<getData(image)[caracter];
-      caracter++;
-    }
-  }
-  cout<<endl<<endl;
-}
-
 //! Counts how many blocks of 1's there are
 /*!
   Goes through the list, element by element, from left to

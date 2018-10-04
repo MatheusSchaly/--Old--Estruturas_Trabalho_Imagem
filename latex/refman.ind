@@ -1,0 +1,136 @@
+\begin{theindex}
+
+  \item {$\sim$\+Linked\+Stack}
+    \subitem {structures\+::\+Linked\+Stack}, \hyperpage{12}
+
+  \indexspace
+
+  \item {clear}
+    \subitem {structures\+::\+Linked\+Stack}, \hyperpage{12}
+  \item {Coordinates}, \hyperpage{9}
+    \subitem {Coordinates}, \hyperpage{9}
+    \subitem {getI}, \hyperpage{10}
+    \subitem {getJ}, \hyperpage{10}
+    \subitem {operator[]}, \hyperpage{10}
+    \subitem {setI}, \hyperpage{10}
+    \subitem {setJ}, \hyperpage{10}
+
+  \indexspace
+
+  \item {do\+First\+Part}
+    \subitem {X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}, 
+		\hyperpage{17}
+  \item {do\+Second\+Part}
+    \subitem {X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}, 
+		\hyperpage{17}
+
+  \indexspace
+
+  \item {empty}
+    \subitem {structures\+::\+Linked\+Stack}, \hyperpage{12}
+
+  \indexspace
+
+  \item {get\+Data}
+    \subitem {X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}, 
+		\hyperpage{17}
+  \item {get\+File}
+    \subitem {X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}, 
+		\hyperpage{18}
+  \item {get\+Height}
+    \subitem {X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}, 
+		\hyperpage{18}
+  \item {get\+Image}
+    \subitem {X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}, 
+		\hyperpage{19}
+  \item {get\+Img\+Tag\+Count}
+    \subitem {X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}, 
+		\hyperpage{19}
+  \item {get\+Name}
+    \subitem {X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}, 
+		\hyperpage{19}
+  \item {get\+Tag}
+    \subitem {X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}, 
+		\hyperpage{20}
+  \item {get\+Width}
+    \subitem {X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}, 
+		\hyperpage{20}
+  \item {getI}
+    \subitem {Coordinates}, \hyperpage{10}
+  \item {getJ}
+    \subitem {Coordinates}, \hyperpage{10}
+
+  \indexspace
+
+  \item {Linked\+Stack}
+    \subitem {structures\+::\+Linked\+Stack}, \hyperpage{11}
+
+  \indexspace
+
+  \item {main}
+    \subitem {X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}, 
+		\hyperpage{20}
+
+  \indexspace
+
+  \item {operator[]}
+    \subitem {Coordinates}, \hyperpage{10}
+
+  \indexspace
+
+  \item {pop}
+    \subitem {structures\+::\+Linked\+Stack}, \hyperpage{12}
+  \item {print\+\_\+array}
+    \subitem {X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}, 
+		\hyperpage{20}
+  \item {push}
+    \subitem {structures\+::\+Linked\+Stack}, \hyperpage{13}
+
+  \indexspace
+
+  \item {S\+T\+R\+U\+C\+T\+U\+R\+E\+S\+\_\+\+X\+M\+L\+\_\+\+P\+R\+O\+C\+E\+S\+S\+OR}
+    \subitem {X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}, 
+		\hyperpage{16}
+  \item {setI}
+    \subitem {Coordinates}, \hyperpage{10}
+  \item {setJ}
+    \subitem {Coordinates}, \hyperpage{10}
+  \item {size}
+    \subitem {structures\+::\+Linked\+Stack}, \hyperpage{13}
+  \item {structures}, \hyperpage{7}
+  \item {structures\+::\+Linked\+Stack}
+    \subitem {$\sim$\+Linked\+Stack}, \hyperpage{12}
+    \subitem {clear}, \hyperpage{12}
+    \subitem {empty}, \hyperpage{12}
+    \subitem {Linked\+Stack}, \hyperpage{11}
+    \subitem {pop}, \hyperpage{12}
+    \subitem {push}, \hyperpage{13}
+    \subitem {size}, \hyperpage{13}
+    \subitem {top}, \hyperpage{13}
+  \item {structures\+::\+Linked\+Stack$<$ T $>$}, \hyperpage{11}
+
+  \indexspace
+
+  \item {top}
+    \subitem {structures\+::\+Linked\+Stack}, \hyperpage{13}
+
+  \indexspace
+
+  \item {X\+M\+L\+\_\+processor\+\_\+with\+\_\+binary\+\_\+images.\+cpp}, 
+		\hyperpage{15}
+    \subitem {do\+First\+Part}, \hyperpage{17}
+    \subitem {do\+Second\+Part}, \hyperpage{17}
+    \subitem {get\+Data}, \hyperpage{17}
+    \subitem {get\+File}, \hyperpage{18}
+    \subitem {get\+Height}, \hyperpage{18}
+    \subitem {get\+Image}, \hyperpage{19}
+    \subitem {get\+Img\+Tag\+Count}, \hyperpage{19}
+    \subitem {get\+Name}, \hyperpage{19}
+    \subitem {get\+Tag}, \hyperpage{20}
+    \subitem {get\+Width}, \hyperpage{20}
+    \subitem {main}, \hyperpage{20}
+    \subitem {print\+\_\+array}, \hyperpage{20}
+    \subitem {S\+T\+R\+U\+C\+T\+U\+R\+E\+S\+\_\+\+X\+M\+L\+\_\+\+P\+R\+O\+C\+E\+S\+S\+OR}, 
+		\hyperpage{16}
+
+\end{theindex}

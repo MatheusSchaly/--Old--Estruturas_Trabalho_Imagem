@@ -1,5 +1,10 @@
-/* Copyright [2018] <Alan Djon Lüdke & Matheus Schaly>
-* XML_processor_with_binary_images.cpp
+//! XML_processor_with_binary_images.cpp
+/*!
+* \author Alan Djon Lüdke & Matheus Schaly
+* \since 04/10/2018
+* \version 1.0
+* \copyright 2018
+* \warning dataset06.xml with error
 */
 
 #ifndef STRUCTURES_XML_PROCESSOR
@@ -21,33 +26,33 @@ class Coordinates {
  public:
     //! Empty constructor method
     Coordinates() {}
- 
+
     //! Constructor method
     Coordinates(const int i, const int j) {
         this -> i = i;
         this -> j = j;
     }
-    
+
     //! Coordinate I getter
     int getI() {
         return i;
     }
-    
+
     //! Coordinate J getter
     int getJ() {
         return j;
     }
-    
+
     //! Coordinate I setter
     void setI(const int i) {
         this -> i = i;
     }
-    
+
     //! Coordinate J setter
     void setJ(const int j) {
         this -> j = j;
     }
-    
+
     //! Overloads the [] operator
     const int operator[](std::size_t index) const {
         if (index == 0) {
@@ -56,7 +61,7 @@ class Coordinates {
             return j;
         }
     }
-    
+
  private:
     int i,j;
 };
@@ -89,16 +94,16 @@ class LinkedStack {
     class Node {
      public:
         //! Constructor with 1 parameter
-        /*! 
+        /*!
           @param data node's data
          */
         explicit Node(const T& data):
             data_{data}
         {}
-        
-        
+
+
         //! Constructor with 2 parameters
-        /*! 
+        /*!
           @param data node's data
           @param next node's next node
          */
@@ -108,9 +113,9 @@ class LinkedStack {
         {}
 
         //! Node's data getter
-        /*! 
+        /*!
           @return node's data
-         */ 
+         */
         T& data() {
             return data_;
         }
@@ -124,23 +129,23 @@ class LinkedStack {
         }
 
         //! Node's next node getter
-        /*! 
+        /*!
           @return node's next node
          */
         Node* next() {
             return next_;
         }
-        
+
         //! Node's next node getter constant
-        /*! 
+        /*!
           @return node's next node constant
          */
         const Node* next() const {
             return next_;
         }
-        
+
         //! Node's next node setter
-        /*! 
+        /*!
           @param node node's next node
          */
         void next(Node* node) {
@@ -205,7 +210,7 @@ void structures::LinkedStack<T>::push(const T& data) {
 
 //! Returns the first element
 /*!
-  \return the data inside the removed element 
+  \return the data inside the removed element
  */
 template<typename T>
 T structures::LinkedStack<T>::pop() {
@@ -466,7 +471,7 @@ string getData(string image) {
 
 //! Checks if all the tags are correctly formatted
 /*!
-  Returns false and prints error if: 
+  Returns false and prints error if:
   1 - A tag is openned but not closed
   2 - A tag is openned but the last tag in the stack is not the openned tag
   3 - The file ends and there is still some tag in the stack
@@ -542,9 +547,9 @@ void print_array(string image) {
 
 //! Counts how many blocks of 1's there are
 /*!
-  Goes through the list, element by element, from left to 
+  Goes through the list, element by element, from left to
   right until a neighbour of such element is a 1.
-  When the number 1 is found, it checks all the other neighbours 
+  When the number 1 is found, it checks all the other neighbours
   and add them to the stack, giving them a label.
   It does it continously, until all the image is visited.
   \param xmlfilename the name of the file
@@ -559,7 +564,7 @@ size_t doSecondPart (string xmlfilename, string image) {
     size_t image_width =  getWidth(image);
     string image_data = getData(image);
     Coordinates coord;
-    
+
     structures::LinkedStack<Coordinates> coord_stack;
 
     int dataset[image_height][image_width];

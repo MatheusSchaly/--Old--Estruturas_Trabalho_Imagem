@@ -24,7 +24,7 @@ using namespace std;
 /*! Coordinates class */
 class Coordinates {
  public:
-    //! Empty constructor method
+    //!  Empty constructor method
     Coordinates() {}
 
     //! Constructor method

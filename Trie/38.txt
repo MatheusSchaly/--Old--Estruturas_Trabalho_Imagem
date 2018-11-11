@@ -1,0 +1,149 @@
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <typeinfo>
+
+using namespace std;
+
+class Trie {
+ public:
+    //! Constructor
+    explicit Trie() {
+        root = new Node();
+    }
+ 
+    // I'M NOT SURE IF THIS IS WORKING
+    //! Inserts a word into the Trie
+    void insert(string word, unsigned long position, unsigned long length) {
+        Node *current = root;
+        for (size_t i = 0; i < word.length(); i++) {
+            int index = word[i] - 'a';
+            if (current -> children[index] == NULL) {
+                current -> children[index] = new Node();
+            }
+            current = current -> children[index];
+        }
+        current -> position = position;
+        current -> length = length;
+    }
+    
+    // I'M NOT SURE IF THIS IS WORKING
+    //! Searchs for a word in the Trie
+    void search(string word) {
+        Node *current = root;
+        for (size_t i = 0; i < word.length(); i++) {
+            int index = word[i] - 'a';
+            if (current -> children[index] == NULL) {
+                cout << "is not prefix" << endl;
+                return;
+            }
+            current = current -> children[index];
+        }
+        if (current -> length == 0) {
+            cout << "is prefix" << endl;
+        } else {
+            cout << current -> position << " " << current -> length << endl;
+        }
+    }
+    
+ private:
+    struct Node {
+        Node *children[26];
+        unsigned long position {0};
+        unsigned long length {0};  // If bigger than 0, then is last character of a word
+        
+        //! Constructor
+        explicit Node() {
+            for (size_t i = 0; i < 26; i++) {
+                children[i] = NULL;
+            }
+        }
+    };
+    
+    Node *root;
+};
+
+int main() {
+    
+    string filename, word;
+    cin >> filename;
+    ifstream inFile;
+    inFile >> noskipws; // Also prints the spaces
+    inFile.open(filename);
+    unsigned long position = 0;
+    Trie trie;
+    bool found = false;
+    bool possible_dic_word = false;
+    string dic_word = "";
+
+
+    
+    vector<string> dic_words;  // Vector containing the dictionary words
+    vector<unsigned long> positions;  // Vector containing the initial positions of the dictionary words
+    vector<unsigned long> lengths;  // Vector containing the length of the dictionary words
+    
+    char character;
+    fstream fin(filename, fstream::in);
+    
+    while (fin >> noskipws >> character) {
+        if (character == ']' && possible_dic_word == true) {
+            positions.push_back(position - dic_word.length() - 1);
+            dic_words.push_back(dic_word);
+            possible_dic_word = false;
+        }
+        if (!(character == 'a' || character == 'b' || character == 'c' || character == 'd' || character == 'e' || character == 'f' || 
+            character == 'g' || character == 'h' || character == 'i' || character == 'j' || character == 'k' || character == 'l' || 
+            character == 'm' || character == 'n' || character == 'o' || character == 'p' || character == 'q' || character == 'r' || 
+            character == 's' || character == 't' || character == 'u' || character == 'v' || character == 'w' || character == 'x' || 
+            character == 'y' || character == 'z')) {
+                possible_dic_word = false;
+        }
+        if (possible_dic_word == true) {
+            dic_word += character;
+        }
+        if (character == '[') {
+            possible_dic_word = true;
+            dic_word = "";
+        }
+        position++;
+    }
+    
+    cout << endl << "OUT" << endl;
+    for (size_t i = 0; i < positions.size() - 1; i++) {
+        lengths.push_back(positions.at(i+1) - positions.at(i) - 1);
+    }
+    lengths.push_back(position - positions.back() - 1);
+
+    // UNCOMMENT TO CHECK THE LISTS CREATED, THIS IS PROBABLY WORKING
+    // for (size_t i = 0; i < positions.size(); i++) {
+    //     cout << "Word: " << dic_words.at(i) << " ";
+    //     cout << "Position: " << positions.at(i) << " ";
+    //     cout << "Length: " << lengths.at(i) << endl;
+    // }
+
+    cout << endl << "OUT" << endl;
+    for (size_t i = 0; i < positions.size() - 1; i++) {
+        lengths.push_back(positions.at(i+1) - positions.at(i) - 1);
+    }
+    lengths.push_back(position - positions.back() - 2 - dic_words.back().length());
+    
+    for (size_t i = 0; i < dic_words.size(); i++) {
+        trie.insert(dic_words.at(i), positions.at(i), lengths.at(i));
+    }
+    
+    //! Expected results:
+    cin >> filename;
+    trie.search(filename);  // Considers the first word
+    while (1) {
+        cin >> word;
+        if (word.compare("0") == 0) {
+            break;
+        }
+        trie.search(word);
+    }
+    
+    //trie.search("aba");
+    //trie.search("abacate");
+    //trie.search("abacaxi");
+
+}

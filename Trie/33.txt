@@ -1,0 +1,137 @@
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <typeinfo>
+
+using namespace std;
+
+class Trie {
+ public:
+    //! Constructor
+    explicit Trie() {
+        root = new Node();
+    }
+ 
+    // I'M NOT SURE IF THIS IS WORKING
+    //! Inserts a word into the Trie
+    void insert(string word, unsigned long position, unsigned long length) {
+        Node *current = root;
+        for (size_t i = 0; i < word.length(); i++) {
+            int index = word[i] - 'a';
+            if (current -> children[index] == NULL) {
+                current -> children[index] = new Node();
+            }
+            current = current -> children[index];
+        }
+        current -> position = position;
+        current -> length = length;
+    }
+    
+    // I'M NOT SURE IF THIS IS WORKING
+    //! Searchs for a word in the Trie
+    void search(string word) {
+        Node *current = root;
+        for (size_t i = 0; i < word.length(); i++) {
+            int index = word[i] - 'a';
+            if (current -> children[index] == NULL) {
+                cout << "is not prefix" << endl;
+                return;
+            }
+            current = current -> children[index];
+        }
+        if (current -> length == 0) {
+            cout << "is prefix" << endl;
+        } else {
+            cout << current -> position << " " << current -> length << endl;
+        }
+    }
+    
+ private:
+    struct Node {
+        Node *children[26];
+        unsigned long position {0};
+        unsigned long length {0};  // If bigger than 0, then is last character of a word
+        
+        //! Constructor
+        explicit Node() {
+            for (size_t i = 0; i < 26; i++) {
+                children[i] = NULL;
+            }
+        }
+    };
+    
+    Node *root;
+};
+
+
+//! Returns the dictionary word without brackets
+string get_dic_word(string word) {
+    string dic_word = "";
+    char character = '[';
+    int i = 0;
+    
+    while (true) {
+        i ++;
+        character = word[i];
+        if (isspace(character)) {  // Found a "[" that belongs to the meaning part
+            return " ";
+        }
+        if (character == ']') {
+            return dic_word;
+        }
+        dic_word += character;
+    }
+}
+
+int main() {
+
+    string filename, word;
+    cin >> filename;
+    ifstream inFile;
+    inFile.open(filename);
+    unsigned long position = 0;
+    Trie trie;
+    bool found = false;
+    
+    vector<string> dic_words;  // Vector containing the dictionary words
+    vector<unsigned long> positions;  // Vector containing the initial positions of the dictionary words
+    vector<unsigned long> lengths;  // Vector containing the length of the dictionary words
+
+    while (inFile) {  // While file still have words to read
+        inFile >> word;
+        string dic_word = "";
+        for (size_t character = 0; character < word.length(); character++) {
+            if (word[character] == '[') {
+                string dic_word = get_dic_word(word);
+                if (dic_word != " ") {  // There was not a " " (space) on the word, 
+                                        // therefore it doesn't belongs to the meaning part (I think)
+                    dic_words.push_back(get_dic_word(word));
+                    positions.push_back(position);
+                }
+            }
+            position++;  // Counting the characters
+        }
+        position++;  // Counting the spaces
+    }
+
+    for (size_t i = 0; i < positions.size() - 1; i++) {
+        lengths.push_back(positions.at(i+1) - positions.at(i) - 1);
+    }
+    lengths.push_back(position - positions.back() - 2 - dic_words.back().length());
+
+    for (size_t i = 0; i < dic_words.size(); i++) {
+        trie.insert(dic_words.at(i), positions.at(i), lengths.at(i));
+    }
+    
+    //! Expected results:
+    cin >> filename;
+    trie.search(filename);  // Considers the first word
+    while (1) {
+        cin >> word;
+        if (word.compare("0") == 0) {
+            break;
+        }
+        trie.search(word);
+    }
+
+}
